@@ -262,22 +262,7 @@ require_once("cabecalho.php");
                         </a>
                     </div>
                 </div>
-<!--
-                <div class="col-lg-6 col-md-6 col-sm-6 bg-light">
-                    <div class="banner__pic">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <img src="img/produtos/calca.jpg" alt="">
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                <h3 class="mt-4">Promoção Calça Jeans</h3>
-                                <p class="mt-2">6 calças com um baita desconto!!!</p>
-                                <a href="produtos.php" class="primary-btn">COMPRAR AGORA</a>        
-                            </div>    
-                        </div>
-                    </div>
-                </div>
--->
+
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
                         <a href="produtos.php">

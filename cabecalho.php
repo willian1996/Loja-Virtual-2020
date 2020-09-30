@@ -64,9 +64,8 @@ require_once("config.php");
                 <li><a href="#">Produtos</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="./produtos.php">Lista de Produtos</a></li>
-                        <li><a href="./shoping-cart.php">Shoping Cart</a></li>
+                        <li><a href="./shoping-cart.php">Carrinho</a></li>
                         <li><a href="./checkout.php">Check Out</a></li>
-                        <li><a href="./blog-details.php">Blog Details</a></li>
                     </ul>
                 </li>
                 <li><a href="./carrinho.php">Carrinho</a></li>
@@ -134,9 +133,8 @@ require_once("config.php");
                 <li><a href="#">Produtos</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="./produtos.php">Lista de Produtos</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./shoping-cart.html">Carrinho</a></li>
                         <li><a href="./checkout.php">Check Out</a></li>
-                        <li><a href="./blog-details.php">Blog Details</a></li>
                         <li><a href="./categorias.php">Categorias</a></li>
                     </ul>
                 </li>

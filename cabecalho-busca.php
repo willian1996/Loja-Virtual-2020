@@ -37,9 +37,10 @@
                                 <a target="_blank" title="Whatsapp" href="https://api.whatsapp.com/send?phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp text-success"></i></a>
                             </div>
                             <div class="hero__search__phone__text">
-                                
+                             <a target="_blank" title="Whatsapp" href="https://api.whatsapp.com/send?phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"> 
                                 <h6><?php echo $whatsapp ?></h6>
-                                <span>Nosso Whatsapp</span>
+                                <span> Abrir o Whatsapp</span>
+                             </a>  
                             </div>
                         </div>
                     </div>
