@@ -1,7 +1,6 @@
 <?php
 require_once("cabecalho.php");
 ?>
-
 <?php
     require_once("cabecalho-busca.php");
 ?>
@@ -16,7 +15,7 @@ require_once("cabecalho.php");
                 <div class="col-lg-3 col-md-5">
                     <div class="sidebar">
                         <div class="sidebar__item">
-                            <h4>Preço</h4>
+                            <h4>Filtrar Por Valor</h4>
                             <div class="price-range-wrap">
                                 <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
                                     data-min="10" data-max="100">

@@ -54,7 +54,7 @@ require_once("config.php");
         <div class="humberger__menu__widget">
             
             <div class="header__top__right__auth">
-                <a href="#"><i class="fa fa-user"></i> Login</a>
+                <a href="" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user"></i> Login</a>
             </div>
         </div>
         <nav class="humberger__menu__nav mobile-menu">
@@ -63,13 +63,13 @@ require_once("config.php");
                 <li><a href="./categorias.php">Categorias</a></li>
                 <li><a href="#">Produtos</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./produtos.php">Lista de Produtos</a></li>
+                        <li><a href="./lista-produtos.php">Lista de Produtos</a></li>
                         <li><a href="./shoping-cart.php">Carrinho</a></li>
                         <li><a href="./checkout.php">Check Out</a></li>
                     </ul>
                 </li>
                 <li><a href="./carrinho.php">Carrinho</a></li>
-                <li><a href="./blog.html">Blog</a></li>
+                <li><a href="./blog.php">Blog</a></li>
                 
                 <li><a href="./contatos.php">Contatos</a></li>
                 
@@ -111,7 +111,7 @@ require_once("config.php");
                                 <a target="_blank" title="Whatsapp" href="https://api.whatsapp.com/send?phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp text-success"></i></a>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="sistema"><i class="fa fa-user"></i> Login</a>
+                                <a href="" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user"></i> Login</a>
                             </div>
                         </div>
                     </div>
@@ -133,13 +133,13 @@ require_once("config.php");
                 <li><a href="#">Produtos</a>
                     <ul class="header__menu__dropdown">
                         <li><a href="./produtos.php">Lista de Produtos</a></li>
-                        <li><a href="./shoping-cart.html">Carrinho</a></li>
+                        <li><a href="./shoping-carrinho.php">Carrinho</a></li>
                         <li><a href="./checkout.php">Check Out</a></li>
                         <li><a href="./categorias.php">Categorias</a></li>
                     </ul>
                 </li>
                 <li><a href="./carrinho.php">Carrinho</a></li>
-                <li><a href="./blog.html">Blog</a></li>     
+                <li><a href="./blog.php">Blog</a></li>     
                 <li><a href="./contatos.php">Contatos</a></li>
                         </ul>
                     </nav>
@@ -160,5 +160,153 @@ require_once("config.php");
         </div>
     </header>
     <!-- Header Section End -->
+    
+    <!-- Modal Login-->
+<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Faça o Login</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Login Form -->
+    <form>
+        
+        
+        <div class="form-group">
+            <label for="username" class="text-info">E-mail ou CPF:</label><br>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password" class="text-info">Senha:</label><br>
+            <input type="text" name="password" id="password" class="form-control">
+        </div>
+        <div class="form-group">
+
+            <input type="submit" name="submit" class="site-btn" value="Entrar">
+        </div>
+        
+        
+        
+
+    </form>
+      </div>
+      <div class="form-group mt-4">
+      <small>
+      <p class="text-center">Não possui Cadastro? <a href="#" data-toggle="modal" data-target="#modalCadastro">Cadastre-se</a></p>
+      <p class="text-center"><a class="text-danger" href="#" data-toggle="modal" data-target="#modalRecuperar">Recuperar Senha?</a></p>
+   </small>
+    </div>
+  </div>
+</div>
+    </div>
+    
+    <!-- Modal cadastro -->
+<div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalPagamento" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Cadastre-se</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Nome Completo<span>*</span></p>
+                        <input type="text" id="nome" name="nome">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>CPF<span>*</span></p>
+                        <input type="text" id="cpf" name="cpf">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Celular/ Whatsapp<span>*</span></p>
+                        <input type="text" id="telefone" name="telefone">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>E-mail<span>*</span></p>
+                        <input type="text" id="email" name="email">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Senha<span>*</span></p>
+                        <input type="password" id="senha" name="senha">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="checkout__input">
+                        <p>Confirme a senha<span>*</span></p>
+                        <input type="password" id="senha" name="senha">
+                    </div>
+                </div>
+            </div>
+          
+          
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+        <button type="button" class="site-btn">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    <!-- Modal Recuperar senha-->
+<div class="modal fade" id="modalRecuperar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Recuperar Senha</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Login Form -->
+    <form>
+        
+        
+        <div class="form-group">
+            <label for="username" class="text-info">E-mail</label><br>
+            <input type="text" name="username" id="username" class="form-control">
+        </div>
+
+        <div class="form-group">
+
+            <input type="submit" name="submit" class="site-btn" value="Enviar">
+        </div>
+        
+        
+        
+
+    </form>
+      </div>
+
+  </div>
+</div>
+    </div>
+
 
     
