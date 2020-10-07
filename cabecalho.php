@@ -83,7 +83,7 @@ require_once("config.php");
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> <?php echo $email ?></li>
+                <li><i class="fa fa-envelope"></i> <?php echo $email_loja ?></li>
                 <li><?php echo $texto_destaque ?></li>
             </ul>
         </div>
@@ -98,7 +98,7 @@ require_once("config.php");
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i><?php echo $email; ?></li>
+                                <li><i class="fa fa-envelope"></i><?php echo $email_loja; ?></li>
                                 <li><?php echo $texto_destaque; ?></li>
                             </ul>
                         </div>
@@ -204,19 +204,18 @@ require_once("config.php");
 </div>
     </div>
     
-    <!-- Modal cadastro -->
+<!-- Modal cadastro -->
 <div class="modal fade" id="modalCadastro" tabindex="-1" aria-labelledby="modalPagamento" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Cadastre-se</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button id="btn-cadastrar-fechar" type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form>
-            
             <div class="row">
                 <div class="col-lg-6">
                     <div class="checkout__input">
@@ -256,7 +255,7 @@ require_once("config.php");
                 <div class="col-lg-6">
                     <div class="checkout__input">
                         <p>Confirme a senha<span>*</span></p>
-                        <input type="password" id="senha" name="senha">
+                        <input type="password" id="senha_confirmar" name="senha_confirmar">
                     </div>
                 </div>
             </div>
@@ -267,7 +266,7 @@ require_once("config.php");
       </div>
       <div class="modal-footer">
 <!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-        <button type="button" class="site-btn">Cadastrar</button>
+        <button id="btn-cadastrar" type="button" class="site-btn">Cadastrar</button>
       </div>
     </div>
   </div>
@@ -279,7 +278,7 @@ require_once("config.php");
     <div class="modal-content">
       <div class="modal-header">
         <h3 class="modal-title" id="exampleModalLabel">Recuperar Senha</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button  type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -290,7 +289,7 @@ require_once("config.php");
         
         <div class="form-group">
             <label for="username" class="text-info">E-mail</label><br>
-            <input type="text" name="username" id="username" class="form-control">
+            <input type="text" name="email-recuperar" id="email-recuperar" class="form-control">
         </div>
 
         <div class="form-group">

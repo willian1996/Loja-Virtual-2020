@@ -10,7 +10,7 @@
                         <ul>
                             <li><?php echo $endereco_loja ?></li>
                             <li>Telefone: <?php echo $telefone ?></li>
-                            <li>Email: <?php echo $email ?></li>
+                            <li>Email: <?php echo $email_loja ?></li>
                         </ul>
                     </div>
                 </div>
@@ -62,6 +62,7 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
+    
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
@@ -70,8 +71,11 @@
     <script src="js/mixitup.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/ajax.js"></script>
     <script src="js/mascara.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    
 
 
 
