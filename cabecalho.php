@@ -178,20 +178,17 @@ require_once("config.php");
         
         <div class="form-group">
             <label for="username" class="text-info">E-mail ou CPF:</label><br>
-            <input type="text" name="username" id="username" class="form-control">
+            <input type="text" name="email_login" id="email_login" class="form-control">
         </div>
         <div class="form-group">
             <label for="password" class="text-info">Senha:</label><br>
-            <input type="text" name="password" id="password" class="form-control">
+            <input type="password" name="senha_login" id="senha_login" class="form-control">
         </div>
         <div class="form-group">
 
-            <input type="submit" name="submit" class="site-btn" value="Entrar">
+            <input id="btn-login" type="submit" name="submit" class="site-btn" value="Entrar">
         </div>
-        
-        
-        
-
+    
     </form>
       </div>
       <div class="form-group mt-4">

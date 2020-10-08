@@ -1,5 +1,5 @@
 <?php
-require_once('../conexao.php');
+require_once('Login.class.php');
 
 //RECEBENDO E FILTRANDO DADOS DE CADASTRO
 $nome = filtraEntrada($_POST['nome']);
@@ -10,6 +10,7 @@ $senha = filtraEntrada($_POST['senha']);
 $senha_confirmar = filtraEntrada($_POST['senha_confirmar']);
 $data_cadastro = dataAtual();
 
+$senhalogin = $senha;
 
 //VERIFICANDO SE OS CAMPOS ESTÃO VAZIOS
 if($nome == ""){
@@ -44,6 +45,11 @@ if($senha != $senha_confirmar){
 //CRIPTOGRAFANDO A SENHA
 $senha = md5($senha);
 
+//REMOVENDO MASCARA DO CPF
+$cpf = removeMascCPF($cpf);
+
+//REMOVENDO MASCARA DO TELEFONE
+$telefone = removeMascTel($telefone);
 
 //VERIFICANDO SE JÁ EXISTE 
 $res = $pdo->query("SELECT * FROM usuarios where cpf = '$cpf' OR email = '$email'"); 
@@ -61,10 +67,15 @@ if(count($dados) == 0){
     $res->bindValue(":nivel", "Cliente");
     $res->bindValue(":data_cadastro", $data_cadastro);
     $res->execute();
-    echo "Cadastrado com sucesso";
+    
+    //FAZENDO O LOGIN
+    new Login($email, $senhalogin);
+    
+    
+
     
     //CADASTRANDO USUARIO NA TABELA clientes
-    $res = $pdo->prepare("INSERT INTO clientes (nome, cpf, telefone, email, senha, data_cadastro) VALUES (:nome, :telefone, :cpf, :email, :senha, :data_cadastro)");
+    $res = $pdo->prepare("INSERT INTO clientes (nome, cpf, telefone, email, senha, data_cadastro) VALUES (:nome, :cpf, :telefone, :email, :senha, :data_cadastro)");
 
     $res->bindValue(":nome", $nome);
     $res->bindValue(":cpf", $cpf);

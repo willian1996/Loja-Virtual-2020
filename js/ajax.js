@@ -44,10 +44,29 @@ $('#btn-cadastrar').click(function(){
         data: $('form').serialize(),
         dataType: "text", 
         success: function(msg){
-            if(msg.trim() === 'Cadastrado com sucesso'){
-                alert('Cadastrado com sucesso');
-                //atualizando a pagina
-//                location.reload();
+            if(msg.trim() === 'Cliente'){
+                alert("Cadastrado com sucesso");
+                window.location='sistema/painel-cliente';
+ 
+            }else{
+                alert(msg);
+            }
+        }
+    })
+})
+
+//LOGIN DE USUARIO (sistema/autenticar.php)
+$('#btn-login').click(function(){
+    event.preventDefault();
+    
+    $.ajax({
+        url: "sistema/autenticar.php",
+        method: "post",
+        data: $('form').serialize(),
+        dataType: "text", 
+        success: function(msg){
+            if(msg.trim() != "Email ou senha invalidos"){
+                window.location='sistema/painel-'+msg;
             }else{
                 alert(msg);
             }

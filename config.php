@@ -83,3 +83,21 @@ function validaCPF($cpf) {
     return true;
 
 }
+//removendo a mascara do telefone
+function removeMascTel($telefone){
+    $telefone = str_replace("(", "", $telefone);
+    $telefone = str_replace(")", "", $telefone);
+    $telefone = str_replace(" ", "", $telefone);
+    $telefone = str_replace("-", "", $telefone);
+    return $telefone;
+}
+
+
+
+//removendo a mascara do CPF
+function removeMascCPF($cpf){
+    $cpf = str_replace(".", "", $cpf);
+    $cpf = str_replace("-", "", $cpf);
+    $cpf = str_replace(" ", "", $cpf);
+    return $cpf;
+}
