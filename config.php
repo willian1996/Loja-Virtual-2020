@@ -21,10 +21,10 @@ if(ENVIRONMENT == 'development'){
     $usuario = 'root';
     $senha = '';
 }else{
-    $banco = 'loja-virtual-2020';
+    $banco = 'u349811508_ljgab';
     $servidor = 'localhost';
-    $usuario = 'root';
-    $senha = '';
+    $usuario = 'u349811508_root';
+    $senha = 'yi`4sy]4UKCQwzX]VJ';
 }
 
 /*

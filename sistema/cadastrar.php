@@ -1,5 +1,5 @@
 <?php
-require_once('Login.class.php');
+require_once('Login.class.php'); 
 
 //RECEBENDO E FILTRANDO DADOS DE CADASTRO
 $nome = filtraEntrada($_POST['nome']);
@@ -64,7 +64,7 @@ if(count($dados) == 0){
     $res->bindValue(":telefone", $telefone);
     $res->bindValue(":email", $email);
     $res->bindValue(":senha", $senha);
-    $res->bindValue(":nivel", "Cliente");
+    $res->bindValue(":nivel", "cliente");
     $res->bindValue(":data_cadastro", $data_cadastro);
     $res->execute();
     

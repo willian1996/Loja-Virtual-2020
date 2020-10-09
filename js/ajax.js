@@ -44,7 +44,7 @@ $('#btn-cadastrar').click(function(){
         data: $('form').serialize(),
         dataType: "text", 
         success: function(msg){
-            if(msg.trim() === 'Cliente'){
+            if(msg.trim() === 'cliente'){
                 alert("Cadastrado com sucesso");
                 window.location='sistema/painel-cliente';
  
@@ -68,7 +68,7 @@ $('#btn-login').click(function(){
             if(msg.trim() != "Email ou senha invalidos"){
                 window.location='sistema/painel-'+msg;
             }else{
-                alert(msg);
+                alert("Erro");
             }
         }
     })

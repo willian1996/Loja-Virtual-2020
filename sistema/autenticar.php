@@ -1,7 +1,7 @@
 <?php
 require_once('Login.class.php');
 
-
+ 
 
 //RECEBENDO E FILTRANDO DADOS LOGIN
 $email = filtraEntrada($_POST['email_login']);
