@@ -1,5 +1,8 @@
 <?php
-require_once('Login.class.php');
+session_start();
+require_once('Usuario.class.php');
+//CLASSE USUARIO
+$Usuario = new Usuario();
 
  
 
@@ -19,6 +22,6 @@ if($senha == ""){
 
 
 
-//FAZENDO LOGIN
-new Login($email, $senha);
+//FAZENDO LOGIN COM METODO logarUsuario 
+$Usuario->logarUsuario($email, $senha);
     

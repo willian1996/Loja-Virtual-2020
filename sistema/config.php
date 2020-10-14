@@ -4,7 +4,7 @@ define("ENVIRONMENT", "development"); //versão para maquina local
 
 //VARIAVEIS GLOBAIS
 $email_loja = "contato@lorrainemodas.com.br";
-$dominio = "https://lorrainemodas.com.br";
+
 $telefone = "(12) 3889-4092";
 $whatsapp = "(12) 99751-6241";
 $whatsapp_link = "5512997516241";
@@ -16,11 +16,13 @@ $endereco_loja = "Rua Safira, 69, Pegorelli, Caraguatatuba - SP";
 //VARIAVEIS DO BANCO DE DADOS 
 
 if(ENVIRONMENT == 'development'){
+    $dominio = "https://localhost";
     $banco = 'loja-virtual-2020';
     $servidor = 'localhost';
     $usuario = 'root';
     $senha = '';
 }else{
+    $dominio = "https://lorrainemodas.com.br";
     $banco = 'u349811508_ljgab';
     $servidor = 'localhost';
     $usuario = 'u349811508_root';

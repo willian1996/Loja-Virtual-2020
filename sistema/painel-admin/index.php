@@ -1,10 +1,11 @@
-<?php 
+<?php  
 @session_start();
 
 //Verificando se o admin esta logado na sessão
 if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
-    echo "<script language='javascript'>
-    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
+//    echo "<script language='javascript'>
+//    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
+    header("Location: $dominio/Loja-Virtual-2020/index.php");
 }
 
     //variaveis para o menu
@@ -280,7 +281,7 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 
                         <div class="form-group">
                             <label >Nome</label>
-                            <input value="<?php echo $_SESSION['nome_usuario']; ?>" type="text" class="form-control" id="nome" name="nome" placeholder="Nome">
+                            <input value="<?php echo $_SESSION['nome_usuario']; ?>" type="text" class="form-control" id="nome" name="nome-usuario" placeholder="Nome">
                         </div>
 
                         <div class="form-group">
@@ -290,13 +291,13 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 
                         <div class="form-group">
                             <label >Email</label>
-                            <input value="<?php echo $_SESSION['email_usuario']; ?>" type="email" class="form-control" id="email-usuario" name="emailemail-usuario" placeholder="Email">
+                            <input value="<?php echo $_SESSION['email_usuario']; ?>" type="email" class="form-control" id="email-usuario" name="email-usuario" placeholder="Email">
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label >Senha</label>
-                                    <input value="" type="password" class="form-control" id="senha" name="senha" placeholder="Senha">
+                                    <input value="" type="password" class="form-control" id="senha" name="senha-usuario" placeholder="Senha">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -313,7 +314,7 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 
 
                         <small>
-                            <div id="mensagem" class="mr-4">
+                            <div id="mensagem-perfil" class="mr-4">
 
                             </div>
                         </small>
@@ -327,9 +328,11 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 
                         <input value="<?php echo $_SESSION['id_usuario']; ?>" type="hidden" name="txtid" id="txtid">
                         <input value="<?php echo $_SESSION['cpf_usuario']; ?>" type="hidden" name="antigo" id="antigo">
+                        
+                        <button type="submit" name="btn-salvar-perfil" id="btn-salvar-perfil" class="btn btn-primary">Salvar</button>
 
                         <button type="button" id="btn-fechar-perfil" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="btn-salvar-perfil" id="btn-salvar-perfil-perfil" class="btn btn-primary">Salvar</button>
+                        
                     </div>
                 </form>
 
@@ -362,6 +365,35 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 </body>
 
 </html>
+
+<script type="text/javascript">
+    $('#btn-salvar-perfil').click(function(event){
+        event.preventDefault();
+        
+        $.ajax({
+            url:"editar-perfil.php",
+            method:"post",
+            data: $('form').serialize(),
+            dataType: "text",
+            success: function(msg){
+               if(msg.trim() === 'Editado com sucesso!'){
+                   
+
+                    alert(msg);                    
+                    $('#btn-fechar-perfil').click();
+                    window.location='index.php';
+
+                    }
+                 else{
+                    $('#mensagem-perfil').addClass('text-danger')
+                    $('#mensagem-perfil').text(msg);
+                   
+
+                 }
+            }
+        })
+    })
+</script>
 
 
 

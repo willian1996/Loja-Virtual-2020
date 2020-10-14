@@ -39,7 +39,7 @@ $('#btn-cadastrar').click(function(){
     event.preventDefault();
     
     $.ajax({
-        url: "sistema/cadastrar.php",
+        url: "sistema/cadastrar-usuario.php",
         method: "post",
         data: $('form').serialize(),
         dataType: "text", 
@@ -60,7 +60,7 @@ $('#btn-login').click(function(){
     event.preventDefault();
     
     $.ajax({
-        url: "sistema/autenticar.php",
+        url: "sistema/logar-usuario.php",
         method: "post",
         data: $('form').serialize(),
         dataType: "text", 
@@ -68,7 +68,7 @@ $('#btn-login').click(function(){
             if(msg.trim() != "Email ou senha invalidos"){
                 window.location='sistema/painel-'+msg;
             }else{
-                alert("Erro");
+                alert(msg);
             }
         }
     })
