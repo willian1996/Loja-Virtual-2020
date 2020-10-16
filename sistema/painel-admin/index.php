@@ -5,7 +5,7 @@
 if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 //    echo "<script language='javascript'>
 //    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
-    header("Location: $dominio/Loja-Virtual-2020/index.php");
+    header("Location: $dominio/index.php");
 }
 
     //variaveis para o menu
@@ -349,11 +349,8 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
     <script src="../js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="../vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../js/demo/chart-area-demo.js"></script>
-    <script src="../js/demo/chart-pie-demo.js"></script>
+ 
 
     <!-- Page level plugins -->
     <script src="../vendor/datatables/jquery.dataTables.min.js"></script>

@@ -16,7 +16,7 @@ $endereco_loja = "Rua Safira, 69, Pegorelli, Caraguatatuba - SP";
 //VARIAVEIS DO BANCO DE DADOS 
 
 if(ENVIRONMENT == 'development'){
-    $dominio = "https://localhost";
+    $dominio = "localhost/Loja-Virtual-2020";
     $banco = 'loja-virtual-2020';
     $servidor = 'localhost';
     $usuario = 'root';

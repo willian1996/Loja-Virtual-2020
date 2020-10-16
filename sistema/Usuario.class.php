@@ -74,6 +74,19 @@ class Usuario{
         
         
     }
+    //METODO PARA TRAZER OS DADOS DO USUARIO
+    public function consultarUsuario(){
+        global $pdo;
+        
+        $sql = $pdo->prepare("SELECT * FROM usuarios WHERE (id = :id");
+        $sql->bindValue(":id", $_SESSION['id']);
+        $sql->execute();
+        $dados = $sql->fetchAll(PDO::FETCH_ASSOC);
+   
+        
+        
+    }
+    
     
     /*
     * MÉTODO PARA LOGAR USUARIO
@@ -141,11 +154,15 @@ class Usuario{
         $res->bindValue(":id", $id_usuario);
 
         $res->execute();
+        
+        $_SESSION['nome_usuario'] = $nome;
+        $_SESSION['email_usuario'] = $email;
+        $_SESSION['cpf_usuario'] = $cpf;
 
 
 
 
-        echo 'Salvo com Sucesso!';
+        echo 'Editado com sucesso!';
 
     }
     
