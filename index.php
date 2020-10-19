@@ -1,12 +1,9 @@
-<?php
+<?php 
 require_once("cabecalho.php");
 ?>
 
-
-
-
 <!-- Hero Section Begin -->
-    <section class="hero">
+    <section class="hero hero-mobile">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
@@ -71,33 +68,33 @@ require_once("cabecalho.php");
         <div class="row">
             <div class="categories__slider owl-carousel">
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categorias/cat-1.jpg">
-                        <h5><a href="#">Camisa Social</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/categorias/Conjuntos.jpg">
+                        <h5><a href="#">Conjuntos</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categorias/cat-2.jpg">
-                        <h5><a href="#">Moda Feminina</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/categorias/Blusas.jpg">
+                        <h5><a href="#">Blusas</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categorias/cat-3.jpg">
-                        <h5><a href="#">Moda Masculina</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/categorias/Vestidos.jpg">
+                        <h5><a href="#">Vestidos</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categorias/cat-4.jpg">
-                        <h5><a href="#">Sapatos</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/categorias/Shorts.jpg">
+                        <h5><a href="#">Shorts</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categorias/cat-5.jpg">
-                        <h5><a href="#">Relógios</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/categorias/Saias.jpg">
+                        <h5><a href="#">Saias</a></h5>
                     </div>
                 </div>
                 <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categorias/cat-6.jpg">
-                        <h5><a href="#">Sapato Social</a></h5>
+                    <div class="categories__item set-bg" data-setbg="img/categorias/Cropped.jpg">
+                        <h5><a href="#">Croppeds</a></h5>
                     </div>
                 </div>
             </div>
@@ -117,18 +114,18 @@ require_once("cabecalho.php");
                 <div class="featured__controls">
                     <ul>
                         <li class="active" data-filter="*">Todas</li>
-                        <li data-filter=".sapatos">Sapatos</li>
-                        <li data-filter=".fresh-meat">Fresh Meat</li>
-                        <li data-filter=".vegetables">Vegetables</li>
-                        <li data-filter=".fastfood">Fastfood</li>
+                        <li data-filter=".blusas">Blusas</li>
+                        <li data-filter=".calca">Calças</li>
+                        <li data-filter=".vestidos">Vestidos</li>
+                        <li data-filter=".blusa-manga">Blusa Manga longa</li>
                     </ul>
                 </div>
             </div>
         </div>
         <div class="row featured__filter">
-            <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos fresh-meat">
+            <div class="col-lg-3 col-md-4 col-sm-6 mix blusas">
                 <div class="featured__item">
-                    <div class="featured__item__pic set-bg" data-setbg="img/produtos/sapato-masculino.jpg">
+                    <div class="featured__item__pic set-bg" data-setbg="img/produtos/blusa-de-suplex-com-bojo.jpg">
                         <ul class="featured__item__pic__hover">
                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                             <li><a href="#"><i class="fa fa-eye"></i></a></li>
@@ -136,14 +133,14 @@ require_once("cabecalho.php");
                         </ul>
                     </div>
                     <div class="featured__item__text">
-                        <a href="produto.php"><h6>Sapato Masculino</h6>
-                            <h5>R$ 300,00</h5></a>
+                        <a href="produto.php"><h6>Blusa de Suplex com Bojo</h6>
+                            <h5>R$ 20,00</h5></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos fastfood">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix blusas">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/tenis-masculino.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/blusa-camurça-de-botao-e-amarracao.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -151,14 +148,14 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Tenis Masculino</a></h6>
-                            <h5>R$ 250,00</h5>
+                            <h6><a href="#">Blusa Camurça de Botão e Amarração</a></h6>
+                            <h5>R$ 20,00</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix calca">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/regata-masculina.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/calca-de-suplex-camuflada.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -166,14 +163,14 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Regata Masculina</a></h6>
-                            <h5>R$100,00</h5>
+                            <h6><a href="#">Calça de Suplex Camuflada</a></h6>
+                            <h5>R$24,90</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sapatos oranges">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix calca">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/bota.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/calca-bengaline-ref-a.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -181,14 +178,14 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="produto.php">Bota Masculina</a></h6>
-                            <h5>R$ 380,00</h5>
+                            <h6><a href="produto.php">Calça Bengaline Ref A</a></h6>
+                            <h5>R$ 34,90</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix vestidos">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/vestido-curto-canelado.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -196,14 +193,14 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                            <h6><a href="#">Vestido curto canelado</a></h6>
+                            <h5>R$ 19,90</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix vestidos">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/vestido-canelado-mid-com-gola.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -211,14 +208,14 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                            <h6><a href="#">Vestido canelado mid com (Gola)</a></h6>
+                            <h5>R$ 24,90</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix blusa-manga">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/parka.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -226,14 +223,14 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                            <h6><a href="#">Parka</a></h6>
+                            <h5>R$ 49,90</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix blusa-manga">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
+                        <div class="featured__item__pic set-bg" data-setbg="img/produtos/blusa-corta-vento.jpg">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -241,8 +238,8 @@ require_once("cabecalho.php");
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">Crab Pool Security</a></h6>
-                            <h5>$30.00</h5>
+                            <h6><a href="#">Blusa Corta Vento</a></h6>
+                            <h5>R$ 29,90</h5>
                         </div>
                     </div>
                 </div>
@@ -282,62 +279,62 @@ require_once("cabecalho.php");
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
                         <h4>Novos Produtos</h4>
-                        <div class="latest-product__slider owl-carousel">
+                        <div id="novosProdutos" class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/produtos/bota.jpg" alt="">
+                                        <img src="img/produtos/short-veludo.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Bota Masculina</h6>
-                                        <span>R$ 30,00</span>
+                                        <h6>Short Veludo</h6>
+                                        <span>R$ 19,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="img/produtos/short-jean.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Short Jeans</h6>
+                                        <span>R$ 19,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="img/produtos/conjunto-calvim-klain.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Conjunto Calvim Klain</h6>
+                                        <span>R$ 19.90</span>
                                     </div>
                                 </a>
                             </div>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="img/produtos/conjunto-de-veludo.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Conjunto de veludo</h6>
+                                        <span>R$ 69,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="img/produtos/jardineira-longa-bengaline.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Jardineira Longa bengaline</h6>
+                                        <span>R$ 44,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="img/produtos/saia-degode.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Saia Degode</h6>
+                                        <span>R$ 39,90</span>
                                     </div>
                                 </a>
                             </div>
@@ -347,62 +344,63 @@ require_once("cabecalho.php");
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
                         <h4>Mais Vendidos</h4>
-                        <div class="latest-product__slider owl-carousel">
+                        <div id="maisVendidos" class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="img/produtos/conjunto-de-veludo.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Conjunto de veludo</h6>
+                                        <span>R$ 69,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="img/produtos/jardineira-longa-bengaline.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Jardineira Longa bengaline</h6>
+                                        <span>R$ 44,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="img/produtos/saia-degode.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Saia Degode</h6>
+                                        <span>R$ 39,90</span>
                                     </div>
+                                    
                                 </a>
                             </div>
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="img/produtos/short-veludo.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Short Veludo</h6>
+                                        <span>R$ 19,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="img/produtos/short-jean.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Short Jeans</h6>
+                                        <span>R$ 19,90</span>
                                     </div>
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="img/produtos/conjunto-calvim-klain.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>Crab Pool Security</h6>
-                                        <span>$30.00</span>
+                                        <h6>Conjunto Calvim Klain</h6>
+                                        <span>R$ 19.90</span>
                                     </div>
                                 </a>
                             </div>
@@ -412,11 +410,11 @@ require_once("cabecalho.php");
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
                         <h4>Combos Promocionais</h4>
-                        <div class="latest-product__slider owl-carousel">
+                        <div id="combosPromocionais" class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="img/produtos/conjunto-calvim-klain.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -425,7 +423,7 @@ require_once("cabecalho.php");
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="img/produtos/short-jean.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -434,7 +432,7 @@ require_once("cabecalho.php");
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="img/produtos/short-veludo.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -445,7 +443,7 @@ require_once("cabecalho.php");
                             <div class="latest-prdouct__slider__item">
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-1.jpg" alt="">
+                                        <img src="img/produtos/saia-degode.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -454,7 +452,7 @@ require_once("cabecalho.php");
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-2.jpg" alt="">
+                                        <img src="img/produtos/jardineira-longa-bengaline.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>
@@ -463,7 +461,7 @@ require_once("cabecalho.php");
                                 </a>
                                 <a href="#" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="img/latest-product/lp-3.jpg" alt="">
+                                        <img src="img/produtos/conjunto-de-veludo.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>Crab Pool Security</h6>

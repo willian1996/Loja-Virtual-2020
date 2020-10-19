@@ -10,12 +10,14 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 }
 
 
-$pag = "categorias";
+$pag = "sub-categorias";
 //--------------------------------------------------------------------------------
 ?>
-<center><h3>Categorias</h3></center>
+
+<center><h3>Subcategorias</h3></center>
 <div class="row mt-4 mb-4">
-    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria</a>
+    
+    <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Sub-Categoria</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
     
 </div>
@@ -30,10 +32,11 @@ $pag = "categorias";
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Itens</th>
+                        <th>Subcat</th>
+                        <th class="hiddenOnMobile">Produtos</th>
+                        <th>Categoria</th>
                         <th>Imagem</th>
-                        
+                       
                     </tr>
                 </thead>
 
@@ -41,7 +44,7 @@ $pag = "categorias";
 
                    <?php 
 
-                   $query = $pdo->query("SELECT * FROM categorias order by id desc ");
+                   $query = $pdo->query("SELECT * FROM sub_categorias order by id desc ");
                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                    for ($i=0; $i < count($res); $i++) { 
@@ -49,22 +52,35 @@ $pag = "categorias";
                       }
 
                       $nome = $res[$i]['nome'];
-                      $itens = $res[$i]['itens'];
+                      
                       $imagem = $res[$i]['imagem'];
+                      $categoria = $res[$i]['id_categoria'];
                       $id = $res[$i]['id'];
+
+                      //recuperar o nome da categoria
+                      $query2 = $pdo->query("SELECT * from categorias where id = '$categoria' ");
+                      $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                      $nome_cat = $res2[0]['nome'];
+
+                      //trazer o total de itens
+                      
+//                      $query3 = $pdo->query("SELECT * FROM produtos where sub_categoria = '$id' ");
+//                      $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+//                      $itens = @count($res3);
+                      
+                     
 
                        
                       ?>
 
 
                     <tr>
-                        <td><a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><?php echo $nome ?></a>
-                            </td>
-                        <td><?php echo $itens ?></td>
-                        <td><img src="../../img/categorias/<?php echo $imagem ?>" width="50"></td>
+                        <td><a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><?php echo $nome ?></a></td>
+                        <td class="hiddenOnMobile"><?php echo @$itens ?></td>
+                        <td><?php echo $nome_cat ?></td>
+                        <td><img src="../../img/sub-categorias/<?php echo $imagem ?>" width="50"></td>
                         
 
-                       
                     </tr>
 <?php } ?>
 
@@ -92,11 +108,12 @@ $pag = "categorias";
                     $titulo = "Editar Registro";
                     $id2 = $_GET['id'];
 
-                    $query = $pdo->query("SELECT * FROM categorias where id = '" . $id2 . "' ");
+                    $query = $pdo->query("SELECT * FROM sub_categorias where id = '" . $id2 . "' ");
                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     $nome2 = $res[0]['nome'];
                     $imagem2 = $res[0]['imagem'];
+                    $categoria2 = $res[0]['id_categoria'];
                                         
 
                 } else {
@@ -117,7 +134,36 @@ $pag = "categorias";
 
                     <div class="form-group">
                         <label >Nome</label>
-                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control" id="nome-cat" name="nome-cat" placeholder="Nome">
+                        <input value="<?php echo @$nome2 ?>" type="text" class="form-control form-control-sm" id="nome-cat" name="nome-cat" placeholder="Nome">
+                    </div>
+
+                     <div class="form-group">
+                        <label >Categoria</label>
+                        <select class="form-control form-control-sm" name="categoria" id="categoria">
+                            <?php 
+                                if (@$_GET['funcao'] == 'editar') {
+                                    $query = $pdo->query("SELECT * from categorias where id = '$categoria2' ");
+                                     $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                                     $nomeCat = $res[0]['nome'];
+                                     echo "<option value='".$categoria2."' >" . $nomeCat . "</option>";
+                                }
+
+                                 $query2 = $pdo->query("SELECT * from categorias order by nome asc ");
+                                     $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                                     for ($i=0; $i < count($res2); $i++) { 
+                                        foreach ($res2[$i] as $key => $value) {
+                                         }
+
+                                        if(@$nomeCat != $res2[$i]['nome']){
+                                           echo "<option value='".$res2[$i]['id']."' >" . $res2[$i]['nome'] . "</option>"; 
+                                        }
+                                        
+
+                                    }
+
+
+                             ?>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -126,9 +172,9 @@ $pag = "categorias";
                     </div>
 
                     <?php if(@$imagem2 != ""){ ?>
-                    	 <img src="../../img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target">
+                    	 <img src="../../img/sub-categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target">
                  	<?php  }else{ ?>
-                    <img src="../../img/categorias/sem-foto.png" width="200" height="200" id="target">
+                    <img src="../../img/sub-categorias/sem-foto.png" width="200" height="200" id="target">
                 	<?php } ?>
 
 
@@ -144,15 +190,18 @@ $pag = "categorias";
 
 
 
-                <div class="modal-footer " align="center">
+                <div class="modal-footer">
 
 
 
                 <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
                 <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
-                <?php if (@$_GET['funcao'] == 'editar') { ?>
-                <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo @$_GET['id'] ?>" class='btn btn-danger mr-1' title='Excluir Registro'>Excluir</a>
-                <?php } ?>
+                    
+                    <?php if(@$imagem2 != ""){ ?>
+
+                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn btn-danger mr-1' title='Excluir Registro'>Excluir</a>
+                    
+                    <?php } ?>
                     <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
                 </div>
@@ -236,9 +285,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
                 $('#mensagem').removeClass()
 
-                if (mensagem.trim() == "Salvo com Sucesso!") {
+                if (mensagem.trim() == "Salvo com Sucesso!!") {
                     
-                  
+                    //$('#nome').val('');
+                    //$('#cpf').val('');
                     $('#btn-fechar').click();
                     window.location = "index.php?pag="+pag;
 
@@ -270,10 +320,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 
+
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
     $(document).ready(function () {
-        
         var pag = "<?=$pag?>";
         $('#btn-deletar').click(function (event) {
             event.preventDefault();
@@ -283,22 +333,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (retorno) {
-                var retorno = JSON.parse(retorno);
-                    
+                success: function (mensagem) {
 
-                    if (retorno.deucerto) {
-                        console.log(retorno);
-                        
-                        window.location = "index.php?pag="+pag;
-                        
-    
-                    }else{
-                        $('#mensagem_excluir').addClass('text-danger');
-                        $('#mensagem_excluir').text(retorno.mensagem);
+                    if (mensagem.trim() === 'Excluído com Sucesso!!') {
+
+
+                        $('#btn-cancelar-excluir').click();
+                        window.location = "index.php?pag=" + pag;
                     }
 
-                    
+                    $('#mensagem_excluir').text(mensagem)
 
 
 
@@ -348,8 +392,6 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
 
-<script src="../../js/mascara.js"></script>
 
 

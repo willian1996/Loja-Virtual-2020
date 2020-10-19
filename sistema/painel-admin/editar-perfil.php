@@ -4,14 +4,14 @@ require_once('../Usuario.class.php');
 $Usuario = new Usuario();
 
 
-$nome = $_POST['nome-usuario'];
-$email = $_POST['email-usuario'];
-$cpf = $_POST['cpf-usuario'];
-$senha = $_POST['senha-usuario'];
-$senha_confirmar = $_POST['conf-senha'];
+$nome = filtraEntrada($_POST['nome-usuario']);
+$email = filtraEntrada($_POST['email-usuario']);
+$cpf = filtraEntrada($_POST['cpf-usuario']);
+$senha = filtraEntrada($_POST['senha-usuario']);
+$senha_confirmar = filtraEntrada($_POST['conf-senha']);
 
-$antigo = $_POST['antigo'];
-$id_usuario = $_POST['txtid'];
+$antigo = filtraEntrada($_POST['antigo']);
+$id_usuario = filtraEntrada($_POST['txtid']);
 
 //VERIFICANDO SE OS CAMPOS ESTÃO VAZIOS
 if($nome == ""){

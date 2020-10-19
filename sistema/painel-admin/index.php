@@ -62,7 +62,7 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark  accordion toggled" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -94,7 +94,7 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Produtos</a>
                         <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Categorias</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Sub Categorias</a>
+                        <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Sub Categorias</a>
                     </div>
                 </div>
             </li>
@@ -329,9 +329,11 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
                         <input value="<?php echo $_SESSION['id_usuario']; ?>" type="hidden" name="txtid" id="txtid">
                         <input value="<?php echo $_SESSION['cpf_usuario']; ?>" type="hidden" name="antigo" id="antigo">
                         
+                        <button type="button" id="btn-fechar-perfil" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        
                         <button type="submit" name="btn-salvar-perfil" id="btn-salvar-perfil" class="btn btn-primary">Salvar</button>
 
-                        <button type="button" id="btn-fechar-perfil" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        
                         
                     </div>
                 </form>
@@ -391,6 +393,10 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
         })
     })
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+
+  <script src="../js/mascara.js"></script>
 
 
 

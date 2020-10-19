@@ -1,4 +1,7 @@
-
+#novosProdutos img, #maisVendidos img, #combosPromocionais img{
+    width: 110px;
+    height: 110px;
+}
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -541,7 +544,7 @@ ol {
 
 .header__cart .header__cart__price span {
 	color: #252525;
-	font-weight: 700;
+	font-weight: 700; 
 }
 
 .humberger__menu__wrapper {
@@ -3160,6 +3163,18 @@ ol {
 /* Wide Mobile = 480px */
 
 @media only screen and (max-width: 767px) {
+    .hero.hero-mobile .hero__categories ul {
+        display: none;
+        left: 0;
+        top: 46px;
+        width: 100%;
+        z-index: 9;
+        background: #ffffff;
+    }
+    .hiddenOnMobile {
+        display: none;
+
+    }
 	.hero__categories {
 		margin-bottom: 30px;
 	}
