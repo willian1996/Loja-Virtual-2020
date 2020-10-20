@@ -64,9 +64,9 @@ $pag = "sub-categorias";
 
                       //trazer o total de itens
                       
-//                      $query3 = $pdo->query("SELECT * FROM produtos where sub_categoria = '$id' ");
-//                      $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
-//                      $itens = @count($res3);
+                      $query3 = $pdo->query("SELECT * FROM produtos where sub_categoria = '$id' ");
+                      $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+                      $itens = @count($res3);
                       
                      
 
@@ -197,11 +197,9 @@ $pag = "sub-categorias";
                 <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
                 <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
                     
-                    <?php if(@$imagem2 != ""){ ?>
-
-                    <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='btn btn-danger mr-1' title='Excluir Registro'>Excluir</a>
-                    
-                    <?php } ?>
+                <?php if (@$_GET['funcao'] == 'editar') { ?>
+                <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo @$_GET['id'] ?>" class='btn btn-danger mr-1' title='Excluir Registro'>Excluir</a>
+                <?php } ?>
                     <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
                 </div>
@@ -333,16 +331,20 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (mensagem) {
+                success: function (retorno) {
+                var retorno = JSON.parse(retorno);
 
-                    if (mensagem.trim() === 'Excluído com Sucesso!!') {
-
-
-                        $('#btn-cancelar-excluir').click();
-                        window.location = "index.php?pag=" + pag;
+                    if (retorno.deucerto) {
+                        console.log(retorno);
+                        
+                        window.location = "index.php?pag="+pag;
+                        
+    
+                    }else{
+                        console.log(retorno);
+                        $('#mensagem_excluir').addClass('text-danger');
+                        $('#mensagem_excluir').text(retorno.mensagem);
                     }
-
-                    $('#mensagem_excluir').text(mensagem)
 
 
 

@@ -49,9 +49,14 @@ $pag = "categorias";
                       }
 
                       $nome = $res[$i]['nome'];
-                      $itens = $res[$i]['itens'];
+                      
                       $imagem = $res[$i]['imagem'];
                       $id = $res[$i]['id'];
+                       
+                     //trazer o total de itens
+                      $query2 = $pdo->query("SELECT * FROM sub_categorias where id_categoria = '$id' ");
+                   	  $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                   	  $itens = @count($res2);
 
                        
                       ?>

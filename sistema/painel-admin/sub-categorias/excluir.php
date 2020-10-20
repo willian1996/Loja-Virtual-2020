@@ -5,12 +5,10 @@ $categoria = new Categorias();
 
 $id = filtraEntrada($_POST['id']);
 
-$retorno = $categoria->excluirCategoria($id);
+$retorno = $categoria->excluirSubcategoria($id);
 
 echo json_encode($retorno);
 
 
 
 
-
-?>
