@@ -156,6 +156,13 @@ $pag = "produtos";
                 <label >Nome</label>
                 <input value="<?php echo @$nome2 ?>" type="text" class="form-control form-control-sm" id="nome-cat" name="nome-cat" placeholder="Nome">
                 </div>
+                
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label >Preço de Venda</label>
+                    <input value="<?php echo @$valor2 ?>" type="text" class="form-control form-control-sm" id="valor" name="valor" placeholder="Preço de venda">
+                </div>
             </div>
                         <div class="col-md-3">
                         <div class="form-group">
@@ -205,12 +212,7 @@ $pag = "produtos";
             </div>
 
 
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label >Valor</label>
-                    <input value="<?php echo @$valor2 ?>" type="text" class="form-control form-control-sm" id="valor" name="valor" placeholder="Valor">
-                </div>
-            </div>
+            
         </div>
         <div class="form-group">
             <label >Descrição Curta <small>(500 caracteres)</small></label>
@@ -226,6 +228,13 @@ $pag = "produtos";
                 <div class="form-group">
                     <label >Estoque</label>
                     <input value="<?php echo @$estoque2 ?>" type="number" class="form-control form-control-sm" id="estoque" name="estoque" placeholder="Quantidade estoque">
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label >Preço de Custo</label>
+                    <input value="<?php echo @$valor2 ?>" type="text" class="form-control form-control-sm" id="valor" name="valor" placeholder="Preço de custo">
                 </div>
             </div>
             
@@ -261,10 +270,51 @@ $pag = "produtos";
                
                      </div>
             </div>
+            
+                <div class="col-md-3">
+                
+                   <div class="form-group">
+                    <label >Ativo</label>
+                     <select class="form-control form-control-sm" name="tipo_envio" id="tipo_envio">
+                                <?php 
+                                if (@$_GET['funcao'] == 'editar') {
+                                    
+                                    echo "<option value='".$ativo2."' >" . $ativo2 . "</option>";
+                                }
+
+                                if(@$ativo2 != "Sim"){
+                                   echo "<option value='Sim' >Sim</option>"; 
+                                }
+                                if(@$ativo2 != "Não"){
+                                   echo "<option value='Não' >Não</option>"; 
+                                }
+
+
+                               
+
+
+                               ?>
+                           </select>
+               
+                     </div>
+            </div>
+            
         
         
         
         </div>
+        <div class="row">
+            
+                <div class="col-md-12">
+                <div class="form-group">
+                    <label >Palavras Chaves</label>
+                    <input value="<?php echo @$palavras2 ?>" type="text" class="form-control form-control-sm" id="palavras" name="palavras" placeholder="Palavras Chaves">
+                </div>
+            
+            </div>
+            
+            
+            </div>
 
 
 
