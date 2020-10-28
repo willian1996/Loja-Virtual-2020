@@ -308,6 +308,7 @@ $pag = "produtos";
                 <div class="col-md-12">
                 <div class="form-group">
                     <label >Palavras Chaves</label>
+                    
                     <input value="<?php echo @$palavras2 ?>" type="text" class="form-control form-control-sm" id="palavras" name="palavras" placeholder="Palavras Chaves">
                 </div>
             
