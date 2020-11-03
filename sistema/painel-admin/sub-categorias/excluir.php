@@ -1,14 +1,11 @@
 <?php
-require_once('../Categorias.class.php');
-$categoria = new Categorias();
 
+require_once("../../../conexao.php"); 
 
-$id = filtraEntrada($_POST['id']);
+$id = $_POST['id'];
 
-$retorno = $categoria->excluirSubcategoria($id);
+$pdo->query("DELETE from sub_categorias WHERE id = '$id'");
 
-echo json_encode($retorno);
+echo 'Excluído com Sucesso!!';
 
-
-
-
+?>

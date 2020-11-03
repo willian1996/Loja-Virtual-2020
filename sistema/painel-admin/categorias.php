@@ -1,7 +1,7 @@
-<?php   
+<?php 
+$pag = "categorias";
+require_once("../../conexao.php"); 
 @session_start();
-require_once('../conexao.php');
-
 //Verificando se o admin esta logado na sessão
 if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 //    echo "<script language='javascript'>
@@ -10,10 +10,8 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 }
 
 
-$pag = "categorias";
-//--------------------------------------------------------------------------------
 ?>
-<center><h3>Categorias</h3></center>
+
 <div class="row mt-4 mb-4">
     <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Categoria</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
@@ -33,7 +31,7 @@ $pag = "categorias";
                         <th>Nome</th>
                         <th>Itens</th>
                         <th>Imagem</th>
-                        
+                        <th>Ações</th>
                     </tr>
                 </thead>
 
@@ -52,24 +50,25 @@ $pag = "categorias";
                       
                       $imagem = $res[$i]['imagem'];
                       $id = $res[$i]['id'];
-                       
-                     //trazer o total de itens
+
+                      //trazer o total de itens
                       $query2 = $pdo->query("SELECT * FROM sub_categorias where id_categoria = '$id' ");
                    	  $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
                    	  $itens = @count($res2);
-
                        
                       ?>
 
 
                     <tr>
-                        <td><a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><?php echo $nome ?></a>
-                            </td>
+                        <td><?php echo $nome ?></td>
                         <td><?php echo $itens ?></td>
                         <td><img src="../../img/categorias/<?php echo $imagem ?>" width="50"></td>
                         
 
-                       
+                        <td>
+                             <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+                        </td>
                     </tr>
 <?php } ?>
 
@@ -133,7 +132,7 @@ $pag = "categorias";
                     <?php if(@$imagem2 != ""){ ?>
                     	 <img src="../../img/categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target">
                  	<?php  }else{ ?>
-                    <img src="../../img/categorias/sem-foto.png" width="200" height="200" id="target">
+                    <img src="../../img/categorias/sem-foto.jpg" width="200" height="200" id="target">
                 	<?php } ?>
 
 
@@ -149,15 +148,13 @@ $pag = "categorias";
 
 
 
-                <div class="modal-footer " align="center">
+                <div class="modal-footer">
 
 
 
                 <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
                 <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
-                <?php if (@$_GET['funcao'] == 'editar') { ?>
-                <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo @$_GET['id'] ?>" class='btn btn-danger mr-1' title='Excluir Registro'>Excluir</a>
-                <?php } ?>
+
                     <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
                 </div>
@@ -241,9 +238,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
                 $('#mensagem').removeClass()
 
-                if (mensagem.trim() == "Salvo com Sucesso!") {
+                if (mensagem.trim() == "Salvo com Sucesso!!") {
                     
-                  
+                    //$('#nome').val('');
+                    //$('#cpf').val('');
                     $('#btn-fechar').click();
                     window.location = "index.php?pag="+pag;
 
@@ -275,10 +273,10 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
 
 
 
+
 <!--AJAX PARA EXCLUSÃO DOS DADOS -->
 <script type="text/javascript">
     $(document).ready(function () {
-        
         var pag = "<?=$pag?>";
         $('#btn-deletar').click(function (event) {
             event.preventDefault();
@@ -288,22 +286,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (retorno) {
-                var retorno = JSON.parse(retorno);
-                    
+                success: function (mensagem) {
 
-                    if (retorno.deucerto) {
-                        console.log(retorno);
-                        
-                        window.location = "index.php?pag="+pag;
-                        
-    
-                    }else{
-                        $('#mensagem_excluir').addClass('text-danger');
-                        $('#mensagem_excluir').text(retorno.mensagem);
+                    if (mensagem.trim() === 'Excluído com Sucesso!!') {
+
+
+                        $('#btn-cancelar-excluir').click();
+                        window.location = "index.php?pag=" + pag;
                     }
 
-                    
+                    $('#mensagem_excluir').text(mensagem)
 
 
 
@@ -353,8 +345,5 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
     });
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-
-<script src="../../js/mascara.js"></script>
 
 

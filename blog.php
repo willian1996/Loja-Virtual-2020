@@ -129,6 +129,6 @@ require_once("cabecalho-busca.php");
     </section>
     <!-- Blog Section End -->
 
-<?php
+   <?php
 require_once("rodape.php");
 ?>

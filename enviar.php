@@ -1,77 +1,47 @@
-<?php
-require_once('conexao.php');
+<?php 
 
-//RECEBENDO E FILTRANDO OS DADOS DO FORMULARIO 
-$nome = filtraEntrada($_POST['nome']);
-$email = filtraEntrada($_POST['email']);
-$telefone = filtraEntrada($_POST['telefone']);
-$mensagem = filtraEntrada($_POST['mensagem']);
+require_once("conexao.php");
 
-//VERIFICANDO SE OS CAMPOS ESTAO VAZIOS 
-if($nome == "") {
-    echo "Preencha o campo nome";
-    exit();
-}
-if($email == "") {
-    echo "Preencha o campo email";
-    exit();
-}
-if($telefone == "") {
-    echo "Preencha o campo telefone";
-    exit();
-}
-if($mensagem == "") {
-    echo "Preencha o campo mensagem";
-    exit();
+if($_POST['nome'] == ""){
+	echo 'Preecha o Campo Nome';
+	exit();
 }
 
+if($_POST['email'] == ""){
+	echo 'Preecha o Campo Email';
+	exit();
+}
 
-//ENVIANDO A MENSAGEM PARA O ADMINISTRADOR DO SITE 
-$destinatario = $email_loja;
+if($_POST['mensagem'] == ""){
+	echo 'Preecha o Campo Mensagem';
+	exit();
+}
+
+$destinatario = $email;
 $assunto = $nome_loja . ' - Email da Loja';
-$mensagem = utf8_decode('Nome: '.$nome. "\r\n"."\r\n" . 'Telefone: '.$telefone. "\r\n"."\r\n" . 'Mensagem: ' . "\r\n"."\r\n" .$mensagem);
-$cabecalhos = "From: ".$email;
-@mail($destinatario, $assunto, $mensagem, $cabecalhos);
-echo 'Enviado com sucesso';
+
+$mensagem = utf8_decode('Nome: '.$_POST['nome']. "\r\n"."\r\n" . 'Telefone: '.$_POST['telefone']. "\r\n"."\r\n" . 'Mensagem: ' . "\r\n"."\r\n" .$_POST['mensagem']);
 
 
-//VERIFICANDO SE JA EXISTE ESSE EMAIL NO BANCO DE DADOS 
-$res = $pdo->query("SELECT * FROM emails where email = '$email'"); 
+$cabecalhos = "From: ".$_POST['email'];
+
+mail($destinatario, $assunto, $mensagem, $cabecalhos);
+
+echo 'Enviado com Sucesso!';
+
+
+//ENVIAR PARA O BANCO DE DADOS O EMAIL E NOME DOS CAMPOS
+$res = $pdo->query("SELECT * FROM emails where email = '$_POST[email]'"); 
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
-if(count($dados) == 0){
-    
-    //ENVIANDO O E-MAIL PARA TABELA emails NO DB 
-    $res = $pdo->prepare("INSERT INTO emails (nome, email, ativo) VALUES (:nome, :email, :ativo)");
-
-    $res->bindValue(":nome", $nome);
-    $res->bindValue(":email", $email);
-    $res->bindValue(":ativo", "Sim");
-    $res->execute();
-
-    
+if(@count($dados) == 0){
+	$res = $pdo->prepare("INSERT into emails (nome, email, ativo) values (:nome, :email, :ativo)");
+	$res->bindValue(":nome", $_POST['nome']);
+	$res->bindValue(":email", $_POST['email']);
+	$res->bindValue(":ativo", "Sim");
+	$res->execute();
 }
 
+echo $_POST['email'];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ ?>

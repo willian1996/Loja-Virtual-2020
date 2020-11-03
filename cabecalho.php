@@ -1,19 +1,73 @@
-<?php
-require_once("sistema/config.php");
+<?php 
+require_once("config.php");
+require_once("conexao.php");
+@session_start();
+$id_usuario = @$_SESSION['id_usuario'];
+
+
+//VERIFICAR TOTAIS DO CARRINHO
+$res = $pdo->query("SELECT * from carrinho where id_usuario = '$id_usuario' and id_venda = 0 order by id asc");
+$dados = $res->fetchAll(PDO::FETCH_ASSOC);
+$linhas = count($dados);
+
+if($linhas == 0){
+  $linhas = 0;
+  $total = 0;
+}
+
+$total;
+for ($i=0; $i < count($dados); $i++) { 
+ foreach ($dados[$i] as $key => $value) {
+ }
+
+$combo = $dados[$i]['combo'];
+$id_produto = $dados[$i]['id_produto'];
+ $quantidade = $dados[$i]['quantidade'];
+
+ if($combo == 'Sim'){
+   $res_p = $pdo->query("SELECT * from combos where id = '$id_produto' ");
+ }else{
+  $res_p = $pdo->query("SELECT * from produtos where id = '$id_produto' ");
+ }
+ 
+ $dados_p = $res_p->fetchAll(PDO::FETCH_ASSOC);
+
+ if($combo == 'Sim'){ 
+  $promocao = ""; 
+  $pasta = "combos";
+ }else{
+  $promocao = $dados_p[0]['promocao']; 
+  $pasta = "produtos";
+ }
+
+ if($promocao == 'Sim'){
+  $queryp = $pdo->query("SELECT * FROM promocoes where id_produto = '$id_produto' ");
+  $resp = $queryp->fetchAll(PDO::FETCH_ASSOC);
+  $valor = $resp[0]['valor'];
+
+}else{
+  $valor = $dados_p[0]['valor'];
+}
+
+
+$total_item = $valor * $quantidade;
+@$total = @$total + $total_item;
+
+}
+
+@$total_c = number_format(@$total, 2, ',', '.');
 
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="keywords" content="Lorraine Modas, Lorrainemodas, Lorraine, Modas, Feminina, Loja Lorraine Modas, Loja de Roupas, Lorraine Modas Feminina">
-    <meta name="description" content="<?php echo $tipo_loja ?>">
-    <meta name="author" content="Willian Sales">
+    <meta name="description" content="Venda de Roupas Masculina e Feminina">
+    <meta name="keywords" content="botas masculinas, roupas femininas">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <title><?php echo $nome_loja ?></title>
 
     <!-- Google Font -->
@@ -28,15 +82,18 @@ require_once("sistema/config.php");
     <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
+
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
-    <!-- Page Preloder -->
-<!--
+
+
+    <!-- Page Preloder 
     <div id="preloder">
         <div class="loader"></div>
-    </div>
--->
+    </div> -->
 
     <!-- Humberger Begin -->
     <div class="humberger__menu__overlay"></div>
@@ -46,44 +103,53 @@ require_once("sistema/config.php");
         </div>
         <div class="humberger__menu__cart">
             <ul>
-                <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>5</span></a></li>
+
+                <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span><?php echo $linhas ?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>R$150.00</span></div>
+            <div class="header__cart__price">item: <span>R$ <?php echo $total_c ?></span></div>
+
+            <div class="header__top__right__auth ml-4">
+                <?php 
+                     if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Cliente'){
+                 ?>
+                <a href="" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user"></i> Login</a>
+            <?php }else{ ?>
+                <a href="sistema/painel-cliente"><i class="fa fa-user"></i> Painel</a>
+            <?php } ?>
+            </div>
         </div>
         <div class="humberger__menu__widget">
-            
-            <div class="header__top__right__auth">
-                <a href="" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user"></i> Login</a>
-            </div>
+
+
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.php">Inicio</a></li>
-                <li><a href="./categorias.php">Categorias</a></li>
+                <li class="active"><a href="./index.php">Início</a></li>
+                <li><a href="categorias.php">Categorias</a></li>
                 <li><a href="#">Produtos</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./lista-produtos.php">Lista de Produtos</a></li>
-                        <li><a href="./shoping-cart.php">Carrinho</a></li>
-                        <li><a href="./checkout.php">Check Out</a></li>
+                        <li><a href="produtos.php">Lista de Produtos</a></li>
+                        <li><a href="sub-categorias.php">Sub Categorias</a></li>
+                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
+                        <li><a href="./checkout.html">Check Out</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
                     </ul>
                 </li>
+                <li><a href="./blog.html">Blog</a></li>
                 <li><a href="./carrinho.php">Carrinho</a></li>
-                <li><a href="./blog.php">Blog</a></li>
-                
                 <li><a href="./contatos.php">Contatos</a></li>
-                
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
         <div class="header__top__right__social">
-            <a target="_blank" href="#"><i class="fa fa-facebook text-info"></i></a>
-            <a target="_blank" href="#"><i class="fa fa-instagram text-danger"></i></a>
-            <a target="_blank" href="https://api.whatsapp.com/send?phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp text-success"></i></a>
+            <a target="_blank" href="#"><i class="fa fa-facebook"></i></a>
+            
+            <a target="_blank" href="#"><i class="fa fa-instagram"></i></a>
+            <a target="_blank" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp"></i></a>
         </div>
         <div class="humberger__menu__contact">
             <ul>
-                <li><i class="fa fa-envelope"></i> <?php echo $email_loja ?></li>
+                <li><i class="fa fa-envelope"></i> <?php echo $email ?></li>
                 <li><?php echo $texto_destaque ?></li>
             </ul>
         </div>
@@ -98,68 +164,78 @@ require_once("sistema/config.php");
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i><?php echo $email_loja; ?></li>
-                                <li><?php echo $texto_destaque; ?></li>
+                                <li><i class="fa fa-envelope"></i> <?php echo $email ?></li>
+                                <li><?php echo $texto_destaque ?></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a target="_blank" title="Facebook" href="#"><i class="fa fa-facebook text-info"></i></a>
-                                <a target="_blank" title="Instagram" href="#"><i class="fa fa-instagram text-danger"></i></a>
-                                <a target="_blank" title="Whatsapp" href="https://api.whatsapp.com/send?phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp text-success"></i></a>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user"></i> Login</a>
-                            </div>
+                               <a target="_blank" title="Ir para página do Facebook" href="#"><i class="fa fa-facebook"></i></a>
+                               <a target="_blank" href="#"><i class="fa fa-instagram"></i></a>
+                               <a target="_blank" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp text-success"></i></a>
+                           </div>
+
+                           <div class="header__top__right__auth">
+                            <?php 
+                     if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Cliente'){
+                 ?>
+                <a href="" data-toggle="modal" data-target="#modalLogin"><i class="fa fa-user"></i> Login</a>
+            <?php }else{ ?>
+                <a target="_blank" href="sistema/painel-cliente"><i class="fa fa-user"></i> Painel</a>
+               
+            <?php } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.php"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                           <li class="active"><a href="./index.php">Inicio</a></li>
-                
-                <li><a href="#">Produtos</a>
-                    <ul class="header__menu__dropdown">
-                        <li><a href="./produtos.php">Lista de Produtos</a></li>
-                        <li><a href="./shoping-carrinho.php">Carrinho</a></li>
-                        <li><a href="./checkout.php">Check Out</a></li>
-                        <li><a href="./categorias.php">Categorias</a></li>
-                    </ul>
-                </li>
-                <li><a href="./carrinho.php">Carrinho</a></li>
-                <li><a href="./blog.php">Blog</a></li>     
-                <li><a href="./contatos.php">Contatos</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                        <div class="header__cart__price">item: <span>R$150.00</span></div>
-                    </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="header__logo">
+                    <a href="./index.php"><img src="img/logo.png" alt=""></a>
                 </div>
             </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
+            <div class="col-lg-6">
+                <nav class="header__menu">
+                    <ul>
+                     <li class="active"><a href="./index.php">Início</a></li>
+                      <li><a href="categorias.php">Categorias</a></li>
+                     <li><a href="#">Produtos</a>
+                        <ul class="header__menu__dropdown">
+                            <li><a href="produtos.php">Produtos</a></li>
+
+                            <li><a href="lista-produtos.php">Lista de Produtos</a></li>
+                            <li><a href="sub-categorias.php">Sub Categorias</a></li>
+                            <li><a href="promocoes.php">Promoções</a></li>
+                            <li><a href="combos.php">Combos</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="blog.php">Blog</a></li>
+                    
+                    <li><a href="contatos.php">Contatos</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-lg-3">
+            <div class="header__cart">
+                <ul>
+                   <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span><?php echo $linhas ?></span></a></li>
+                </ul>
+                <div class="header__cart__price">item: <span>R$ <?php echo $total_c ?></span></div>
             </div>
         </div>
-    </header>
-    <!-- Header Section End -->
+    </div>
+    <div class="humberger__open">
+        <i class="fa fa-bars"></i>
+    </div>
+</div>
+</header>
+<!-- Header Section End -->
+    
     
     <!-- Modal Login-->
 <div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -252,7 +328,7 @@ require_once("sistema/config.php");
                 <div class="col-lg-6">
                     <div class="checkout__input">
                         <p>Confirme a senha<span>*</span></p>
-                        <input type="password" id="senha_confirmar" name="senha_confirmar">
+                        <input type="password" id="confirmar-senha" name="confirmar-senha">
                     </div>
                 </div>
             </div>
@@ -262,7 +338,7 @@ require_once("sistema/config.php");
         </form>
       </div>
       <div class="modal-footer">
-<!--        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--        <button type="button" class="btn-secondary" data-dismiss="modal">Fechar</button>-->
         <button id="btn-cadastrar" type="button" class="site-btn">Cadastrar</button>
       </div>
     </div>
@@ -288,6 +364,7 @@ require_once("sistema/config.php");
             <label for="username" class="text-info">E-mail</label><br>
             <input type="text" name="email-recuperar" id="email-recuperar" class="form-control">
         </div>
+        <small><div id="div-mensagem-rec"></div></small>
 
         <div class="form-group">
 
@@ -306,3 +383,4 @@ require_once("sistema/config.php");
 
 
     
+

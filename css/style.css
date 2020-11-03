@@ -2,6 +2,9 @@
     width: 110px;
     height: 110px;
 }
+
+
+
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -78,7 +81,6 @@ p {
 	margin: 0 0 15px 0;
 }
 
-
 img {
 	max-width: 100%;
 }
@@ -106,9 +108,6 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
-.cor-roxo{
-    color: #9F40CB;
-}
 
 .section-title {
 	margin-bottom: 50px;
@@ -421,7 +420,7 @@ ol {
 .header__menu ul li {
 	list-style: none;
 	display: inline-block;
-	margin-right: 40px;
+	margin-right: 35px;
 	position: relative;
 }
 
@@ -544,7 +543,7 @@ ol {
 
 .header__cart .header__cart__price span {
 	color: #252525;
-	font-weight: 700; 
+	font-weight: 700;
 }
 
 .humberger__menu__wrapper {
@@ -716,7 +715,7 @@ ol {
 
 .hero__search__phone__text h5 {
 	color: #1c1c1c;
-	font-weight: 700;
+	font-weight: 600;
 	margin-bottom: 5px;
 }
 
@@ -742,7 +741,7 @@ ol {
 
 .hero__text h2 {
 	font-size: 46px;
-	color: #252525;
+	color: #032a38;
 	line-height: 52px;
 	font-weight: 700;
 	margin: 10px 0;
@@ -751,7 +750,6 @@ ol {
 .hero__text p {
 	margin-bottom: 35px;
 }
-
 
 /*---------------------
   Categories
@@ -1787,6 +1785,7 @@ ol {
 	border: none;
 	background: #f5f5f5;
 	text-align: center;
+	
 }
 
 .pro-qty .qtybtn {
@@ -1912,7 +1911,7 @@ ol {
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item {
-	width: 630px;
+	width: 530px;
 	text-align: left;
 }
 
@@ -2124,7 +2123,7 @@ ol {
 	border: 1px solid #ebebeb;
 	padding-left: 20px;
 	font-size: 16px;
-	color: #b2b2b2;
+	color: #636363;
 	border-radius: 4px;
 }
 
@@ -3162,6 +3161,8 @@ ol {
 
 /* Wide Mobile = 480px */
 
+
+
 @media only screen and (max-width: 767px) {
     .hero.hero-mobile .hero__categories ul {
         display: none;
@@ -3479,23 +3480,42 @@ ol {
 	}
 }
 
+.promocao h4{
+	text-align: center;
+	font-size:40px;
+}
 
 
 
 
 
+.pro-qty2 {
+	width: 140px;
+	height: 50px;
+	display: inline-block;
+	position: relative;
+	text-align: center;
+	background: #f5f5f5;
+	margin-bottom: 5px;
+}
 
+.pro-qty2 input {
+	height: 100%;
+	width: 100%;
+	font-size: 16px;
+	color: #6f6f6f;
+	width: 50px;
+	border: none;
+	background: #f5f5f5;
+	text-align: center;
+	
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.pro-qty2 .qtybtn2 {
+	width: 35px;
+	font-size: 16px;
+	color: #6f6f6f;
+	cursor: pointer;
+	display: inline-block;
+}
 

@@ -1,22 +1,17 @@
-<?php   
+<?php 
+$pag = "sub-categorias";
+require_once("../../conexao.php"); 
 @session_start();
-require_once('../conexao.php');
+    //verificar se o usuário está autenticado
+if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script>";
 
-//Verificando se o admin esta logado na sessão
-if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
-//    echo "<script language='javascript'>
-//    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
-    header("Location: $dominio/index.php");
 }
 
 
-$pag = "sub-categorias";
-//--------------------------------------------------------------------------------
 ?>
 
-<center><h3>Subcategorias</h3></center>
 <div class="row mt-4 mb-4">
-    
     <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Nova Sub-Categoria</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>
     
@@ -32,11 +27,11 @@ $pag = "sub-categorias";
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>Subcat</th>
-                        <th class="hiddenOnMobile">Produtos</th>
+                        <th>Nome</th>
+                        <th>Produtos</th>
                         <th>Categoria</th>
                         <th>Imagem</th>
-                       
+                        <th>Ações</th>
                     </tr>
                 </thead>
 
@@ -75,12 +70,16 @@ $pag = "sub-categorias";
 
 
                     <tr>
-                        <td><a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><?php echo $nome ?></a></td>
-                        <td class="hiddenOnMobile"><?php echo @$itens ?></td>
+                        <td><?php echo $nome ?></td>
+                        <td><?php echo $itens ?></td>
                         <td><?php echo $nome_cat ?></td>
                         <td><img src="../../img/sub-categorias/<?php echo $imagem ?>" width="50"></td>
                         
 
+                        <td>
+                             <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id ?>" class='text-primary mr-1' title='Editar Dados'><i class='far fa-edit'></i></a>
+                            <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo $id ?>" class='text-danger mr-1' title='Excluir Registro'><i class='far fa-trash-alt'></i></a>
+                        </td>
                     </tr>
 <?php } ?>
 
@@ -174,7 +173,7 @@ $pag = "sub-categorias";
                     <?php if(@$imagem2 != ""){ ?>
                     	 <img src="../../img/sub-categorias/<?php echo $imagem2 ?>" width="200" height="200" id="target">
                  	<?php  }else{ ?>
-                    <img src="../../img/sub-categorias/sem-foto.png" width="200" height="200" id="target">
+                    <img src="../../img/sub-categorias/sem-foto.jpg" width="200" height="200" id="target">
                 	<?php } ?>
 
 
@@ -196,10 +195,7 @@ $pag = "sub-categorias";
 
                 <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid2" id="txtid2">
                 <input value="<?php echo @$nome2 ?>" type="hidden" name="antigo" id="antigo">
-                    
-                <?php if (@$_GET['funcao'] == 'editar') { ?>
-                <a href="index.php?pag=<?php echo $pag ?>&funcao=excluir&id=<?php echo @$_GET['id'] ?>" class='btn btn-danger mr-1' title='Excluir Registro'>Excluir</a>
-                <?php } ?>
+
                     <button type="button" id="btn-fechar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     <button type="submit" name="btn-salvar" id="btn-salvar" class="btn btn-primary">Salvar</button>
                 </div>
@@ -331,20 +327,16 @@ if (@$_GET["funcao"] != null && @$_GET["funcao"] == "excluir") {
                 method: "post",
                 data: $('form').serialize(),
                 dataType: "text",
-                success: function (retorno) {
-                var retorno = JSON.parse(retorno);
+                success: function (mensagem) {
 
-                    if (retorno.deucerto) {
-                        console.log(retorno);
-                        
-                        window.location = "index.php?pag="+pag;
-                        
-    
-                    }else{
-                        console.log(retorno);
-                        $('#mensagem_excluir').addClass('text-danger');
-                        $('#mensagem_excluir').text(retorno.mensagem);
+                    if (mensagem.trim() === 'Excluído com Sucesso!!') {
+
+
+                        $('#btn-cancelar-excluir').click();
+                        window.location = "index.php?pag=" + pag;
                     }
+
+                    $('#mensagem_excluir').text(mensagem)
 
 
 

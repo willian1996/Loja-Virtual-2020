@@ -1,7 +1,7 @@
-<?php   
+<?php 
+$pag = "tipo-envios";
+require_once("../../conexao.php"); 
 @session_start();
-require_once('../conexao.php');
-
 //Verificando se o admin esta logado na sessão
 if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 //    echo "<script language='javascript'>
@@ -10,10 +10,8 @@ if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
 }
 
 
-$pag = "tipo-envios";
-//--------------------------------------------------------------------------------
 ?>
-<center><h3>Tipo Envios</h3></center>
+
 <div class="row mt-4 mb-4">
     <a type="button" class="btn-primary btn-sm ml-3 d-none d-md-block" href="index.php?pag=<?php echo $pag ?>&funcao=novo">Novo Tipo</a>
     <a type="button" class="btn-primary btn-sm ml-3 d-block d-sm-none" href="index.php?pag=<?php echo $pag ?>&funcao=novo">+</a>

@@ -8,10 +8,3 @@
    top:0px;
 }
 
-@media only screen and (max-width: 767px) {
-    .hiddenOnMobile {
-        display: none;
-
-    }
-}
-
