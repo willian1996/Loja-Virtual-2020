@@ -63,7 +63,7 @@ $nome_pag = 'promocoes.php';
             <div class="row mt-4">
 
               <?php 
-             $query = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' order by id LIMIT $limite, $itens_por_pagina");
+             $query = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' and ativo = 'Sim' and estoque > 0 order by id LIMIT $limite, $itens_por_pagina");
              $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
              for ($i=0; $i < count($res); $i++) { 
@@ -84,7 +84,7 @@ $nome_pag = 'promocoes.php';
               $valor_promo = number_format($valor_promo, 2, ',', '.');
                   
                   //BUSCAR O TOTAL DE REGISTROS PARA PAGINAR
-                  $query3 = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' ");
+                  $query3 = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' and ativo = 'Sim' and estoque > 0 ");
                   $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
                   $num_total = @count($res3);
                   $num_paginas = ceil($num_total/$itens_por_pagina);
@@ -98,7 +98,10 @@ $nome_pag = 'promocoes.php';
                     <div class="product__discount__percent">-<?php echo $desconto ?>%</div>
                     <ul class="product__item__pic__hover">
                      <li><a href="produto-<?php echo $nome_url ?>"><i class="fa fa-eye"></i></a></li>
-                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a>
+                   
+
+                     <li><a href="" onclick="carrinhoModal('<?php echo $id ?>','Não')"><i class="fa fa-shopping-cart"></i></a>
+                      
                      </ul>
                  </div>
                  <div class="product__discount__item__text">
@@ -146,4 +149,5 @@ $nome_pag = 'promocoes.php';
 
 <?php
 require_once("rodape.php");
+require_once("modal-carrinho.php");
 ?>

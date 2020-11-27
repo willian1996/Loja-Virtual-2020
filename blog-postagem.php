@@ -1,3 +1,15 @@
+<?php 
+//trazer palavras chaves da postagem
+require_once("conexao.php");
+@session_start();
+$id_usuario = @$_SESSION['id_usuario'];
+$nivel_usuario = @$_SESSION['nivel_usuario'];
+$postagem_get = @$_GET['nome'];
+$query = $pdo->query("SELECT * FROM blog where nome_url = '$postagem_get' ");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$palavras = $res[0]['palavras'];
+ ?>
+
 <?php
 require_once("cabecalho.php");
 ?>
@@ -6,8 +18,24 @@ require_once("cabecalho.php");
 require_once("cabecalho-busca.php");
 ?>
 
+<?php 
+$query = $pdo->query("SELECT * FROM blog where nome_url = '$postagem_get' ");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$titulo = $res[0]['titulo'];
+$descricao_1 = $res[0]['descricao_1'];
+$descricao_2 = $res[0]['descricao_2'];
+$data = $res[0]['data'];
+$imagem = $res[0]['imagem'];
+$id_blog = $res[0]['id'];
+$data = implode('/', array_reverse(explode('-', $data)));
 
-    
+
+//pegar os dados do Admin
+$query = $pdo->query("SELECT * FROM usuarios where nivel = 'Admin'");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+$nome_admin = $res[0]['nome'];
+$imagem_admin = $res[0]['imagem'];
+ ?>
 
     <!-- Blog Details Section Begin -->
     <section class="blog-details spad">
@@ -16,72 +44,154 @@ require_once("cabecalho-busca.php");
                 <div class="col-lg-4 col-md-5 order-md-1 order-2">
                     <div class="blog__sidebar">
                         
-                        <div class="blog__sidebar__item">
-                            <h4>Categorias / Produtos</h4>
-                            <ul>
-                                <li><a href="#">All</a></li>
-                                <li><a href="#">Beauty (20)</a></li>
-                                <li><a href="#">Food (5)</a></li>
-                                <li><a href="#">Life Style (9)</a></li>
-                                <li><a href="#">Travel (10)</a></li>
-                            </ul>
-                        </div>
+                          <div class="blog__sidebar__item">
+                        <h4>Categorias</h4>
+                        <ul>
+                            <?php 
+                            $query = $pdo->query("SELECT * FROM categorias order by nome asc ");
+                            $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                            for ($i=0; $i < count($res); $i++) { 
+                              foreach ($res[$i] as $key => $value) {
+                              }
+
+                              $nome = $res[$i]['nome'];
+
+                              $nome_url = $res[$i]['nome_url'];
+
+                              ?>
+                              <li><a href="sub-categoria-de-<?php echo $nome_url ?>"><?php echo $nome ?></a></li>
+
+                          <?php } ?>
+
+                      </ul>
+                  </div>
+
+                  <div class="blog__sidebar__item">
+                    <h4>Sub Categorias</h4>
+                    <ul>
+                        <?php 
+                        $query = $pdo->query("SELECT * FROM sub_categorias order by nome asc ");
+                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                        for ($i=0; $i < count($res); $i++) { 
+                          foreach ($res[$i] as $key => $value) {
+                          }
+
+                          $nome = $res[$i]['nome'];
+
+                          $nome_url = $res[$i]['nome_url'];
+
+                          ?>
+                          <li><a href="produtos-<?php echo $nome_url ?>"><?php echo $nome ?></a></li>
+
+                      <?php } ?>
+
+                  </ul>
+              </div>
                         
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-7 order-md-1 order-1">
                     <div class="blog__details__text">
-                        <img src="img/blog/details/details-pic.jpg" alt="">
-                        <p>Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                            dui. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Mauris blandit
-                            aliquet elit, eget tincidunt nibh pulvinar a. Vivamus magna justo, lacinia eget consectetur
-                            sed, convallis at tellus. Sed porttitor lectus nibh. Donec sollicitudin molestie malesuada.
-                            Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Proin eget tortor risus.
-                            Donec rutrum congue leo eget malesuada. Curabitur non nulla sit amet nisl tempus convallis
-                            quis ac lectus. Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero malesuada
-                            feugiat. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.</p>
-                        <h3>The corner window forms a place within a place that is a resting point within the large
-                            space.</h3>
-                        <p>The study area is located at the back with a view of the vast nature. Together with the other
-                            buildings, a congruent story has been managed in which the whole has a reinforcing effect on
-                            the components. The use of materials seeks connection to the main house, the adjacent
-                            stables</p>
+                        <img src="img/blog/<?php echo $imagem ?>" alt="">
+                        <p><?php echo $descricao_1 ?></p>
+                        <h3><?php echo $titulo ?></h3>
+                        <p><?php echo $descricao_2 ?></p>
                     </div>
-                    <div class="blog__details__content">
+                    <div class="blog__details__content mb-4">
                         <div class="row">
                             <div class="col-lg-6">
                                 <div class="blog__details__author">
                                     <div class="blog__details__author__pic">
-                                        <img src="img/blog/details/details-author.jpg" alt="">
+                                        <img src="img/<?php echo @$imagem_admin ?>" alt="">
                                     </div>
                                     <div class="blog__details__author__text">
-                                        <h6>Michael Scofield</h6>
+                                        <h6><?php echo @$nome_admin ?></h6>
                                         <span>Admin</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="blog__details__widget">
-                                    <ul>
-                                        <li><span>Categories:</span> Food</li>
-                                        <li><span>Tags:</span> All, Trending, Cooking, Healthy Food, Life Style</li>
-                                    </ul>
-                                    <div class="blog__details__social">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-twitter"></i></a>
-                                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                        <a href="#"><i class="fa fa-envelope"></i></a>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
+
+                    <?php if($id_usuario == null || $id_usuario == ""){
+                        echo '<span class="mt-4">Deseja comentar a Postagem? Clique <a target="_blank" href="sistema" class="text-info"> aqui </a> para fazer Login ou se Cadastrar!</span>';
+                    }else{
+                       ?>
+                       <div class="mb-4">
+                           <form method="post">
+                           <div class="form-group">
+                                <label >Comentário <small>(Máx 500 Caracteres)</small> </label>
+                               <textarea maxlength="1000" class="form-control" id="comentario" name="comentario"></textarea>
+                            </div>
+                            <div align="right" class="mt-1">
+                            <button type="submit" name="btn-comentario" id="btn-comentario" class="btn btn-info">Publicar</button>
+                            </div>
+                            </form>
+                        </div>
+
+                        <div class="">
+                              <h5>Comentários</h5>
+                                <div class="mt-4">
+
+                                    <?php 
+                                    $query4 = $pdo->query("SELECT * from coment_blog where id_blog = '$id_blog' order by id desc");
+                                $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+                                for ($i2=0; $i2 < count($res4); $i2++) { 
+                                    foreach ($res4[$i2] as $key => $value) {
+                                    }
+
+                                    $id_usu = $res4[$i2]['id_usuario'];
+                                    $texto = $res4[$i2]['comentario'];
+                                    $id_com = $res4[$i2]['id'];
+                                    $data = $res4[$i2]['data'];
+                                    $hora = $res4[$i2]['hora'];
+                                    $data = implode('/', array_reverse(explode('-', $data)));
+
+                                      $query = $pdo->query("SELECT * from usuarios where id = '$id_usu'");
+                                $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                                $nome_cliente = $res[0]['nome'];
+
+                                
+                                     ?>
+
+                                    
+                                    <div class="mb-4">
+                                        <span class="mr-2"><u><i><?php echo $nome_cliente ?></i></u></span>
+                                        <span class="text-muted"><i><small><?php echo $data ?> às </small></i></span>
+
+                                        <span class="text-muted mr-2"><i><small> <?php echo $hora ?></small></i></span>
+                                       
+
+                                         <?php 
+                                            if($nivel_usuario == 'Admin'){
+                                          ?>
+                                         <a href="blog-postagem.php?nome=<?php echo $postagem_get ?>&acao=deletar&id_coment=<?php echo $id_com ?>"><i class="fa fa-trash  text-danger"></i></a>
+                                         <?php } ?>
+
+                                        <br>
+                                        <span class="text-muted"><i><small><?php echo $texto ?></small></i></span>
+                                    </div>
+
+                                <?php  } ?>
+
+                                <div>
+                            </div>
+                        </div>
+                        </div>
+                    
+                    <?php } ?>
+                    
+
                 </div>
             </div>
         </div>
     </section>
     <!-- Blog Details Section End -->
+
+
 
     <!-- Related Blog Section Begin -->
     <section class="related-blog spad">
@@ -94,55 +204,87 @@ require_once("cabecalho-busca.php");
                 </div>
             </div>
             <div class="row">
+
+                <?php 
+               $query = $pdo->query("SELECT * FROM blog where nome_url != '$postagem_get' order by id desc LIMIT 3");
+               $res = $query->fetchAll(PDO::FETCH_ASSOC);
+
+               for ($i=0; $i < count($res); $i++) { 
+                  foreach ($res[$i] as $key => $value) {
+                  }
+
+                  $titulo = $res[$i]['titulo'];
+                  $imagem = $res[$i]['imagem'];
+                  $data = $res[$i]['data'];
+                  $id = $res[$i]['id'];
+                  $nome_url = $res[$i]['nome_url'];
+
+                  $data = implode('/', array_reverse(explode('-', $data)));
+
+                  $query2 = $pdo->query("SELECT * FROM coment_blog where id_blog = '$id' ");
+                  $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
+                  $total_itens = @count($res2);
+
+                  //BUSCAR O TOTAL DE REGISTROS PARA PAGINAR
+                  $query3 = $pdo->query("SELECT * FROM blog ");
+                  $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+                  $num_total = @count($res3);
+                  $num_paginas = ceil($num_total/$itens_por_pagina);
+
+                  ?>
+
+
+              
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="img/blog/blog-1.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">Cooking tips make cooking simple</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
+                     <div class="blog__item">
+                                <div class="blog__item__pic">
+                                    <img src="img/blog/<?php echo $imagem ?>" width="100%" height="250" alt="">
+                                </div>
+                                <div class="blog__item__text">
+                                    <ul>
+                                        <li><i class="fa fa-calendar-o"></i> <?php echo $data ?></li>
+                                        <li><i class="fa fa-comment-o"></i> <?php echo $total_itens ?></li>
+                                    </ul>
+                                    <h5><a href="postagem-<?php echo $nome_url ?>"><?php echo $titulo ?></a></h5>
+                                    
+                                    
+                                </div>
+                            </div>
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="img/blog/blog-2.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">6 ways to prepare breakfast for 30</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-6">
-                    <div class="blog__item">
-                        <div class="blog__item__pic">
-                            <img src="img/blog/blog-3.jpg" alt="">
-                        </div>
-                        <div class="blog__item__text">
-                            <ul>
-                                <li><i class="fa fa-calendar-o"></i> May 4,2019</li>
-                                <li><i class="fa fa-comment-o"></i> 5</li>
-                            </ul>
-                            <h5><a href="#">Visit the clean farm in the US</a></h5>
-                            <p>Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat </p>
-                        </div>
-                    </div>
-                </div>
+
+            <?php } ?>
+
+
             </div>
         </div>
     </section>
     <!-- Related Blog Section End -->
+
+
+
+<?php 
+  if(isset($_POST['btn-comentario'])){
+    
+    $comentario = $_POST['comentario'];
+    $pdo->query("INSERT INTO coment_blog (id_blog, id_usuario, comentario, data, hora) VALUES ('$id_blog', '$id_usuario', '$comentario', curDate(), curTime())");
+    echo "<script language='javascript'> window.location='blog-postagem.php?nome=$postagem_get' </script>";
+
+        
+}
+?>
+
+
+<?php 
+  if(@$_GET['acao'] == 'deletar'){
+    
+    $id = $_GET['id_coment'];
+    $pdo->query("DELETE from coment_blog WHERE id = '$id'");
+
+     echo "<script language='javascript'> window.location='blog-postagem.php?nome=$postagem_get' </script>";
+        
+}
+?>
+
 
     <?php
 require_once("rodape.php");

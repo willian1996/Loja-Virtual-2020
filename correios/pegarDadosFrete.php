@@ -1,7 +1,7 @@
 <?php 
 
 
-include("ClassCorreios.php");
+include("classCorreios.php");
 include("../conexao.php");
 
 $CepOrigem=$cep_origem;

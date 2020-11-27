@@ -2,12 +2,30 @@
 require_once("../../conexao.php"); 
 @session_start();
     //verificar se o usuário está autenticado
-//Verificando se o admin esta logado na sessão
-if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
-//    echo "<script language='javascript'>
-//    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
-    header("Location: $dominio/index.php");
+if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+
+} 
+
+//verificar se tem estoque baixo
+$query = $pdo->query("SELECT * FROM produtos where estoque <= '$nivel_estoque' order by estoque asc ");
+$res = $query->fetchAll(PDO::FETCH_ASSOC);
+if(@count($res) > 0){
+    $classe_estoque = 'text-warning';
+}else{
+    $classe_estoque = '';
 }
+
+
+
+//verificar se a tabela envio emails está vazia, se tiver inserir um registro
+$query = $pdo->query("SELECT * FROM envios_email");
+ $res = $query->fetchAll(PDO::FETCH_ASSOC);
+ if(@count($res)==0){
+    $pdo->query("INSERT INTO envios_email (data, final, assunto, mensagem, link) values (curDate(), '0', '', '', '') ");
+ }
+
+
 
 $agora = date('Y-m-d');
 
@@ -19,12 +37,15 @@ $menu3 = "sub-categorias";
 $menu4 = "combos";
 $menu5 = "promocoes";
 $menu6 = "clientes";
-$menu7 = "vendas";
+$menu7 = "vendasreceber";
+$menu15 = "vendasrecebidas";
 $menu8 = "backup";
 $menu9 = "tipo-envios";
 $menu10 = "carac";
 $menu11 = "alertas";
 $menu12 = "cupons";
+$menu13 = "estoque";
+$menu14 = "blog";
 
 //CONSULTAR O BANCO DE DADOS E TRAZER OS DADOS DO USUÁRIO
 $res = $pdo->query("SELECT * FROM usuarios where id = '$_SESSION[id_usuario]'"); 
@@ -32,7 +53,7 @@ $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 $nome_usu = @$dados[0]['nome'];
 $email_usu = @$dados[0]['email'];
 $cpf_usu = @$dados[0]['cpf'];
-
+$imagem_usu = @$dados[0]['imagem'];
 
 
 //SCRIPT PARA VERIFICAR OS PRODUTOS QUE ESTÃO EM PROMOÇÃO
@@ -92,7 +113,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -112,42 +133,78 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
             <div class="sidebar-heading">
                 Cadastros
             </div>
- 
 
 
+            
+            
+            
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-box-open"></i>
-                    <span>Produtos</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu1 ?>">Produtos</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu2 ?>">Categorias</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu3 ?>">Sub Categorias</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu9 ?>">Tipo Envios</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu10 ?>">Características</a>
-                    </div>
-                </div>
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu1 ?>">
+                    <i class="fas fa-fw fa-tshirt"></i>
+                    <span>Produtos</span></a>
+                
+            </li>
+            
+            <li class="nav-item">
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu4 ?>">
+                    <i class="fas fa-fw fa-shopping-bag"></i>
+                    <span>Combos</span></a>
+                
+            </li>
+            
+           <li class="nav-item">
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu5 ?>">
+                    <i class="fas fa-fw fa-percent"></i>
+                    <span>Promoções</span></a>
+            </li>
+            
+            <li class="nav-item">
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu2 ?>">
+                    <i class="fas fa-fw fa-list-ul"></i>
+                    <span>Categorias</span></a>
+                
+            </li>
+            
+            <li class="nav-item">
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu3 ?>">
+                    <i class="fas fa-fw fa-list"></i>
+                    <span>Sub Categorias</span></a>
+                
+            </li>
+            
+            <li class="nav-item">
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu9 ?>">
+                    <i class="fas fa-fw fa-shuttle-van"></i>
+                    <span>Tipo Envios</span></a>
+                
+            </li>
+            
+            <li class="nav-item">
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu10 ?>">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Características</span></a>
+                
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
+
+
+
+
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-percent"></i>
-                    <span>Combos e Promoções</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu4 ?>">Combos</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu5 ?>">Promoções</a>
-                        <a class="collapse-item" href="index.php?pag=<?php echo $menu11 ?>">Alertas</a>
-
-                    </div>
-                </div>
+                
+                <a class="nav-link" href="index.php?pag=<?php echo $menu11 ?>">
+                    <i class="fas fa-fw fa-exclamation-triangle"></i>
+                    <span>Alertas</span></a>
             </li>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -156,42 +213,72 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
             <div class="sidebar-heading">
                 Consultas
             </div>
+            
+             <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
+                <i class="fas fa-fw fa-cash-register"></i>
+                <span>Vendas a Receber</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu15 ?>">
+                <i class="fas fa-fw fa-money-bill-alt"></i>
+                <span>Vendas Recebidas</span></a>
+            </li>
 
 
 
             <!-- Nav Item - Charts -->
              <li class="nav-item">
                 <a class="nav-link" href="index.php?pag=<?php echo $menu12 ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-ticket-alt"></i>
                     <span>Cupons</span></a>
                 </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-user"></i>
                     <span>Clientes</span></a>
                 </li>
 
                 <!-- Nav Item - Tables -->
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
-                        <i class="fas fa-fw fa-table"></i>
-                        <span>Vendas</span></a>
-                    </li>
+   
+
+
 
                      <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu13 ?>">
+                        <i class="fas fa-fw fa-boxes <?php echo $classe_estoque ?>"></i>
+                        <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
+                    </li>
+
+                  
+
+                  
+                        <!-- Divider -->
+                        <hr class="sidebar-divider d-none d-md-block">
+
+
+                       <li class="nav-item">
                         <a class="nav-link" href="" data-toggle="modal" data-target="#ModalEmail">
-                            <i class="fas fa-fw fa-table"></i>
+                            <i class="fas fa-fw fa-envelope"></i>
                             <span>Email Marketing</span></a>
                         </li>
 
+
                     <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu14 ?>">
+                        <i class="fas fa-fw fa-blog"></i>
+                        <span class="">Blog</span></a>
+                    </li>
+
+                      <li class="nav-item">
                         <a class="nav-link" href="backup.php">
-                            <i class="fas fa-fw fa-table"></i>
+                            <i class="fas fa-fw fa-cloud-download-alt"></i>
                             <span>Backup</span></a>
                         </li>
 
-                        <!-- Divider -->
+
+                     <!-- Divider -->
                         <hr class="sidebar-divider d-none d-md-block">
 
                         <!-- Sidebar Toggler (Sidebar) -->
@@ -227,7 +314,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                                     <li class="nav-item dropdown no-arrow">
                                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo @$nome_usu ?></span>
-                                            <img class="img-profile rounded-circle" src="../../img/sem-foto.jpg">
+                                            <img class="img-profile rounded-circle" src="../../img/<?php echo $imagem_usu ?>">
 
                                         </a>
                                         <!-- Dropdown - User Information -->
@@ -292,6 +379,14 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                                 } else if ($pag==$menu12) {
                                     include_once($menu12.".php");
 
+                                } else if ($pag==$menu13) {
+                                    include_once($menu13.".php");
+
+                                } else if ($pag==$menu14) {
+                                    include_once($menu14.".php");
+    
+                                }else if ($pag==$menu15) {
+                                    include_once($menu15.".php");
                                
 
                                 } else {
@@ -325,7 +420,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
 
                 <!--  Modal Perfil-->
                 <div class="modal fade" id="ModalPerfil" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
@@ -339,9 +434,9 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                             <form id="form-perfil" method="POST" enctype="multipart/form-data">
                                 <div class="modal-body">
 
-
-
-                                    <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                             <div class="form-group">
                                         <label >Nome</label>
                                         <input value="<?php echo @$nome_usu ?>" type="text" class="form-control" id="nome-usuario" name="nome-usuario" placeholder="Nome">
                                     </div>
@@ -371,9 +466,24 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                                         </div>
                                     </div>
 
+                                        </div>
 
+                                        <div class="col-md-4">
+                                             <div class="form-group">
+                        <label >Imagem</label>
+                        <input type="file" value="<?php echo @$imagem_usu ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
+                    </div>
 
+                    <?php if(@$imagem_usu != ""){ ?>
+                         <img src="../../img/<?php echo $imagem_usu ?>" width="200" height="200" id="target">
+                    <?php  }else{ ?>
+                    <img src="../../img/sem-foto.jpg" width="200" height="200" id="target">
+                    <?php } ?>
 
+                                        </div>
+                                    </div>
+
+                                   
 
 
                                     <small>
@@ -477,13 +587,11 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
 
                 <!-- Custom scripts for all pages-->
                 <script src="../js/sb-admin-2.min.js"></script>
+                <script src="../js/Chart.min.js"></script>
 
-                <!-- Page level plugins -->
-                <script src="../vendor/chart.js/Chart.min.js"></script>
-
-                <!-- Page level custom scripts -->
-                <script src="../js/demo/chart-area-demo.js"></script>
-                <script src="../js/demo/chart-pie-demo.js"></script>
+               
+                
+                
 
                 <!-- Page level plugins -->
                 <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
@@ -495,22 +603,25 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
             </body>
 
             </html>
+ 
 
 
-
-
-
-
+<!--AJAX PARA INSERÇÃO E EDIÇÃO DOS DADOS COM IMAGEM -->
 <script type="text/javascript">
-    $('#btn-salvar-perfil').click(function(event){
-        event.preventDefault();
+    $("#form-perfil").submit(function () {
         
+        event.preventDefault();
+        var formData = new FormData(this);
+
         $.ajax({
             url:"editar-perfil.php",
-            method:"post",
-            data: $('form').serialize(),
-            dataType: "text",
-            success: function(msg){
+            type: 'POST',
+            data: formData,
+
+            success: function (msg) {
+
+                $('#mensagem').removeClass()
+
                if(msg.trim() === 'Salvo com Sucesso!'){
                                         
                     $('#btn-fechar-perfil').click();
@@ -523,10 +634,30 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                    
 
                  }
+
+               
+
+            },
+
+            cache: false,
+            contentType: false,
+            processData: false,
+            xhr: function () {  // Custom XMLHttpRequest
+                var myXhr = $.ajaxSettings.xhr();
+                if (myXhr.upload) { // Avalia se tem suporte a propriedade upload
+                    myXhr.upload.addEventListener('progress', function () {
+                        /* faz alguma coisa durante o progresso do upload */
+                    }, false);
+                }
+                return myXhr;
             }
-        })
-    })
+        });
+    });
 </script>
+
+
+
+
 
 
 
@@ -577,6 +708,34 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
             }
         })
     })
+</script>
+
+
+
+<!--SCRIPT PARA CARREGAR IMAGEM -->
+<script type="text/javascript">
+
+    function carregarImg() {
+
+        var target = document.getElementById('target');
+        var file = document.querySelector("input[type=file]").files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            target.src = reader.result;
+        };
+
+        if (file) {
+            reader.readAsDataURL(file);
+
+
+        } else {
+            target.src = "";
+        }
+    }
+
+    
+    
 </script>
 
 

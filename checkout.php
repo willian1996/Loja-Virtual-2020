@@ -1,18 +1,24 @@
 <?php
 require_once("cabecalho.php");
 require_once("conexao.php");
+
+//includes para o mercado pago
+include_once("pagamentos/mercadopago/lib/mercadopago.php");
+include_once("pagamentos/mercadopago/PagamentoMP.php");
+$pagar = new PagamentoMP;
+
 ?>
 
 <?php
-require_once("cabecalho-busca.php");
+//require_once("cabecalho-busca.php");
 @session_start();
 
 if(@$_SESSION['id_usuario'] == null){
     echo "<script language='javascript'> window.location='sistema' </script>";
-
+ 
 }
 
-
+$id_venda = @$_GET['id_venda'];
 $id_usuario = @$_SESSION['id_usuario'];
 $nome_usuario = @$_SESSION['nome_usuario'];
 //$cpf_usuario = @$_SESSION['cpf_usuario'];
@@ -60,7 +66,7 @@ $estado = $dados[0]['estado'];
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>CPF<span>*</span></p>
-                                    <input value="<?php echo $cpf_usuario ?>" type="text" name="cpf" id="cpf">
+                                    <input value="<?php echo @$cpf_usuario ?>" type="text" name="cpf" id="cpf">
                                 </div>
                             </div>
                         </div>
@@ -69,13 +75,13 @@ $estado = $dados[0]['estado'];
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Email<span>*</span></p>
-                                    <input value="<?php echo $email_usuario ?>" type="text" name="email" id="email">
+                                    <input value="<?php echo @$email_usuario ?>" type="text" name="email" id="email">
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Telefone<span>*</span></p>
-                                    <input type="text" value="<?php echo $telefone ?>" name="telefone" id="telefone">
+                                    <input type="text" value="<?php echo @$telefone ?>" name="telefone" id="telefone">
                                 </div>
                             </div>
                         </div>
@@ -85,19 +91,19 @@ $estado = $dados[0]['estado'];
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Rua<span>*</span></p>
-                                    <input type="text" value="<?php echo $rua ?>" name="rua" id="rua">
+                                    <input type="text" value="<?php echo @$rua ?>" name="rua" id="rua">
                                 </div>
                             </div>
                             <div class="col-lg-2">
                                 <div class="checkout__input">
                                     <p>Número<span>*</span></p>
-                                    <input type="text" value="<?php echo $numero ?>" name="numero" id="numero">
+                                    <input type="text" value="<?php echo @$numero ?>" name="numero" id="numero">
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="checkout__input">
                                     <p>Bairro<span>*</span></p>
-                                    <input type="text" value="<?php echo $bairro ?>" name="bairro" id="bairro">
+                                    <input type="text" value="<?php echo @$bairro ?>" name="bairro" id="bairro">
                                 </div>
                             </div>
                         </div>
@@ -107,19 +113,19 @@ $estado = $dados[0]['estado'];
                             <div class="col-lg-4">
                                 <div class="checkout__input">
                                     <p>Complemento<span></span></p>
-                                    <input type="text" value="<?php echo $complemento ?>" name="complemento" id="complemento">
+                                    <input type="text" value="<?php echo @$complemento ?>" name="complemento" id="complemento">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="checkout__input">
                                     <p>CEP<span>*</span></p>
-                                    <input type="text" value="<?php echo $cep ?>" name="cep" id="cep">
+                                    <input type="text" value="<?php echo @$cep ?>" name="cep" id="cep">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="checkout__input">
                                     <p>Cidade<span>*</span></p>
-                                    <input type="text" value="<?php echo $cidade ?>" name="cidade" id="cidade">
+                                    <input type="text" value="<?php echo @$cidade ?>" name="cidade" id="cidade">
                                 </div>
                             </div>
                             <div class="col-lg-2">
@@ -255,6 +261,10 @@ $estado = $dados[0]['estado'];
                                 @$existe_frete = 'Sim';
                               }
 
+                              if($envio == 'Valor Fixo'){
+                                @$existe_frete = 'Sim';
+                              }
+
 
                               
 
@@ -308,9 +318,18 @@ $estado = $dados[0]['estado'];
                       </ul>
                       <div class="checkout__order__subtotal">Subtotal <span>R$ <?php echo $total ?></span></div>
 
+                      <?php if(@$frete_correios == 'Sim' && $retirada_local == 'sim'){ ?>
+                      <div class="row mt-2 mb-4 pl-3">
+                      <div class="form-check">
+                          <input type="checkbox" value="sim" class="form-check-input" id="local" name="local">
+                         <label class="form-check-label" for="exampleCheck1">Retirar no Local</label>
+                      </div>
+                   </div>
+                 <?php } ?>
+
                       <?php if(@$frete_correios == 'Sim'){ ?>
 
-                       <div class="checkout__order__total">Calcular Frete<br> 
+                       <div id="div-frete" class="checkout__order__total">Calcular Frete<br> 
                             <div class="checkout__input py-2">
                                
                                     <form id="frm" method="post">
@@ -349,11 +368,13 @@ $estado = $dados[0]['estado'];
 
                     <?php } ?>
 
+                                      
+
                       <div  class="checkout__order__total">Total <span id="total_final"></span></div>
                      
 
                       <input type="hidden" value="0" id="vlr_frete" name="vlr_frete">
-                      <input type="hidden" value="<?php echo @$existe_frete ?>" id="existe_frete" name="existe_frete">
+                      <input type="hidden" value="<?php echo @$frete_correios ?>" id="existe_frete" name="existe_frete">
                       <input type="hidden" value="<?php echo @$total ?>" id="total_compra" name="total_compra">
                       <input type="hidden" value="<?php echo @$cpf_usuario ?>" id="antigo" name="antigo">
 
@@ -403,9 +424,17 @@ require_once("rodape.php");
 <script type="text/javascript">
   $( document ).ready(function() {
     var total = "<?=$total?>";
+    var id_venda = "<?=$id_venda?>";
+
+    if(total == "0,00" &&  id_venda == ""){
+        window.location="produtos.php";
+    }
+  
     total = "R$ " + total;
     $('#total_final').text(total);
-  
+    $('#total_pgto').text(total);
+
+
   })
 </script>
 
@@ -445,6 +474,7 @@ require_once("rodape.php");
                     tot = "R$ " + tot.replace(".",",");
                     console.log(tot);
                     $('#total_final').text(tot);
+                    $('#total_pgto').text(tot);
 
 
                     $('#mensagem-cupom').addClass('text-success')
@@ -472,6 +502,7 @@ require_once("rodape.php");
         tot_frete = tot_frete.replace(",",".");
         vlr_frete_antigo = $('#vlr_frete').val();
         console.log(vlr_frete_antigo);
+        console.log(tot_frete);
         total_final = $('#total_final').text();
         total_final = total_final.replace(",",".");
         total_final = total_final.replace("R$","");
@@ -481,10 +512,11 @@ require_once("rodape.php");
         tot = "R$ " + tot.replace(".",",");
         console.log(tot);
         $('#total_final').text(tot);
+        $('#total_pgto').text(tot);
 
         $('#listar-frete').html(result);
         $('#vlr_frete').val(tot_frete);
-
+        $('#mensagem-finalizar').text("");
       },
      })
 
@@ -510,9 +542,15 @@ require_once("rodape.php");
             $('#listar-frete').html('');
             $('#mensagem-finalizar').addClass('text-danger')
             $('#mensagem-finalizar').text(msg);
-        }else{
-            $('#mensagem-finalizar').addClass('text-danger')
+        }
+
+        else if(msg.trim() === 'Preencha o Campo Rua!'){
+                $('#mensagem-finalizar').addClass('text-danger')
             $('#mensagem-finalizar').text(msg);
+         }   
+        else{
+            window.location="checkout.php?id_venda=" + msg;
+           
         }
         
       },
@@ -520,3 +558,31 @@ require_once("rodape.php");
 
     })
 </script>
+
+
+
+
+<script type="text/javascript">
+    $('#local').change(function(event){
+        event.preventDefault();
+
+        $('#mensagem-finalizar').text("");
+        var check = document.getElementsByName("local"); 
+        for (var i=0;i<check.length;i++){ 
+        if (check[i].checked == true){ 
+            document.getElementById("div-frete").style.display = 'none';
+
+        }  else {
+           document.getElementById("div-frete").style.display = 'block';
+        }
+    }
+
+    })
+</script>
+
+
+<?php 
+require_once("modal-pagamento.php");
+ ?>
+
+

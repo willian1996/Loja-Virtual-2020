@@ -63,7 +63,7 @@ $nome_pag = 'combos.php';
             <div class="row mt-4">
 
               <?php 
-                $query = $pdo->query("SELECT * FROM combos order by vendas desc LIMIT $limite, $itens_por_pagina ");
+                $query = $pdo->query("SELECT * FROM combos where ativo = 'Sim' order by vendas desc LIMIT $limite, $itens_por_pagina ");
                 $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                 for ($i=0; $i < count($res); $i++) { 
@@ -79,7 +79,7 @@ $nome_pag = 'combos.php';
                   $valor = number_format($valor, 2, ',', '.');
 
                    //BUSCAR O TOTAL DE REGISTROS PARA PAGINAR
-                  $query3 = $pdo->query("SELECT * FROM combos ");
+                  $query3 = $pdo->query("SELECT * FROM combos where ativo = 'Sim'");
                   $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
                   $num_total = @count($res3);
                   $num_paginas = ceil($num_total/$itens_por_pagina);
@@ -136,6 +136,7 @@ $nome_pag = 'combos.php';
 <!-- Product Section End -->
 
 <?php
-require_once("modal-carrinho.php");
+
 require_once("rodape.php");
+require_once("modal-carrinho.php");
 ?>

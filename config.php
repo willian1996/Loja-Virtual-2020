@@ -4,30 +4,36 @@ define("ENVIRONMENT", "development"); //versão para maquina local
 
 
 if(ENVIRONMENT == 'development'){
-    $dominio = "localhost/Loja-Virtual-2020";
-    $banco = 'loja-virtual-2020';
+    $url_loja = "localhost/loja";
+    $banco = 'loja';
     $servidor = 'localhost';
     $usuario = 'root';
     $senha = '';
 }else{
-    $dominio = "https://lorrainemodas.com.br";
+    $url_loja = "https://lorrainemodas.com.br";
     $banco = 'u349811508_ljgab';
     $servidor = 'localhost';
     $usuario = 'u349811508_root';
     $senha = 'yi`4sy]4UKCQwzX]VJ';
 }
 
+//VARIAVEIS DO BANCO DE DADOS
+//$servidor = 'localhost';
+//$usuario = 'root';
+//$senha = '';
+//$banco = 'loja';
 
 //VARIÁVEIS GLOBAIS
-$email = 'williansales199619@gmail.com';
+$email = 'williansalesgabriel@hotmail.com';
 $telefone = '(31) 3333-3333';
-$whatsapp = '(31) 97527-5084';
-$whatsapp_link = '5531975275084';
+$whatsapp = '(12) 99751-6241';
+$whatsapp_link = '5512997516241';
 $nome_loja = 'Lorraine Modas Feminina';
 $texto_destaque = 'Todos os Produtos em Promoção!';
-$endereco_loja = 'Rua Alameda Campos, Número 50, Bairro Centro, Belo Horizonte - MG';
+$endereco_loja = 'Rua Cleusa Fatima dos Santos n°30, Travessão, Caraguatatuba - SP';
 
-$url_loja = 'localhost/Loja-Virtual-2020/';
+
+
 
 
 
@@ -59,16 +65,34 @@ $formato_frete = 1;
 
 
 
-
-//VARIAVEIS DO BANCO DE DADOS
-//$servidor = 'localhost';
-//$usuario = 'root';
-//$senha = '';
-//$banco = 'loja';
-
-//VARIAVEIS DO BANCO DE DADOS 
+//VARIAVEIS PARA O CUPOM
+//total de cartões para o cliente trocar pelo cumpom de desconto
+$total_cartoes_troca = 10;
+//valor do desconto para quando o cliente completar x cupons (colocar o valor aqui inteiro)
+$valor_cupom_cartao = 20;
+$dias_uso_cupom = 7;
 
 
+//NIVEL MINIMO PARA ALERTA NO ESTOQUE
+$nivel_estoque = 5;
+
+
+//VARIAVEL QUE DEFINE A LIMPEZA DO CARRINHO APÓS 2 DIAS SEM O USUÁRIO FECHAR A COMPRA (NO CASO ABAIXO EU OPTEI POR DOIS DIAS)
+$dias_limpar_carrinho = 2;
+
+
+//definir se vai ser possível retirar o produto no local sim ou não!
+$retirada_local = 'sim';
+
+//nota minima para mostrar a avaliação do produto na página do produto
+//no exemplo abaixo com valor 3, ele só mostra produto avaliado de 3 a 5
+$nota_minima = 3;
+
+
+//DISPAROS AUTOMATIZADOS DE EMAIL MARKETING
+//total de emails que o seu servidor suporta enviar por hora (no meu hostgator são 500)
+$enviar_total_emails = 480;
+$intervalo_envio_email = 70;  //tempo em minutos (enviar de 70 em 70 minutos 480 emails por vez, essa é a configuração que fiz)
 
 /*
 * MÉTODO PARA PROTEJER O BANCO DE DADOS DE SQL INJECTION   
@@ -126,6 +150,19 @@ function validaCPF($cpf) {
     return true;
 
 }
+function celular($telefone){
+    $telefone= trim(str_replace('/', '', str_replace(' ', '', str_replace('-', '', str_replace(')', '', str_replace('(', '', $telefone))))));
+
+    $regexTelefone = "^[0-9]{11}$";
+
+    $regexCel = '/[0-9]{2}[6789][0-9]{3,4}[0-9]{4}/'; // Regex para validar somente celular
+    if (preg_match($regexCel, $telefone)) {
+        return true;
+    }else{
+        return false;
+    }
+}
+
 //removendo a mascara do telefone
 function removeMascTel($telefone){
     $telefone = str_replace("(", "", $telefone);
@@ -143,6 +180,19 @@ function removeMascCPF($cpf){
     $cpf = str_replace("-", "", $cpf);
     $cpf = str_replace(" ", "", $cpf);
     return $cpf;
+}
+
+//mascara php para pagseguro aceitar
+function Mask($mask,$str){
+
+    $str = str_replace(" ","",$str);
+
+    for($i=0;$i<strlen($str);$i++){
+        $mask[strpos($mask,"#")] = $str[$i];
+    }
+
+    return $mask;
+
 }
 
  ?>

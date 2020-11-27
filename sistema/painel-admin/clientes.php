@@ -2,11 +2,10 @@
 $pag = "clientes";
 require_once("../../conexao.php"); 
 @session_start();
-//Verificando se o admin esta logado na sessão
-if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
-//    echo "<script language='javascript'>
-//    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
-    header("Location: $dominio/index.php");
+    //verificar se o usuário está autenticado
+if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+    
 }
 
 

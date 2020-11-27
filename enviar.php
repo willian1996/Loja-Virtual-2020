@@ -41,7 +41,7 @@ if(@count($dados) == 0){
 	$res->execute();
 }
 
-echo $_POST['email'];
+
 
 
  ?>

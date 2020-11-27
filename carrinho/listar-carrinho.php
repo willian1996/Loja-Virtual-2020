@@ -2,7 +2,7 @@
 <?php 
 
 require_once("../conexao.php");
-$pagina = 'produtos';
+
 @session_start();
 $id_usuario = @$_SESSION['id_usuario'];
 
@@ -16,7 +16,7 @@ echo '
 
 $res = $pdo->query("SELECT * from carrinho where id_usuario = '$id_usuario' and id_venda = 0 order by id asc");
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
-$linhas = count($dados);
+$linhas = @count($dados);
 
 if($linhas == 0){
   $linhas = 0;
@@ -76,7 +76,9 @@ $total_item = number_format( $total_item , 2, ',', '.');
 
 echo ' <tr>
 <td class="shoping__cart__item">
-<img src="img/'.$pasta.'/'.$imagem.'" alt="" width="60">
+<img src="img/'.$pasta.'/'.$imagem.'" alt="" width="60">';
+if($combo != 'Sim'){
+echo '
 <h5><small><a class="text-dark mr-1" href="" title="Editar Características" onclick="addCarac('.$id_produto.', '.$id_carrinho.')">'.$nome_produto.'
  <i class="fa fa-edit text-info"></i></a></small>
 </h5>
@@ -86,31 +88,44 @@ echo ' <tr>
   <span class="mt-4 d-none d-sm-none d-md-block" id="div-listar-carac-itens-2">';
 
 
- $query4 = $pdo->query("SELECT * from carac_itens_car where id_carrinho = '$id_carrinho'");
-$res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
-$total_carac = @count($res4);
-if($total_carac == 0 and $combo != 'Sim'){
-echo '<a class="text-dark mr-1" href="" title="Editar Características" onclick="addCarac('.$id_produto.', '.$id_carrinho.')"><small><span class="mr-2">Selecionar Caractérisca</span></small></a>';
+ $query_c = $pdo->query("SELECT * from carac_prod where id_prod = '$id_produto'");
+$res_c = $query_c->fetchAll(PDO::FETCH_ASSOC);
+$total_prod_carac = @count($res_c);
+
+if($total_prod_carac > 0){
+
+   $query4 = $pdo->query("SELECT * from carac_itens_car where id_carrinho = '$id_carrinho'");
+  $res4 = $query4->fetchAll(PDO::FETCH_ASSOC);
+  $total_carac = @count($res4);
+  if($total_carac == 0 and $combo != 'Sim'){
+  echo '<a class="text-dark mr-1" href="" title="Editar Características" onclick="addCarac('.$id_produto.', '.$id_carrinho.')"><small><span class="mr-2">Selecionar Caractérisca</span></small></a>';
+  }
+  for ($i2=0; $i2 < count($res4); $i2++) { 
+      foreach ($res4[$i2] as $key => $value) {
+  }
+
+
+  $nome_item_carac = $res4[$i2]['nome'];
+  $id_carac = $res4[$i2]['id_carac'];
+
+  $query1 = $pdo->query("SELECT * from carac where id = '$id_carac' ");
+  $res1 = $query1->fetchAll(PDO::FETCH_ASSOC);
+  $nome_carac = $res1[0]['nome'];
+
+
+    echo '<small><span class="mr-2"><i class="mr-1 fa fa-check text-info"></i>'.$nome_carac.' : '.$nome_item_carac.'</span></small><br>';
+
+  }
 }
-for ($i2=0; $i2 < count($res4); $i2++) { 
-    foreach ($res4[$i2] as $key => $value) {
-}
 
-
-$nome_item_carac = $res4[$i2]['nome'];
-$id_carac = $res4[$i2]['id_carac'];
-
-$query1 = $pdo->query("SELECT * from carac where id = '$id_carac' ");
-$res1 = $query1->fetchAll(PDO::FETCH_ASSOC);
-$nome_carac = $res1[0]['nome'];
-
-
-  echo '<small><span class="mr-2"><i class="mr-1 fa fa-check text-info"></i>'.$nome_carac.' : '.$nome_item_carac.'</span></small><br>';
-
-
-
-
-}
+}else{
+  echo '
+<h5><small>'.$nome_produto.'
+ 
+</h5>
+  </td> 
+<td width="150" class="shoping__cart__item">';
+} 
 
 echo '</span> 
 </td>

@@ -3,8 +3,6 @@
     height: 110px;
 }
 
-
-
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -559,7 +557,7 @@ ol {
 -----------------------*/
 
 .hero {
-	padding-bottom: 50px;
+	padding-bottom: 10px;
 }
 
 .hero.hero-normal {
@@ -729,6 +727,7 @@ ol {
 	display: flex;
 	align-items: center;
 	padding-left: 75px;
+	
 }
 
 .hero__text span {
@@ -1658,7 +1657,7 @@ ol {
 -----------------------*/
 
 .product-details {
-	padding-top: 80px;
+	padding-top: 10px;
 }
 
 .product__details__pic__item {
@@ -1876,7 +1875,7 @@ ol {
 -----------------------*/
 
 .shoping-cart {
-	padding-top: 80px;
+	padding-top: 10px;
 	padding-bottom: 80px;
 }
 
@@ -2068,7 +2067,7 @@ ol {
 -----------------------*/
 
 .checkout {
-	padding-top: 80px;
+	padding-top: 10px;
 	padding-bottom: 60px;
 }
 
@@ -3160,8 +3159,6 @@ ol {
 }
 
 /* Wide Mobile = 480px */
-
-
 
 @media only screen and (max-width: 767px) {
     .hero.hero-mobile .hero__categories ul {

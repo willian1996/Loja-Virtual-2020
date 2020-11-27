@@ -2,13 +2,38 @@
 require_once("cabecalho.php");
 ?>
 
-<?php
-require_once("cabecalho-busca.php");
-?>
+<section class="hero hero-mobile">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="hero__categories">
+          <div class="hero__categories__all">
+            <i class="fa fa-bars"></i>
+            <span>Categorias</span>
+          </div>
+          <ul>
+            <?php 
+            $query = $pdo->query("SELECT * FROM categorias order by nome asc ");
+            $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
+            for ($i=0; $i < count($res); $i++) { 
+              foreach ($res[$i] as $key => $value) {
+              }
 
+              $nome = $res[$i]['nome'];
+
+              $nome_url = $res[$i]['nome_url'];
+
+              ?>
+              <li><a href="sub-categoria-de-<?php echo $nome_url ?>"><?php echo $nome ?></a></li>
+
+            <?php } ?>
+
+          </ul>
+        </div>
+      </div>
 <!-- Shoping Cart Section Begin -->
-<section class="shoping-cart spad bg-light">
+<section class="shoping-cart spad bg-light col-lg-9">
     <div class="container">
         <div class="row">
             <input type="hidden" id="txtquantidade">
@@ -16,15 +41,17 @@ require_once("cabecalho-busca.php");
                 <div id='listar-carrinho'></div>
             </div>
         </div>
+
+        <small><div align="center" id="mensagem-carrinho"></div></small>
         
-        <div class="row p-3">
+        <div class="row">
           <div class="col-md-6">
-            <h4 class="text-danger">Total:R$ <span id="valor_total" class="ml-1"> </span></h4>
+            <h4 class="text-danger">Total: R$<span id="valor_total" class="ml-1"> </span></h4>
           </div>
 
-          <div align="right" class="col-md-6 mb-4">
+          <div align="right" class="col-md-6">
              <a href="produtos.php" type="button" id="btn-comprar" class="bg-secondary primary-btn btn-sm" data-dismiss="modal">Comprar +</a>
-             <a href="checkout.php" type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a>
+             <a href="" onclick="finalizarPedido()" type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a>
           </div>
 
         </div>
@@ -32,6 +59,10 @@ require_once("cabecalho-busca.php");
     </div>
 </section>
 <!-- Shoping Cart Section End -->
+      </div>
+
+    </div>
+</section>
 
 
 
@@ -72,7 +103,7 @@ require_once("cabecalho-busca.php");
         </div>
 
 
-       
+       </div>
 
         
       </form>
@@ -82,10 +113,10 @@ require_once("cabecalho-busca.php");
 
 
 
+
 <?php
 require_once("rodape.php");
 ?>
-
 
 
 
@@ -277,6 +308,41 @@ require_once("rodape.php");
 }
 </script>
 
+
+
+
+
+<script type="text/javascript">
+   function finalizarPedido() {
+             
+        event.preventDefault();
+            
+            $.ajax({
+
+                url: "carrinho/verificar-carac.php",
+                method: "post",
+                data: {},
+                dataType: "text",
+                success: function(mensagem){
+
+                  if(mensagem.trim() === 'Selecione as Características dos Produtos!'){
+                    $('#mensagem-carrinho').addClass('text-danger');
+                    $('#mensagem-carrinho').text(mensagem);
+                  }else{
+                    window.location="checkout.php";
+                    //$('#mensagem').text(mensagem);
+                  }
+
+                                                         
+                    
+
+                },
+                
+            })
+
+        
+      }
+</script>
 
 
 

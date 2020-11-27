@@ -2,13 +2,37 @@
 $pag = "tipo-envios";
 require_once("../../conexao.php"); 
 @session_start();
-//Verificando se o admin esta logado na sessão
-if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
-//    echo "<script language='javascript'>
-//    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
-    header("Location: $dominio/index.php");
+    //verificar se o usuário está autenticado
+if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+
 }
 
+
+//VERIFICAR SE OS TIPOS DE ENVIO OBRIGATÓRIOS JÁ ESTÃO CADASTRADOS, CASO CONTRÁRIO CADASTRAR
+ $query = $pdo->query("SELECT * FROM tipo_envios where nome = 'Correios' ");
+ $res = $query->fetchAll(PDO::FETCH_ASSOC);
+ if(@count($res)==0){
+    $pdo->query("INSERT INTO tipo_envios (nome) values ('Correios') ");
+ }
+
+  $query = $pdo->query("SELECT * FROM tipo_envios where nome = 'Valor Fixo' ");
+ $res = $query->fetchAll(PDO::FETCH_ASSOC);
+ if(@count($res)==0){
+    $pdo->query("INSERT INTO tipo_envios (nome) values ('Valor Fixo') ");
+ }
+
+  $query = $pdo->query("SELECT * FROM tipo_envios where nome = 'Sem Frete' ");
+ $res = $query->fetchAll(PDO::FETCH_ASSOC);
+ if(@count($res)==0){
+    $pdo->query("INSERT INTO tipo_envios (nome) values ('Sem Frete') ");
+ }
+
+  $query = $pdo->query("SELECT * FROM tipo_envios where nome = 'Digital' ");
+ $res = $query->fetchAll(PDO::FETCH_ASSOC);
+ if(@count($res)==0){
+    $pdo->query("INSERT INTO tipo_envios (nome) values ('Digital') ");
+ }
 
 ?>
 

@@ -3,7 +3,7 @@
 <!-- Modal -->
 <div class="modal fade" id="modalCarrinho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
-    <div class="modal-content mb-4" style="height: 500px;
+    <div class="modal-content mb-4" style="height: 540px;
     overflow-y: auto;">
       <div class="modal-header">
 
@@ -40,7 +40,7 @@
 
           <div align="right" class="col-md-6 mb-4">
              <a type="button" id="btn-comprar" class="bg-secondary text-light primary-btn btn-sm" data-dismiss="modal">Comprar +</a>
-             <a href="checkout.php" type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a>
+             <a href="" onclick="finalizarPedido()" type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a>
           </div>
 
         </div>
@@ -277,5 +277,36 @@ function deletarCarrinho(id) {
 
 
 
+<script type="text/javascript">
+   function finalizarPedido() {
+             
+        event.preventDefault();
+            
+            $.ajax({
+
+                url: "carrinho/verificar-carac.php",
+                method: "post",
+                data: {},
+                dataType: "text",
+                success: function(mensagem){
+
+                  if(mensagem.trim() === 'Selecione as Características dos Produtos!'){
+                    $('#mensagem').addClass('text-danger');
+                    $('#mensagem').text(mensagem);
+                  }else{
+                    window.location="checkout.php";
+                    //$('#mensagem').text(mensagem);
+                  }
+
+                                                         
+                    
+
+                },
+                
+            })
+
+        
+      }
+</script>
 
 

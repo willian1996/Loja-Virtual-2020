@@ -137,13 +137,13 @@ $valor_final = @$_GET['valor-final'];
         }
         
         if($subcategoria_get == "" and $valor_inicial == "") {
-        $query = $pdo->query("SELECT * FROM produtos where nome LIKE '$buscar' or palavras like '$buscar' order by id desc LIMIT $limite, $itens_por_pagina ");
+        $query = $pdo->query("SELECT * FROM produtos where (nome LIKE '$buscar' or palavras like '$buscar') and ativo = 'Sim' and estoque > 0 order by id desc LIMIT $limite, $itens_por_pagina ");
         }else if($valor_inicial != ""){
-            $query = $pdo->query("SELECT * FROM produtos where valor >= '$valor_inicial' and valor <= '$valor_final' order by id desc");
+            $query = $pdo->query("SELECT * FROM produtos where valor >= '$valor_inicial' and valor <= '$valor_final' and ativo = 'Sim' and estoque > 0 order by id desc");
         }
 
         else{
-            $query = $pdo->query("SELECT * FROM produtos where sub_categoria = '$id_subcategoria' order by id desc");
+            $query = $pdo->query("SELECT * FROM produtos where sub_categoria = '$id_subcategoria' and ativo = 'Sim' and estoque > 0 order by id desc");
         }
         $res = $query->fetchAll(PDO::FETCH_ASSOC);
         $total_prod = @count($res);
@@ -167,7 +167,7 @@ $valor_final = @$_GET['valor-final'];
           $valor = number_format($valor, 2, ',', '.');
 
    //BUSCAR O TOTAL DE REGISTROS PARA PAGINAR
-          $query3 = $pdo->query("SELECT * FROM produtos ");
+          $query3 = $pdo->query("SELECT * FROM produtos where ativo = 'Sim' and estoque > 0");
           $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
           $num_total = @count($res3);
           $num_paginas = ceil($num_total/$itens_por_pagina);
@@ -258,6 +258,7 @@ $valor_final = @$_GET['valor-final'];
 <!-- Product Section End -->
 
 <?php
-require_once("modal-carrinho.php");
+
 require_once("rodape.php");
+require_once("modal-carrinho.php");
 ?>

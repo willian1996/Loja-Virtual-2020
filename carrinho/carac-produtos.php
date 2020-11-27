@@ -124,6 +124,20 @@ $id_carrinho = @$_POST['id_carrinho'];
 
 
 
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+    
+    document.getElementById("1").disabled=true
+    document.getElementById("2").disabled=true
+    document.getElementById("3").disabled=true
+    document.getElementById("4").disabled=true
+    document.getElementById("5").disabled=true
+  
+  })
+</script>
+
+
 <script type="text/javascript">
     $("#0").change(function () {
     	
@@ -139,6 +153,7 @@ $id_carrinho = @$_POST['id_carrinho'];
                     
                     atualizarCaracCarrinho();
                    	atualizarCarrinho();
+                    document.getElementById("1").disabled=false
                     }
                  
             }
@@ -163,6 +178,7 @@ $id_carrinho = @$_POST['id_carrinho'];
                     
                    atualizarCaracCarrinho();
                    atualizarCarrinho();
+                   document.getElementById("2").disabled=false
                     }
                 
             }
@@ -187,6 +203,7 @@ $id_carrinho = @$_POST['id_carrinho'];
                     
                    atualizarCaracCarrinho();
                    atualizarCarrinho();
+                   document.getElementById("3").disabled=false
                     }
                 
             }
@@ -211,6 +228,7 @@ $id_carrinho = @$_POST['id_carrinho'];
                     
                    atualizarCaracCarrinho();
                    atualizarCarrinho();
+                   document.getElementById("4").disabled=false
                     }
                 
             }
@@ -235,6 +253,7 @@ $id_carrinho = @$_POST['id_carrinho'];
                     
                    atualizarCaracCarrinho();
                    atualizarCarrinho();
+                   document.getElementById("5").disabled=false
                     }
                 
             }

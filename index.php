@@ -57,7 +57,7 @@ require_once("conexao.php");
           </div>
         </div>
       </div>
-      <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
+      <div class="hero__item set-bg bg-light" data-setbg="img/hero/banner.jpg">
         <div class="hero__text">
           <span><?php echo strToUpper($nome_loja) ?></span>
           <h2>Produtos de<br />Primeira Linha</h2>
@@ -141,7 +141,7 @@ require_once("conexao.php");
 
 
  <?php 
- $query = $pdo->query("SELECT * FROM produtos order by vendas desc limit 8 ");
+ $query = $pdo->query("SELECT * FROM produtos where ativo = 'Sim' and estoque > 0 order by vendas desc limit 8 ");
  $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
  for ($i=0; $i < count($res); $i++) { 
@@ -175,7 +175,7 @@ require_once("conexao.php");
          <li><a href="produto-<?php echo $nome_url ?>"><i class="fa fa-eye"></i></a></li>
 
 
-         <li><a href="" onclick="carrinhoModal('<?php echo $id ?>, Não')"><i class="fa fa-shopping-cart"></i></a>
+         <li><a href="" onclick="carrinhoModal('<?php echo $id ?>','Não')"><i class="fa fa-shopping-cart"></i></a>
 
 
          </ul>
@@ -657,7 +657,6 @@ require_once("conexao.php");
   </div>
 </section>
 <!-- Latest Product Section End -->
-
 
 
 <?php

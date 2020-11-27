@@ -6,15 +6,16 @@
     $dados = $res->fetchAll(PDO::FETCH_ASSOC);
     $senha_crip = md5('123');
     if(@count($dados) == 0){
-      $res = $pdo->query("INSERT into usuarios (nome, cpf, email, senha, senha_crip, nivel) values ('Administrador', '000.000.000-00', '$email', '123', '$senha_crip', 'admin')");
+      $res = $pdo->query("INSERT into usuarios (nome, cpf, email, senha, senha_crip, nivel, imagem) values ('Administrador', '000.000.000-00', '$email', '123', '$senha_crip', 'Admin', 'sem-foto.jpg')");
     }
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html>
 <head>
    <title>Login - <?php echo $nome_loja ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -103,30 +104,38 @@
 </div>
 <div class="modal-body">
    <form method="post">
+       
+    <div class="row">
+
+   <div class="col-md-6">
 
    <div class="form-group">
      <label for="exampleInputEmail1">Nome Completo</label>
      <input type="text" class="form-control" id="nome" name="nome" placeholder="Insira o nome e Sobrenome">
     
   </div>
-       
-       <div class="form-group">
+    </div>
+    <div class="col-md-6">
+    <div class="form-group">
+     <label for="exampleInputEmail1">CPF</label>
+     <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Insira seu CPF">
+    
+  </div>
+        </div>
+        </div>
+        
+    <div class="form-group">
      <label for="exampleInputEmail1">Whatsapp</label>
-     <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Insira o whatsapp ou celular">
+     <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Celular ou Whatsapp">
     
   </div>
 
     <div class="form-group">
      <label for="exampleInputEmail1">Email</label>
-     <input type="email" class="form-control" id="email" name="email" placeholder="Seu Email">
+     <input value="<?php echo @$_GET['email_rodape'] ?>" type="email" class="form-control" id="email" name="email" placeholder="Seu Email">
     
   </div>
 
-   <div class="form-group">
-     <label for="exampleInputEmail1">CPF</label>
-     <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Insira seu CPF">
-    
-  </div>
 
 
   <div class="row">
@@ -210,6 +219,13 @@
 
 
 
+<?php 
+
+if (@$_GET["email_rodape"] != null) {
+    echo "<script>$('#modalCadastro').modal('show');</script>";
+}
+
+?>
 
 
 <script type="text/javascript">
@@ -231,8 +247,7 @@
                     $('#senha_login').val(document.getElementById('senha').value);
                     }
                  else{
-                    $('#div-mensagem').addClass('text-danger')
-                    $('#div-mensagem').text(msg);
+                    alert(msg);
                    
 
                  }

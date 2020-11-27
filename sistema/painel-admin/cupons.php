@@ -2,11 +2,10 @@
 $pag = "cupons";
 require_once("../../conexao.php"); 
 @session_start();
-//Verificando se o admin esta logado na sessão
-if(@$_SESSION['id_usuario'] == null and @$_SESSION['nivel_usuario'] != "admin"){
-//    echo "<script language='javascript'>
-//    window.location='http://localhost/Loja-Virtual-2020/index.php' </script>";
-    header("Location: $dominio/index.php");
+    //verificar se o usuário está autenticado
+if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
+    echo "<script language='javascript'> window.location='../index.php' </script>";
+
 }
 
 $hoje = date('Y-m-d');
@@ -152,8 +151,7 @@ $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                     <div class="form-group">
                         <label >Código do Cupom</label>
-                        <input value="<?php 
-                                if(@$codigo2 == null){ echo uniqid();}else{echo $codigo2;}?>" type="text" class="form-control" id="codigo" name="codigo" placeholder="Código do Cupom">
+                        <input value="<?php echo @$codigo2 ?>" type="text" class="form-control" id="codigo" name="codigo" placeholder="Código do Cupom">
                     </div>
 
                      <div class="form-group">
