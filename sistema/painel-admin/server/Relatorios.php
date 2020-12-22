@@ -50,14 +50,16 @@ class Relatorios{
         echo json_encode($final);
 
     }
-    public function vendas_mensal(){
+    public function vendas_mensal($aprovado){
         $mes = date('m');
         $ano = date('Y');
+        $aprovado = $aprovado;
 
         $sql = "SELECT DAY(data) as dia, COUNT(id) as registro "
               ."FROM vendas "
               ."WHERE MONTH(data) = '{$mes}' "
               ."AND YEAR(data) = '{$ano}' "
+              ."AND pago = '$aprovado' "
               ."GROUP BY DAY(data) ";
 
         $query = $this->pdo->query($sql);
@@ -105,8 +107,8 @@ class Relatorios{
         return $dias;
     }
     
-    public function cadastros_anual(){
-        $periodo = date('Y-m-d H:i:s', strtotime('-12 months'));
+    public function cadastros_semestral(){
+        $periodo = date('Y-m-d H:i:s', strtotime('-6 months'));
         
         $sql = "SELECT MONTHNAME(data_cadastro) as mes, COUNT(id) as registro "
               ."FROM clientes "
@@ -126,6 +128,23 @@ class Relatorios{
     }
     
     public function vendas_anual(){
+//        $periodo = date('Y-m-d H:i:s', strtotime('-6 months'));
+//        
+//        $sql = "SELECT MONTHNAME(cli_data_cad) as mes, COUNT(cli_id) as registro "
+//              ."FROM gm_clientes "
+//              ."WHERE cli_data_cad >= '{$periodo}' "
+//              ."GROUP BY MONTHNAME(cli_data_cad) "
+//              ."ORDER BY cli_data_cad";
+//              
+//        $query = $this->pdo->query($sql);
+//        $result = $query->fetchAll(PDO::FETCH_OBJ);
+//        
+//        foreach($result as $res){
+//            $dados[$res->mes] = $res->registro;
+//
+//        }
+//        
+//        echo json_encode($dados);
         $periodo = date('Y-m-d', strtotime('-12 months'));
         
         $sql = "SELECT MONTHNAME(data) as mes, COUNT(id) as registro "

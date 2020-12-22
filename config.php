@@ -4,7 +4,7 @@ define("ENVIRONMENT", "development"); //versão para maquina local
 
 
 if(ENVIRONMENT == 'development'){
-    $url_loja = "localhost/loja";
+    $url_loja = "localhost/Loja-Virtual-2020";
     $banco = 'loja';
     $servidor = 'localhost';
     $usuario = 'root';
@@ -24,12 +24,12 @@ if(ENVIRONMENT == 'development'){
 //$banco = 'loja';
 
 //VARIÁVEIS GLOBAIS
-$email = 'williansalesgabriel@hotmail.com';
-$telefone = '(31) 3333-3333';
+$email = 'lorrainemodasfeminina@gmail.com';
+$telefone = '(12) 99751-6241';
 $whatsapp = '(12) 99751-6241';
 $whatsapp_link = '5512997516241';
 $nome_loja = 'Lorraine Modas Feminina';
-$texto_destaque = 'Todos os Produtos em Promoção!';
+$texto_destaque = 'Loja em Manuntenção!';
 $endereco_loja = 'Rua Cleusa Fatima dos Santos n°30, Travessão, Caraguatatuba - SP';
 
 
@@ -38,7 +38,7 @@ $endereco_loja = 'Rua Cleusa Fatima dos Santos n°30, Travessão, Caraguatatuba 
 
 
 //VARIAVEIS DO SITE
-$itens_por_pagina = 6;
+$itens_por_pagina = 20;
 
 
 

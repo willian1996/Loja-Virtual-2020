@@ -21,6 +21,7 @@ $agora = date('Y-m-d');
 
 
 <!-- DataTales Example -->
+<center><h3>Produtos Cadastrados</h3></center>
 <div class="card shadow mb-4">
 
   <div class="card-body">
@@ -28,6 +29,7 @@ $agora = date('Y-m-d');
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
           <tr>
+            <th>Cod</th>
             <th>Nome</th>
             <th>Valor</th>
             <th>Estoque</th>
@@ -77,6 +79,7 @@ $agora = date('Y-m-d');
 
 
           <tr>
+            <td><?php echo $id; ?></td>
             <td>
                 <img src="../../img/produtos/<?php echo $imagem ?>" width="50">
 <!--              <i class='fas fa-square '></i>-->
@@ -142,6 +145,7 @@ $agora = date('Y-m-d');
           $imagem2 = $res[0]['imagem'];
           $sub_cat2 = $res[0]['sub_categoria'];
           $valor2 = $res[0]['valor'];
+          $custo2 = $res[0]['custo'];
           $estoque2 = $res[0]['estoque'];
           $descricao2 = $res[0]['descricao'];
           $desc_longa2 = $res[0]['descricao_longa'];
@@ -223,28 +227,38 @@ $agora = date('Y-m-d');
 
       </div>
 
-
+<div class="row">
+    <div class="col-md-6">
       <div class="form-group">
         <label >Descrição Curta <small>(500 caracteres)</small></label>
         <textarea maxlength="500" class="form-control form-control-sm" id="descricao" name="descricao" ><?php echo @$descricao2 ?></textarea>
       </div>
-
+    </div>
+    <div class="col-md-6">
       <div class="form-group">
         <label >Descrição Longa </label>
         <textarea  class="form-control form-control-sm" id="descricao_longa" name="descricao_longa" ><?php echo @$desc_longa2 ?></textarea>
       </div>
+    </div>
+</div>
+ 
 
+<div class="row">
 
-      <div class="row">
-
-        <div class="col-md-3">
+        <div class="col-md-4">
          <div class="form-group">
           <label >Valor</label>
           <input value="<?php echo @$valor2 ?>" type="text" class="form-control form-control-sm" id="valor" name="valor" placeholder="Valor">
         </div>
       </div>
+    <div class="col-md-4">
+         <div class="form-group">
+          <label >Custo fornecedor</label>
+          <input value="<?php echo @$custo2 ?>" type="text" class="form-control form-control-sm" id="custo" name="custo" placeholder="custo">
+        </div>
+      </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
 
        <div class="form-group">
         <label >Estoque</label>
@@ -252,8 +266,9 @@ $agora = date('Y-m-d');
 
       </div>
     </div>
-
-    <div class="col-md-3">
+</div>
+<div class="row">
+    <div class="col-md-6">
 
      <div class="form-group">
       <label >Tipo Envio</label>
@@ -287,7 +302,7 @@ $agora = date('Y-m-d');
  </div>
 
 
- <div class="col-md-3">
+ <div class="col-md-6">
 
    <div class="form-group">
     <label >Ativo</label>

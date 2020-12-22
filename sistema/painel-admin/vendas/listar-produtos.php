@@ -52,6 +52,7 @@ echo '
       <th scope="col">Codigo</th>
       <th scope="col">Quant</th>
       <th scope="col">Valor</th>
+      <th scope="col">Subtotal</th>
       
     </tr>
   </thead>
@@ -80,10 +81,11 @@ if($combo != 'Sim'){
 $dados2 = $res2->fetchAll(PDO::FETCH_ASSOC);
 $nome_produto = $dados2[0]['nome'];
 $valor = $dados2[0]['valor'];
+$sub_total_item = $quantidade * $valor;
 $imagem = $dados2[0]['imagem'];
 $codigo = $dados2[0]['id'];
 
-
+$sub_total = number_format( $sub_total_item , 2, ',', '.');
 $valor = number_format( $valor , 2, ',', '.');
                           
 echo '<td><img src="../../img/produtos/'. $imagem .'" width="50"> </td>';
@@ -144,10 +146,9 @@ echo '<td>'.$codigo.'</td>';
 
 echo '<td>'.$quantidade.'</td>';
 
-echo '</td>
-<td>R$ '.$valor.'</td>
-</tr>
-';
+echo '<td>R$ '.$valor.'</td>';
+
+echo '<td>R$ '.$sub_total_item.'</td></tr>';
 
 
 
@@ -157,11 +158,11 @@ echo '</td>
 echo ' 
 
 </table>  
-<hr>
+<hr><br>
 ';
 echo '<div class="row">';
-echo '<div class="col-md-4"></div>';
-echo '<div class="col-md-4"></div>';
+echo '<div class="col-md-4 text-info"><h4>Subtotal R$ '.$res_v[0]['sub_total'].'<h4></div>';
+echo '<div class="col-md-4"><h4>Frete R$ '.$res_v[0]['frete'].'<h4></div>';
 echo '<div class="col-md-4 text-danger"><h4>Total R$ '.$res_v[0]['total'].'<h4></div>';
 echo "</div>";
 ?>

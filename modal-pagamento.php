@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
 
-
+ 
                 <?php 
 
                  $query = $pdo->query("SELECT * FROM vendas where id = '" . $id_venda . "' ");

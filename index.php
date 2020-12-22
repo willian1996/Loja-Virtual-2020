@@ -60,8 +60,8 @@ require_once("conexao.php");
       <div class="hero__item set-bg bg-light" data-setbg="img/hero/banner.jpg">
         <div class="hero__text">
           <span><?php echo strToUpper($nome_loja) ?></span>
-          <h2>Produtos de<br />Primeira Linha</h2>
-          <p>Aqui você encontra os melhores preços!!</p>
+          <h2>Loja em<br /> Fase de Teste</h2>
+          <p>Inauguração em breve!!</p>
           <a href="produtos.php" class="primary-btn">COMPRAR AGORA</a>
         </div>
       </div>
@@ -256,7 +256,7 @@ require_once("conexao.php");
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="latest-product__text">
-          <h4>Produtos Recentes</h4>
+          <h4>Novidades</h4>
           <div id="novosProdutos" class="latest-product__slider owl-carousel">
             <div class="latest-prdouct__slider__item">
 

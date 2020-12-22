@@ -15,7 +15,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 ?>
 
 
-<center><h3>Vendas a Receber</h3></center>
+<center><h3>Vendas a Pagar</h3></center>
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
 
@@ -25,12 +25,12 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Data</th>
+                        
                         <th>Cliente</th>
                         <th>Total</th>
                        
                         <th>Status</th>
-                        
+                        <th>Data</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -100,24 +100,20 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                             echo "<span class='text-danger'>$id_venda </span>";
                         }?> 
                         </td>
-                        <td>
-
-                        <?php echo $data ?>
-                            
-                        </td>
+                        
                         <td>
                             
-                            <a  href="index.php?pag=<?php echo $pag ?>&funcao=cliente&id=<?php echo $id_venda ?>" class='text-info mr-1' title='Dados Cliente'><?php echo $nome_usu2; ?></a>
+                            <a href="" onclick="verProdutos('<?php echo $id_venda ?>')"  class='text-info mr-1' title='Dados pedido'><?php echo $nome_usu2; ?></a>
                             
                             
                                 
                         </td>
                         <td> 
                         
-                        <a href="" onclick="verProdutos('<?php echo $id_venda ?>')" title="Ver Produtos">
-                            <i class="fas fa-eye mr-1 text-primary"></i>
+<!--                        <a href="index.php?pag=<?php echo $pag ?>&funcao=cliente&id=<?php echo $id_venda ?>" title="Ver detalhes da transação">-->
+<!--                            <i class="fas fa-eye mr-1 text-primary"></i>-->
                              R$ <?php  echo $total ?>
-                            </a>
+<!--                            </a>-->
                         </td>
 
 
@@ -132,7 +128,11 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                             </td>
 
                         
-                       
+                       <td>
+
+                        <?php echo $data ?>
+                            
+                        </td>
 
                         <td>
                            <a href="index.php?pag=<?php echo $pag ?>&funcao=editar&id=<?php echo $id_venda ?>" class='text-primary mr-1' title='Editar Status'><i class='far fa-edit'></i></a>
@@ -174,6 +174,22 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
     </div>
 </div>
 
+ <!-- Area Chart Example-->
+<?php
+require_once 'server/Relatorios.php';
+$relatorio = new Relatorios();
+                          
+                            
+?>
+
+<div class="card mb-3">
+  <div class="card-header">
+
+    Relatório de vendas não pagas no mês atual</div>
+  <div class="card-body">
+    <canvas id="grafico" width="100%" height="15px"></canvas>
+  </div>
+</div>
 
 
 
@@ -291,13 +307,101 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
             </div>
             <div class="modal-body">
 
-                <p>Deseja realmente Aprovar o pagamento desta venda?</p>
+                <div class="col-md-12">   
+        <p>Complete os dados para aprovar o pagamento</p> 
+        
+    </div>
 
                 <div align="center" id="mensagem_aprovar" class="">
 
                 </div>
+                                <form id="form" method="POST">
+                <div class="modal-body">
+                    
+<?php 
+$id_ven = @$_GET['id'];
+$query_v = $pdo->query("SELECT * FROM vendas where id = '$id_ven' ");
+$res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+$total = $res_v[0]['total'];
+$taxas = $res_v[0]['taxas'];
+$total_liquido = $res_v[0]['total_liquido'];
+$meio_pagamento = $res_v[0]['meio_pagamento'];
+$data_liberacao = $res_v[0]['data_liberacao'];
+$frete = $res_v[0]['frete'];
+
+?>
+
+<div class="row">
+    <div class="col-md-4">
+       <div class="form-group">
+            <label >Valor</label>
+            <input value="<?php echo @$total ?>" type="text" class="form-control" id="$total" name="$total" placeholder="" disabled>
+        </div>
+    </div>
+    <div class="col-md-4">                
+        <div class="form-group">
+            <label >Taxas</label>
+            <input value="<?php echo @$taxas ?>" type="text" class="form-control" id="taxas" name="taxas" placeholder="">
+        </div>
+    </div>
+    <div class="col-md-4">                
+        <div class="form-group">
+            <label >Total (líquido) </label>
+            <input value="<?php echo @$total_liquido ?>" type="text" class="form-control" id="total_liquido" name="total_liquido" placeholder="">
+        </div>
+    </div>
+</div>
+                    
+<div class="row">
+    <div class="col-md-6">
+       <div class="form-group">
+            <label >Meio de pagamento</label>
+            <input value="<?php echo @$meio_pagamento ?>" type="text" class="form-control" id="meio_pagamento" name="meio_pagamento" placeholder="">
+        </div>
+    </div>
+    <div class="col-md-6">                
+        <div class="form-group">
+            <label >Liberação do pagamento</label>
+            <input value="<?php echo @$data_liberacao ?>" type="date" class="form-control" id="data_liberacao" name="data_liberacao" placeholder="">
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    
+</div>
+    
+                    
+
+                  
+                   
+
+                    <small>
+                        <div id="mensagem_editar_detalhes">
+
+                        </div>
+                    </small> 
+
+                </div>
+
+
+
+<!--
+                <div class="modal-footer">
+
+
+
+                <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid3" id="txtid3">
+               
+
+                    <button type="button" id="btn-cancelar-editar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btn-editar-detalhes" id="btn-editar-detalhes" class="btn btn-primary">Salvar</button>
+                </div>
+-->
+            </form>
 
             </div>
+            
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btn-cancelar-aprovar">Cancelar</button>
                 <form method="post">
@@ -394,58 +498,105 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 
 
 
+
+
 <div class="modal" id="modal-cliente" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Dados do Cliente</h5>
+                <h5 class="modal-title">DETALHES DA TRANSAÇÃO</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+                <form id="form" method="POST">
+                <div class="modal-body">
+                    
+<?php 
+$id_ven = @$_GET['id'];
+$query_v = $pdo->query("SELECT * FROM vendas where id = '$id_ven' ");
+$res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+$total = $res_v[0]['total'];
+$taxas = $res_v[0]['taxas'];
+$total_liquido = $res_v[0]['total_liquido'];
+$meio_pagamento = $res_v[0]['meio_pagamento'];
+$data_liberacao = $res_v[0]['data_liberacao'];
+$frete = $res_v[0]['frete'];
 
-                <?php 
-                 $id_ven = @$_GET['id'];
-                  $query_v = $pdo->query("SELECT * FROM vendas where id = '$id_ven' ");
-                   $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
-                   $id_usu = $res_v[0]['id_usuario'];
+?>
 
-                   $query_u = $pdo->query("SELECT * FROM usuarios where id = '$id_usu' ");
-                   $res_u = $query_u->fetchAll(PDO::FETCH_ASSOC);
-                   $cpf_usu = $res_u[0]['cpf'];
+<div class="row">
+    <div class="col-md-4">
+       <div class="form-group">
+            <label >Valor</label>
+            <input value="<?php echo @$total ?>" type="text" class="form-control" id="$total" name="$total" placeholder="" disabled>
+        </div>
+    </div>
+    <div class="col-md-4">                
+        <div class="form-group">
+            <label >Taxas</label>
+            <input value="<?php echo @$taxas ?>" type="text" class="form-control" id="taxas" name="taxas" placeholder="">
+        </div>
+    </div>
+    <div class="col-md-4">                
+        <div class="form-group">
+            <label >Total (líquido) </label>
+            <input value="<?php echo @$total_liquido ?>" type="text" class="form-control" id="total_liquido" name="total_liquido" placeholder="">
+        </div>
+    </div>
+</div>
+                    
+<div class="row">
+    <div class="col-md-6">
+       <div class="form-group">
+            <label >Meio de pagamento</label>
+            <input value="<?php echo @$meio_pagamento ?>" type="text" class="form-control" id="meio_pagamento" name="meio_pagamento" placeholder="">
+        </div>
+    </div>
+    <div class="col-md-6">                
+        <div class="form-group">
+            <label >Liberação do pagamento</label>
+            <input value="<?php echo @$data_liberacao ?>" type="date" class="form-control" id="data_liberacao" name="data_liberacao" placeholder="">
+        </div>
+    </div>
+</div>
+<div class="row">
 
-                $query = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usu' ");
-                 $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                
-                  $nome = $res[0]['nome'];
-                  $cpf = $res[0]['cpf'];
-                  $telefone = $res[0]['telefone'];
-                  $rua = $res[0]['rua'];
-                  $numero = $res[0]['numero'];
-                  $cep = $res[0]['cep'];
-                  $bairro = $res[0]['bairro'];
-                  $cidade = $res[0]['cidade'];
-                  $estado = $res[0]['estado'];
-                  $email_cli = $res[0]['email'];
-                
+    <div class="col-md-12">   
+        <p>Complete os dados acima para gerar relatórios financeiros</p> 
+        
+    </div>
+</div>
+    
+                    
+
                   
+                   
 
-                 ?>
+                    <small>
+                        <div id="mensagem_editar_detalhes">
 
-                
-                <span><b>Nome: </b><?php echo $nome ?> </span><br>
-                <span><b>CPF: </b> <?php echo $cpf ?></span><br>
-                <span><b>Email:</b> <?php echo $email_cli ?></span><br>
-                
-                <span><b>Rua:</b> <?php echo $rua ?> </span><br>
-                <span><b>Número: </b> <?php echo $numero ?></span><br>
-                <span><b>Bairro: </b> <?php echo $bairro ?></span><br>
-                <span><b>Cidade: </b> <?php echo $cidade ?></span><br>
-                
-                <span><b>Estado: </b> <?php echo $estado ?></span><br>
-                <span><b>CEP: </b> <?php echo $cep ?></span><br>
-                <span><b>Whatsapp: </b> <a href="https://api.whatsapp.com/send?phone=55<?php echo $telefone."&text=Oi%20$nome%20" ?>" target="_blank"><?php echo $telefone ?></a></span><br>
+                        </div>
+                    </small> 
+
+                </div>
+
+
+
+                <div class="modal-footer">
+
+
+
+                <input value="<?php echo @$_GET['id'] ?>" type="hidden" name="txtid3" id="txtid3">
+               
+
+                    <button type="button" id="btn-cancelar-editar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" name="btn-editar-detalhes" id="btn-editar-detalhes" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+
+              
                 
                 
 
@@ -456,6 +607,8 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
         </div>
     </div>
 </div>
+
+
 
 
 
@@ -509,7 +662,7 @@ $id_venda = $_GET['id'];
 
 require('../../aprovar_compra.php');
 
-echo "<script language='javascript'> window.location='index.php?pag=vendas' </script>";
+echo "<script language='javascript'> window.location='index.php?pag=vendasreceber' </script>";
 
 
 } ?>
@@ -536,7 +689,7 @@ echo "<script language='javascript'> window.location='index.php?pag=vendas' </sc
                     //$('#nome').val('');
                     //$('#cpf').val('');
                     $('#btn-fechar').click();
-                    window.location = "index.php?pag="+pag;
+                    window.location.reload();
 
                 } else {
 
@@ -585,7 +738,7 @@ echo "<script language='javascript'> window.location='index.php?pag=vendas' </sc
 
 
                         $('#btn-cancelar-excluir').click();
-                        window.location = "index.php?pag=" + pag;
+                        window.location.reload();
                     }
 
                     $('#mensagem_excluir').text(mensagem)
@@ -622,7 +775,7 @@ echo "<script language='javascript'> window.location='index.php?pag=vendas' </sc
 
 
                         $('#btn-cancelar-editar').click();
-                        window.location = "index.php?pag=" + pag;
+                       window.location.reload();
                     }
 
                     $('#mensagem_editar').addClass('text-danger')
@@ -710,5 +863,79 @@ function verProdutos(idvenda) {
 
 
 
+
+<script type="text/javascript">
+let json = <?php echo $relatorio->vendas_mensal("Não");?>;
+
+    
+let chaves = [];
+let valores = [];
+    
+for(let i in json){
+ // adiciona na array nomes a key do campo do json
+ chaves.push(i);
+ // adiciona na array de valore o value do campo do json
+ valores.push(json[i]);
+}
+    
+var limiteMaximo = Math.max.apply(null, valores ); 
+    
+window.onload = function(){
+    var contexto = document.getElementById("grafico").getContext("2d");
+    var grafico = new Chart(contexto, {
+        type:'bar',
+        data: {
+            labels: chaves,
+            datasets: [{
+              label: "vendas",
+              lineTension: 0.3,
+              backgroundColor: "#FF0000",
+              borderColor: "rgba(2,117,216,1)",
+              pointRadius: 1,
+              pointBackgroundColor: "rgba(2,117,216,1)",
+              pointBorderColor: "rgba(255,255,255,0.8)",
+              pointHoverRadius: 1,
+              pointHoverBackgroundColor: "rgba(2,117,216,1)",
+              pointHitRadius: 50,
+              pointBorderWidth: 2,
+              data: valores,
+            }]
+        },
+              options: {
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: limiteMaximo,
+              maxTicksLimit: 5
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, .125)",
+            }
+          }],
+        },
+        legend: {
+          display: false
+        }
+      }
+        
+        
+    });
+}	
+
+
+
+</script>
 
 

@@ -15,6 +15,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 
 
 <!-- DataTales Example -->
+<center><h3>Estoque Baixo</h3></center>
 <div class="card shadow mb-4">
 
     <div class="card-body">
@@ -22,6 +23,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
+                        
                         <th>Produto</th>
                        <th>Estoque</th>
                         <th>Fazer Pedido</th>
@@ -40,6 +42,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                       }
 
                       $nome = $res[$i]['nome'];
+                      $imagem = $res[$i]['imagem'];
                       $estoque = $res[$i]['estoque'];
                       $id = $res[$i]['id'];
 
@@ -48,7 +51,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 
 
                     <tr>
-                        <td><?php echo $nome ?></td>
+                        <td><img src="../../img/produtos/<?php echo $imagem ?>" width="50"> <?php echo $nome ?></td>
                         <td><?php echo $estoque ?></td>
                        
 

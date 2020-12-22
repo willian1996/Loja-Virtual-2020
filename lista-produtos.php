@@ -38,7 +38,7 @@ $valor_final = @$_GET['valor-final'];
         <div class="row">
             <div class="col-lg-3 col-md-5">
                 <div class="sidebar">
-                    <div class="sidebar__item">
+                    <div class="sidebar__item hiddenOnMobile">
                         <h4>Categorias</h4>
                         <ul>
                             <?php 
@@ -61,7 +61,7 @@ $valor_final = @$_GET['valor-final'];
                       </ul>
                   </div>
 
-                  <div class="sidebar__item">
+                  <div class="sidebar__item hiddenOnMobile">
                     <h4>Sub Categorias</h4>
                     <ul>
                         <?php 
@@ -88,7 +88,7 @@ $valor_final = @$_GET['valor-final'];
                     <h4>Filtrar Por Valor R$</h4>
                     <div class="price-range-wrap">
                         <div class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
-                        data-min="10" data-max="1000">
+                        data-min="10" data-max="100">
                         <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
                         <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                         <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>

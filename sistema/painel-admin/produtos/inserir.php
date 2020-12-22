@@ -8,6 +8,7 @@ $id_sub_cat = isset($_POST['sub-categoria'])?$_POST['sub-categoria']:'';
 $descricao = isset($_POST['descricao'])?$_POST['descricao']:'';
 $descricao_longa = isset($_POST['descricao_longa'])?$_POST['descricao_longa']:'';
 $valor = isset($_POST['valor'])?$_POST['valor']:'';
+$custo = isset($_POST['custo'])?$_POST['custo']:'';
 $estoque = isset($_POST['estoque'])?$_POST['estoque']:'';
 $tipo_envio = isset($_POST['tipo_envio'])?$_POST['tipo_envio']:'';
 $ativo = isset($_POST['ativo'])?$_POST['ativo']:'';
@@ -22,6 +23,7 @@ $link = isset($_POST['link'])?$_POST['link']:null;
 
 //TROCANDO VIRTUGLA POR PONTO 
 $valor = str_replace(',', '.', $valor);
+$custo = str_replace(',', '.', $custo);
 $valor_frete = str_replace(',', '.', $valor_frete);
 $peso = str_replace(',', '.', $peso);
 $largura = str_replace(',', '.', $largura);
@@ -44,6 +46,10 @@ if($nome == ""){
 }
 if($valor == ""){
 	echo 'Preencha o campo Valor!';
+	exit();
+}
+if($custo == ""){
+	echo 'Preencha o campo custo!';
 	exit();
 }
 if($descricao == ""){
@@ -122,13 +128,13 @@ move_uploaded_file($imagem_temp, $caminho);
 
 try{
     if($id == ""){
-        $res = $pdo->prepare("INSERT INTO produtos (categoria, sub_categoria, nome, nome_url, descricao, descricao_longa, valor, imagem, estoque, tipo_envio, palavras, ativo, peso, largura, altura, comprimento, modelo, valor_frete, link) VALUES (:categoria, :sub_categoria, :nome, :nome_url, :descricao, :descricao_longa, :valor, :imagem, :estoque, :tipo_envio, :palavras, :ativo, :peso, :largura, :altura, :comprimento, :modelo, :valor_frete, :link)");
+        $res = $pdo->prepare("INSERT INTO produtos (categoria, sub_categoria, nome, nome_url, descricao, descricao_longa, valor, custo, imagem, estoque, tipo_envio, palavras, ativo, peso, largura, altura, comprimento, modelo, valor_frete, link) VALUES (:categoria, :sub_categoria, :nome, :nome_url, :descricao, :descricao_longa, :valor, :custo, :imagem, :estoque, :tipo_envio, :palavras, :ativo, :peso, :largura, :altura, :comprimento, :modelo, :valor_frete, :link)");
         $res->bindValue(":imagem", $imagem);
     }else{
         if($imagem == "sem-foto.jpg"){
-            $res = $pdo->prepare("UPDATE produtos SET categoria = :categoria, sub_categoria = :sub_categoria, nome = :nome, nome_url = :nome_url, descricao = :descricao, descricao_longa = :descricao_longa, valor = :valor, estoque = :estoque, tipo_envio = :tipo_envio, palavras = :palavras, ativo = :ativo, peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, link = :link WHERE id = :id");
+            $res = $pdo->prepare("UPDATE produtos SET categoria = :categoria, sub_categoria = :sub_categoria, nome = :nome, nome_url = :nome_url, descricao = :descricao, descricao_longa = :descricao_longa, valor = :valor, custo = :custo, estoque = :estoque, tipo_envio = :tipo_envio, palavras = :palavras, ativo = :ativo, peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, link = :link WHERE id = :id");
         }else{
-            $res = $pdo->prepare("UPDATE produtos SET categoria = :categoria, sub_categoria = :sub_categoria, nome = :nome, nome_url = :nome_url,descricao = :descricao,descricao_longa = :descricao_longa,valor = :valor,estoque = :estoque,tipo_envio = :tipo_envio,palavras = :palavras,ativo = :ativo,peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, imagem = :imagem, link = :link WHERE id = :id");
+            $res = $pdo->prepare("UPDATE produtos SET categoria = :categoria, sub_categoria = :sub_categoria, nome = :nome, nome_url = :nome_url,descricao = :descricao,descricao_longa = :descricao_longa,valor = :valor, custo = :custo, estoque = :estoque,tipo_envio = :tipo_envio,palavras = :palavras,ativo = :ativo,peso = :peso, largura = :largura, altura = :altura, comprimento = :comprimento, modelo = :modelo, valor_frete = :valor_frete, imagem = :imagem, link = :link WHERE id = :id");
             $res->bindValue(":imagem", $imagem);
         }
         $res->bindValue(":id", $id);
@@ -140,6 +146,7 @@ try{
     $res->bindValue(":descricao", $descricao);
     $res->bindValue(":descricao_longa", $descricao_longa);
     $res->bindValue(":valor", $valor);
+    $res->bindValue(":custo", $custo);
     $res->bindValue(":estoque", $estoque);
     $res->bindValue(":tipo_envio", $tipo_envio);
     $res->bindValue(":palavras", $palavras);

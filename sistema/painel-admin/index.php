@@ -118,11 +118,56 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
 
-                <div class="sidebar-brand-text mx-3">Administrador</div>
+                <div class="sidebar-brand-text mx-3">Painel Administrativo</div>
             </a>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
+            
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Consultas
+            </div>
+            
+             <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
+                <i class="fas fa-fw fa-cash-register"></i>
+                <span>Vendas a Pagar</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu15 ?>">
+                <i class="fas fa-fw fa-money-bill-alt"></i>
+                <span>Vendas Pagas</span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a target="_blank" class="nav-link" href="https://minhaconta.pagseguro.uol.com.br/meu-negocio/extrato-de-transacoes">
+                <i class="fas fa-fw fa-piggy-bank"></i>
+                <span>Financeiro</span></a>
+            </li>
+
+
+
+            <!-- Nav Item - Charts -->
+             
+
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Clientes</span></a>
+                </li>
+
+                <!-- Nav Item - Tables -->
+   
+
+
+
+                     <li class="nav-item">
+                    <a class="nav-link" href="index.php?pag=<?php echo $menu13 ?>">
+                        <i class="fas fa-fw fa-boxes <?php echo $classe_estoque ?>"></i>
+                        <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
+                    </li>
+
 
 
 
@@ -160,6 +205,12 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                     <i class="fas fa-fw fa-percent"></i>
                     <span>Promoções</span></a>
             </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?pag=<?php echo $menu12 ?>">
+                    <i class="fas fa-fw fa-ticket-alt"></i>
+                    <span>Cupons</span></a>
+                </li>
             
             <li class="nav-item">
                 
@@ -205,52 +256,13 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                     <span>Alertas</span></a>
             </li>
             
+            
+            
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Consultas
-            </div>
             
-             <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu7 ?>">
-                <i class="fas fa-fw fa-cash-register"></i>
-                <span>Vendas a Receber</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu15 ?>">
-                <i class="fas fa-fw fa-money-bill-alt"></i>
-                <span>Vendas Recebidas</span></a>
-            </li>
 
-
-
-            <!-- Nav Item - Charts -->
-             <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu12 ?>">
-                    <i class="fas fa-fw fa-ticket-alt"></i>
-                    <span>Cupons</span></a>
-                </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu6 ?>">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Clientes</span></a>
-                </li>
-
-                <!-- Nav Item - Tables -->
-   
-
-
-
-                     <li class="nav-item">
-                    <a class="nav-link" href="index.php?pag=<?php echo $menu13 ?>">
-                        <i class="fas fa-fw fa-boxes <?php echo $classe_estoque ?>"></i>
-                        <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
-                    </li>
-
+            
                   
 
                   

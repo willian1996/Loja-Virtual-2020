@@ -193,12 +193,12 @@ $estado = $dados[0]['estado'];
                                 <h5>Cupom de Desconto</h5>
                                 <form method="post">
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-6 col-sm-6">
                                              <div class="checkout__input">
                                             <input name="cupom" id="cupom" type="text" placeholder="Entre com o código do seu cupom">
                                              </div>
                                         </div>
-                                         <div class="col-lg-6">
+                                         <div class="col-lg-6 col-sm-3">
                                              <div class="checkout__input">
                                              <button id="btn-cupom" type="submit" class="site-btn bg-info">APLICAR CUPOM</button>
                                             </div>
@@ -341,16 +341,18 @@ $estado = $dados[0]['estado'];
                                              <input type="hidden" value="<?php echo @$total_peso ?>" name="total_peso" id="total_peso">
 
                                              <div class="checkout__input">
-                                            <input type="text" name="cep2" id="cep2" placeholder="CEP">
+                                            <input type="text" name="cep2" value="<?php echo @$cep ?>" id="cep2" placeholder="CEP">
                                              </div>
                                         </div>
                                          <div class="col-md-5">
                                              <div class="checkout__input">
                                              <select name="codigo_servico" id="codigo_servico">
                                             <option value="0">Escolher</option>
+                                                 
+                                            <option value="41106">PAC</option>     
                                             <option value="40010">Sedex</option>
                                             
-                                            <option value="41106">PAC</option>
+                                            
                                          </select>
                                             </div>
                                         </div>
@@ -549,7 +551,7 @@ require_once("rodape.php");
             $('#mensagem-finalizar').text(msg);
          }   
         else{
-            window.location="checkout.php?id_venda=" + msg;
+            window.location="pagamentos/pagseguro/checkout.php?codigo=" + msg;
            
         }
         
