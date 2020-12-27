@@ -129,16 +129,19 @@ $total_item = $valor * $quantidade;
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                 <li class="active"><a href="./index.php">Início</a></li>
-                      <li><a href="categorias.php">Categorias</a></li>
-                     <li><a href="#">Produtos</a>
+                <li class="active"><a href="./index.php">Início</a></li>
+                    <li><a href="categorias.php">Categorias</a>
                         <ul class="header__menu__dropdown">
-                            <li><a href="produtos.php">Produtos</a></li>
+                            <li><a href="sub-categorias.php"> - Sub Categorias</a></li>
+                        </ul>
+                    </li>
+                     <li><a href="lista-produtos.php">Produtos</a>
+                        <ul class="header__menu__dropdown">
+                            
 
-                            <li><a href="lista-produtos.php">Lista de Produtos</a></li>
-                            <li><a href="sub-categorias.php">Sub Categorias</a></li>
-                            <li><a href="promocoes.php">Promoções</a></li>
-                            <li><a href="combos.php">Combos</a></li>
+                            <li><a href="lista-produtos.php"> - Lista de Produtos</a></li>
+                            <li><a href="promocoes.php"> - Promoções</a></li>
+                            <li><a href="combos.php"> - Combos</a></li>
                         </ul>
                     </li>
                     <li><a href="blog.php">Blog</a></li>
@@ -205,17 +208,18 @@ $total_item = $valor * $quantidade;
                     <a href="./index.php"><img src="img/logo.png" alt=""></a>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <nav class="header__menu">
-                    <ul>
-                     <li class="active"><a href="./index.php">Início</a></li>
-                      <li><a href="categorias.php">Categorias</a></li>
-                     <li><a href="#">Produtos</a>
+        <div class="col-lg-6">
+            <nav class="header__menu">
+                <ul>
+                    <li class="active"><a href="./index.php">Início</a></li>
+                    <li><a href="categorias.php">Categorias</a>
                         <ul class="header__menu__dropdown">
-                            <li><a href="produtos.php">Produtos</a></li>
-
-                            <li><a href="lista-produtos.php">Lista de Produtos</a></li>
                             <li><a href="sub-categorias.php">Sub Categorias</a></li>
+                        </ul>
+                    </li>
+                     <li><a href="lista-produtos.php">Produtos</a>
+                        <ul class="header__menu__dropdown">
+                            <li><a href="lista-produtos.php">Lista de Produtos</a></li>
                             <li><a href="promocoes.php">Promoções</a></li>
                             <li><a href="combos.php">Combos</a></li>
                         </ul>

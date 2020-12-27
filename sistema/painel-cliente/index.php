@@ -102,11 +102,19 @@ $cpf_usu = @$dados[0]['cpf'];
 
 
 
-             <li class="nav-item">
-                <a class="nav-link" href="index.php?pag=<?php echo $menu1 ?>">
+               <li class="nav-item">
+                  <a class="nav-link" href="index.php?pag=<?php echo $menu1 ?>">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Pedidos</span></a>
-                </li>
+                    <span>Pedidos</span>
+                   </a>
+               </li>
+            
+            <li class="nav-item">
+                  <a class="nav-link" href="<?php echo $url_loja ?>">
+                    <i class="fas fa-fw fa-hand-point-left"></i>
+                    <span>Voltar para o Site</span>
+                   </a>
+               </li>
 
            
 

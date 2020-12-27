@@ -4,7 +4,7 @@ define("ENVIRONMENT", "development"); //versão para maquina local
 
 
 if(ENVIRONMENT == 'development'){
-    $url_loja = "localhost/Loja-Virtual-2020";
+    $url_loja = "http://localhost/Loja-Virtual-2020";
     $banco = 'loja';
     $servidor = 'localhost';
     $usuario = 'root';
@@ -82,7 +82,7 @@ $dias_limpar_carrinho = 2;
 
 
 //definir se vai ser possível retirar o produto no local sim ou não!
-$retirada_local = 'sim';
+$retirada_local = 'não';
 
 //nota minima para mostrar a avaliação do produto na página do produto
 //no exemplo abaixo com valor 3, ele só mostra produto avaliado de 3 a 5

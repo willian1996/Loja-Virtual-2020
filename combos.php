@@ -127,7 +127,7 @@ $nome_pag = 'combos.php';
                  ?>
                 
                 
-                <a href="<?php echo $nome_pag ?>?pagina=<?php echo $num_paginas - 1 ?>"><i class="fa fa-long-arrow-right"></i></a>
+                <a href="<?php echo $nome_pag ?>?pagina=<?php echo @$num_paginas - 1 ?>"><i class="fa fa-long-arrow-right"></i></a>
             </div>
         </div>
     </div>

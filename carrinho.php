@@ -50,7 +50,7 @@ require_once("cabecalho.php");
           </div>
 
           <div align="right" class="col-md-6">
-             <a href="produtos.php" type="button" id="btn-comprar" class="bg-secondary primary-btn btn-sm" data-dismiss="modal">Comprar +</a>
+             <a href="lista-produtos.php" type="button" id="btn-comprar" class="bg-secondary primary-btn btn-sm" data-dismiss="modal">Comprar +</a>
              <a href="" onclick="finalizarPedido()" type="submit" name="btn-finalizar" id="btn-finalizar" class="primary-btn bg-info btn-sm">Finalizar</a>
           </div>
 

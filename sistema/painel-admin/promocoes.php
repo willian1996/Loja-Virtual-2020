@@ -143,7 +143,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                     </div>
 
                     <div class="form-group">
-                        <label >Imagem</label>
+                        <label >Imagem (Ideal 570 x 270 px)</label>
                         <input type="file" value="<?php echo @$imagem2 ?>"  class="form-control-file" id="imagem" name="imagem" onChange="carregarImg();">
                     </div>
 
