@@ -78,7 +78,7 @@ $res = $pdo->prepare("UPDATE usuarios SET nome = :nome, cpf = :cpf, email = :ema
 	$res->execute();
 
 
-$res = $pdo->prepare("UPDATE clientes SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado, cep = :cep where cpf = '$antigo' ");
+$res = $pdo->prepare("UPDATE clientes SET nome = :nome, cpf = :cpf, email = :email, telefone = :telefone, rua = :rua, numero = :numero, complemento = :complemento, bairro = :bairro, cidade = :cidade, estado = :estado, cep = :cep where cpf = '$antigo' where id = '$id_usuario'");
 	$res->bindValue(":nome", $nome);
 	$res->bindValue(":email", $email);
 	$res->bindValue(":cpf", $cpf);

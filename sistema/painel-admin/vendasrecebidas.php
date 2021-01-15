@@ -12,7 +12,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 }
 
 
-?>
+?> 
 
 
 
@@ -77,17 +77,17 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
 //                   $res2 = $query2->fetchAll(PDO::FETCH_ASSOC);
 //                   $total_produtos = @count($res2);
                        
-                     $query_v = $pdo->query("SELECT * FROM vendas where id = '$id_venda' ");
-                   $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
-                   $id_usu = $res_v[0]['id_usuario'];
+                    $query_v = $pdo->query("SELECT * FROM vendas where id = '$id_venda' ");
+                    $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+                    $id_usu = $res_v[0]['id_usuario'];
 
-                   $query_u = $pdo->query("SELECT * FROM usuarios where id = '$id_usu' ");
-                   $res_u = $query_u->fetchAll(PDO::FETCH_ASSOC);
-                   $cpf_usu = $res_u[0]['cpf'];
+                    $query_u = $pdo->query("SELECT * FROM usuarios where id = '$id_usu' ");
+                    $res_u = $query_u->fetchAll(PDO::FETCH_ASSOC);
+                    $cpf_usu = $res_u[0]['cpf'];
 
-                $query = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usu' ");
-                 $res = $query->fetchAll(PDO::FETCH_ASSOC);
-                   $nome_usu2 = $res_u[0]['nome'];
+                    $query = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usu' ");
+                    $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                    $nome_usu2 = $res_u[0]['nome'];
                        
                        
                       ?>

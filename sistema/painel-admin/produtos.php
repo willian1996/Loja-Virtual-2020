@@ -182,7 +182,7 @@ $agora = date('Y-m-d');
             <div class="col-md-4">
              <div class="form-group">
               <label >Nome</label>
-              <input value="<?php echo @$nome2 ?>" type="text" class="form-control form-control-sm" id="nome-cat" name="nome-cat" placeholder="Nome">
+              <input value="<?php echo @$nome2 ?>" type="text" class="form-control form-control-sm" id="nome-cat" name="nome-cat" >
             </div>
           </div>
           <div class="col-md-4">
@@ -241,20 +241,23 @@ $agora = date('Y-m-d');
       </div>
     </div>
 </div>
- 
 
+<br>            
+<hr>
+<br>
+            
 <div class="row">
 
         <div class="col-md-4">
          <div class="form-group">
           <label >Valor</label>
-          <input value="<?php echo @$valor2 ?>" type="text" class="form-control form-control-sm" id="valor" name="valor" placeholder="Valor">
+          <input value="<?php echo @$valor2 ?>" type="text" class="form-control form-control-sm" id="valor" name="valor" >
         </div>
       </div>
     <div class="col-md-4">
          <div class="form-group">
           <label >Custo fornecedor</label>
-          <input value="<?php echo @$custo2 ?>" type="text" class="form-control form-control-sm" id="custo" name="custo" placeholder="custo">
+          <input value="<?php echo @$custo2 ?>" type="text" class="form-control form-control-sm" id="custo" name="custo" >
         </div>
       </div>
 
@@ -262,7 +265,7 @@ $agora = date('Y-m-d');
 
        <div class="form-group">
         <label >Estoque</label>
-        <input value="<?php echo @$estoque2 ?>" type="text" class="form-control form-control-sm" id="estoque" name="estoque" placeholder="Quantidade">
+        <input value="<?php echo @$estoque2 ?>" type="text" class="form-control form-control-sm" id="estoque" name="estoque" >
 
       </div>
     </div>
@@ -336,16 +339,19 @@ $agora = date('Y-m-d');
 
 <div class="form-group">
   <label >Palavras Chaves</label>
-  <input value="<?php echo @$palavras2 ?>" type="text" class="form-control form-control-sm" id="palavras" name="palavras" placeholder="Palavras Chave">
+  <input value="<?php echo @$palavras2 ?>" type="text" class="form-control form-control-sm" id="palavras" name="palavras" >
 
 </div>
 
-
+<br>            
+<hr>
+<br>
+            
 <div class="row">
   <div class="col-md-3">
    <div class="form-group">
     <label >Peso <small><small>(em KG - Ex: 200g seria 0.2)</small></small></label>
-    <input value="<?php echo @$peso2 ?>" type="text" class="form-control form-control-sm" id="peso" name="peso" placeholder="Peso em KG">
+    <input value="<?php echo @$peso2 ?>" type="text" class="form-control form-control-sm" id="peso" name="peso" >
 
   </div>
 </div>
@@ -353,7 +359,7 @@ $agora = date('Y-m-d');
 <div class="col-md-3">
  <div class="form-group">
   <label >Largura</label>
-  <input value="<?php echo @$largura2 ?>" type="text" class="form-control form-control-sm" id="largura" name="largura" placeholder="Largura">
+  <input value="<?php echo @$largura2 ?>" type="text" class="form-control form-control-sm" id="largura" name="largura" >
 
 </div>
 </div>
@@ -362,7 +368,7 @@ $agora = date('Y-m-d');
 <div class="col-md-3">
  <div class="form-group">
   <label >Altura</label>
-  <input value="<?php echo @$altura2 ?>" type="text" class="form-control form-control-sm" id="altura" name="altura" placeholder="Altura">
+  <input value="<?php echo @$altura2 ?>" type="text" class="form-control form-control-sm" id="altura" name="altura" >
 
 </div>
 </div>
@@ -371,7 +377,7 @@ $agora = date('Y-m-d');
 <div class="col-md-3">
  <div class="form-group">
   <label >Comprimento</label>
-  <input value="<?php echo @$comprimento2 ?>" type="text" class="form-control form-control-sm" id="comprimento" name="comprimento" placeholder="Comprimento">
+  <input value="<?php echo @$comprimento2 ?>" type="text" class="form-control form-control-sm" id="comprimento" name="comprimento" >
 
 </div>
 </div>
@@ -380,14 +386,14 @@ $agora = date('Y-m-d');
 
 <div class="form-group">
     <label >Link <small>(Se for Produto Digital)</small></label>
-    <input value="<?php echo @$link2 ?>" type="text" class="form-control form-control-sm" id="link" name="link" placeholder="Link para Produto Digital">
+    <input value="<?php echo @$link2 ?>" type="text" class="form-control form-control-sm" id="link" name="link" >
 </div>
 
 <div class="row">
   <div class="col-md-4">
     <div class="form-group">
       <label >Modelo</label>
-      <input value="<?php echo @$modelo2 ?>" type="text" class="form-control form-control-sm" id="modelo" name="modelo" placeholder="Modelo">
+      <input value="<?php echo @$modelo2 ?>" type="text" class="form-control form-control-sm" id="modelo" name="modelo" >
 
     </div>
   </div>
@@ -401,7 +407,7 @@ $agora = date('Y-m-d');
     }else{
         echo 0;
     }
-                    ?>" type="text" class="form-control form-control-sm" id="valor-frete" name="valor-frete" placeholder="Valor Fixo Frete">
+                    ?>" type="text" class="form-control form-control-sm" id="valor-frete" name="valor-frete" >
 
     </div>
   </div>

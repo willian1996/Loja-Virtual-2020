@@ -1,7 +1,7 @@
 <?php
 require_once("cabecalho.php");
 ?>
-
+ 
 <section class="hero hero-mobile">
   <div class="container">
     <div class="row">

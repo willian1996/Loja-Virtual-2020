@@ -112,8 +112,8 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <!-- Sidebar toggled-->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggle" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
@@ -168,7 +168,42 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                         <span class="<?php echo $classe_estoque ?>">Estoque Baixo</span></a>
                     </li>
 
+<!-- Divider -->
+                <hr class="sidebar-divider d-none d-md-block">
 
+
+                 <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRel" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-file"></i>
+                    <span>Relatórios</span>
+                </a>
+                <div id="collapseRel" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+
+                        
+                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelVendas">Vendas Pagas</a>
+                        
+                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelMov">Movimentações</a>
+
+
+                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelPagar">Contas à Pagar</a>
+
+                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelReceber">Contas à Receber</a>
+
+                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelCompras">Compras</a>
+
+
+                         
+
+
+
+                         <a target="_blank" class="collapse-item" href="../rel/rel_produtos.php">Catalogo Produtos</a>
+
+
+                    </div>
+                </div>
+            </li>
 
 
             <!-- Divider -->
@@ -592,7 +627,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                         </div>
                     </div>
                 </div>
-
+<?php require_once("../modal-relatorios.php"); ?>
 
                 <!-- Core plugin JavaScript-->
                 <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>

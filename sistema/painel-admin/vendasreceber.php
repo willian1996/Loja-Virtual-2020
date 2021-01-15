@@ -110,10 +110,10 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                         </td>
                         <td> 
                         
-                        <a href="" onclick="verProdutos('<?php echo $id_venda ?>')" title="Ver Produtos">
-                            <i class="fas fa-eye mr-1 text-primary"></i>
+                        
+                            
                              R$ <?php  echo $total ?>
-                            </a>
+                            
                         </td>
 
 

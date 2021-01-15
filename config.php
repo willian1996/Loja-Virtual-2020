@@ -1,7 +1,7 @@
 <?php
 define("ENVIRONMENT", "development"); //versão para maquina local
 #define("ENVIRONMENT", "production"); //versão para hospedar
-
+ 
 
 if(ENVIRONMENT == 'development'){
     $url_loja = "http://localhost/Loja-Virtual-2020";
@@ -31,6 +31,8 @@ $whatsapp_link = '5512997516241';
 $nome_loja = 'Lorraine Modas Feminina';
 $texto_destaque = 'Loja em Manuntenção!';
 $endereco_loja = 'Rua Cleusa Fatima dos Santos n°30, Travessão, Caraguatatuba - SP';
+$rodape_relatorios = "Desenvolvido por Willian Sales";
+
 
 
 

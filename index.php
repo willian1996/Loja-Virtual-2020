@@ -4,7 +4,7 @@ require_once("conexao.php");
 @session_start();
 ?>
 
-
+ 
 
 
 <!-- Hero Section Begin -->
@@ -540,14 +540,16 @@ require_once("conexao.php");
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="latest-product__text">
-          <h4>Combos Promocionais</h4>
+
+          <h4>Promoções</h4>
           <div id="combosPromocionais" class="latest-product__slider owl-carousel">
 
 
+
             <div class="latest-prdouct__slider__item">
 
               <?php 
-              $query = $pdo->query("SELECT * FROM combos where ativo = 'Sim' order by id desc limit 3 ");
+              $query = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' and ativo = 'Sim' and estoque > 0 limit 3 ");
               $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
               for ($i=0; $i < count($res); $i++) { 
@@ -558,22 +560,35 @@ require_once("conexao.php");
                 $valor = $res[$i]['valor'];
                 $nome_url = $res[$i]['nome_url'];
                 $imagem = $res[$i]['imagem'];
+                $promocao = $res[$i]['promocao'];
+                $id = $res[$i]['id'];
 
-                $valor = number_format($valor, 2, ',', '.');
+                if($promocao == 'Sim'){
+                  $queryp = $pdo->query("SELECT * FROM promocoes where id_produto = '$id' ");
+                  $resp = $queryp->fetchAll(PDO::FETCH_ASSOC);
+                    $valor_desc = $resp[0]['valor'];
+                    $desconto = $resp[0]['desconto'];
+                    $valor_desc = number_format($valor_desc, 2, ',', '.');
+                }else{
+                  $valor = number_format($valor, 2, ',', '.');
+                }
                 ?>
 
 
                 <a href="produto-<?php echo $nome_url ?>" class="latest-product__item">
                     <div class="latest-product__item__pic">
-                        <img src="img/combos/<?php echo $imagem ?>" alt="">
+                        <img src="img/produtos/<?php echo $imagem ?>" alt="">
                     </div>
                     <div class="latest-product__item__text">
                         <h6><?php echo $nome ?></h6>
-                        <span>R$ <?php echo $valor ?></span>
+                         <strike> R$ <?php echo $valor ?></strike>
+                         <span> R$ <?php echo $valor_desc ?></span>
                     </div>
                 </a>
 
               <?php } ?>
+                
+                
 
 
             </div>
@@ -582,7 +597,7 @@ require_once("conexao.php");
             <div class="latest-prdouct__slider__item">
 
               <?php 
-              $query = $pdo->query("SELECT * FROM combos where ativo = 'Sim' order by id desc limit 3,3 ");
+              $query = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' and ativo = 'Sim' and estoque > 0 limit 3,3 ");
               $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
               for ($i=0; $i < count($res); $i++) { 
@@ -593,18 +608,29 @@ require_once("conexao.php");
                 $valor = $res[$i]['valor'];
                 $nome_url = $res[$i]['nome_url'];
                 $imagem = $res[$i]['imagem'];
+                $promocao = $res[$i]['promocao'];
+                $id = $res[$i]['id'];
 
-                $valor = number_format($valor, 2, ',', '.');
+                if($promocao == 'Sim'){
+                  $queryp = $pdo->query("SELECT * FROM promocoes where id_produto = '$id' ");
+                  $resp = $queryp->fetchAll(PDO::FETCH_ASSOC);
+                    $valor_desc = $resp[0]['valor'];
+                    $desconto = $resp[0]['desconto'];
+                    $valor_desc = number_format($valor_desc, 2, ',', '.');
+                }else{
+                  $valor = number_format($valor, 2, ',', '.');
+                }
                 ?>
 
 
                 <a href="produto-<?php echo $nome_url ?>" class="latest-product__item">
                     <div class="latest-product__item__pic">
-                        <img src="img/combos/<?php echo $imagem ?>" alt="">
+                        <img src="img/produtos/<?php echo $imagem ?>" alt="">
                     </div>
                     <div class="latest-product__item__text">
                         <h6><?php echo $nome ?></h6>
-                        <span>R$ <?php echo $valor ?></span>
+                         <strike> R$ <?php echo $valor ?></strike>
+                         <span> R$ <?php echo $valor_desc ?></span>
                     </div>
                 </a>
 
@@ -618,7 +644,7 @@ require_once("conexao.php");
             <div class="latest-prdouct__slider__item">
 
               <?php 
-              $query = $pdo->query("SELECT * FROM combos where ativo = 'Sim' order by id desc limit 6,3 ");
+              $query = $pdo->query("SELECT * FROM produtos where promocao = 'Sim' and ativo = 'Sim' and estoque > 0 limit 6,3 ");
               $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
               for ($i=0; $i < count($res); $i++) { 
@@ -629,25 +655,36 @@ require_once("conexao.php");
                 $valor = $res[$i]['valor'];
                 $nome_url = $res[$i]['nome_url'];
                 $imagem = $res[$i]['imagem'];
+                $promocao = $res[$i]['promocao'];
+                $id = $res[$i]['id'];
 
-                $valor = number_format($valor, 2, ',', '.');
+                if($promocao == 'Sim'){
+                  $queryp = $pdo->query("SELECT * FROM promocoes where id_produto = '$id' ");
+                  $resp = $queryp->fetchAll(PDO::FETCH_ASSOC);
+                    $valor_desc = $resp[0]['valor'];
+                    $desconto = $resp[0]['desconto'];
+                    $valor_desc = number_format($valor_desc, 2, ',', '.');
+                }else{
+                  $valor = number_format($valor, 2, ',', '.');
+                }
                 ?>
 
 
                 <a href="produto-<?php echo $nome_url ?>" class="latest-product__item">
                     <div class="latest-product__item__pic">
-                        <img src="img/combos/<?php echo $imagem ?>" alt="">
+                        <img src="img/produtos/<?php echo $imagem ?>" alt="">
                     </div>
                     <div class="latest-product__item__text">
                         <h6><?php echo $nome ?></h6>
-                        <span>R$ <?php echo $valor ?></span>
+                         <strike> R$ <?php echo $valor ?></strike>
+                         <span> R$ <?php echo $valor_desc ?></span>
                     </div>
                 </a>
-
               <?php } ?>
 
 
             </div>
+
 
 
           </div>

@@ -366,7 +366,7 @@ require_once("cabecalho-busca.php");
 
       </div>
     </div>
-
+ 
 
     <div class="col-lg-9 col-md-7">
       <div class="product__discount">

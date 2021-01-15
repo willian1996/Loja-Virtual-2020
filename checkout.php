@@ -6,7 +6,7 @@ require_once("conexao.php");
 include_once("pagamentos/mercadopago/lib/mercadopago.php");
 include_once("pagamentos/mercadopago/PagamentoMP.php");
 $pagar = new PagamentoMP;
-
+ 
 ?>
 
 <?php

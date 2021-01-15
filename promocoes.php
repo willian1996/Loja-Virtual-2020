@@ -12,7 +12,7 @@ if(@$_GET['pagina'] != null){
     $pag = $_GET['pagina'];
 }else{
     $pag = 0;
-}
+} 
 
 $limite = $pag * @$itens_por_pagina;
 $pagina = $pag;
@@ -26,7 +26,7 @@ $nome_pag = 'promocoes.php';
             <div class="col-lg-3 col-md-5">
                 <div class="sidebar">
 
-                    <div class="sidebar__item">
+                    <div class="sidebar__item hiddenOnMobile">
                         <h4>Sub Categorias</h4>
                         <ul>
                             <?php 
