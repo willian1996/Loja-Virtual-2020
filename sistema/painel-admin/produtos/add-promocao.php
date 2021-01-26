@@ -19,6 +19,7 @@ $res = $pdo->query("SELECT * FROM produtos where id = '$id_produto' ");
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 $valor = $dados[0]['valor'];
 $valor = $valor - ($valor * ($desconto / 100));
+$custo = $dados[0]['custo'];
 
 
 
@@ -29,9 +30,9 @@ $valor = $valor - ($valor * ($desconto / 100));
 	$dados = $res->fetchAll(PDO::FETCH_ASSOC);
 
 	if(@count($dados) == 0){
-			$pdo->query("INSERT INTO promocoes (id_produto, valor, data_inicio, data_final, ativo, desconto) VALUES ('$id_produto', '$valor', '$data_ini', '$data_fin', '$ativo', '$desconto')");
+			$pdo->query("INSERT INTO promocoes (id_produto, valor, custo, data_inicio, data_final, ativo, desconto) VALUES ('$id_produto', '$valor', '$custo', '$data_ini', '$data_fin', '$ativo', '$desconto')");
 			}else{
-				$pdo->query("UPDATE promocoes SET id_produto = '$id_produto', valor = '$valor', data_inicio = '$data_ini', data_final = '$data_fin', ativo = '$ativo', desconto = '$desconto' where id_produto = '$id_produto'");
+				$pdo->query("UPDATE promocoes SET id_produto = '$id_produto', valor = '$valor', custo = '$custo', data_inicio = '$data_ini', data_final = '$data_fin', ativo = '$ativo', desconto = '$desconto' where id_produto = '$id_produto'");
 			}
 
 

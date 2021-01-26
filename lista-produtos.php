@@ -121,7 +121,7 @@ $valor_final = @$_GET['valor-final'];
                 <input type="text" name="txtBuscar" placeholder="Deseja buscar um Produto?" value="<?php echo @$_GET['txtBuscar'] ?>">
                 <button type="submit" class="site-btn">BUSCAR</button>
             </form>
-        </div>
+        </div> 
     </div>
 
 

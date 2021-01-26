@@ -1,7 +1,7 @@
 
 <!--  Modal Rel Servicos-->
 <div class="modal fade" id="ModalRelServicos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Relatório de Serviços</h5>
@@ -66,7 +66,7 @@
 
 <!--  Modal Rel Orc-->
 <div class="modal fade" id="ModalRelOrc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Relatório de Orçamentos</h5>
@@ -132,7 +132,7 @@
 
 <!--  Modal Rel Mov-->
 <div class="modal fade" id="ModalRelMov" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Relatório de Movimentações</h5>
@@ -198,7 +198,7 @@
 
 <!--  Modal Rel Pagar-->
 <div class="modal fade" id="ModalRelPagar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Contas à Pagar</h5>
@@ -266,7 +266,7 @@
 
 <!--  Modal Rel Receber-->
 <div class="modal fade" id="ModalRelReceber" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Contas à Receber</h5>
@@ -299,6 +299,7 @@
 
                     <div class="col-md-4">
 
+<!--
                         <div class="form-group">
                             <label >Pago</label>
                             <select class="form-control" name="status" >
@@ -308,6 +309,7 @@
                                
                             </select>
                         </div>
+-->
 
 
                     </div>
@@ -334,7 +336,7 @@
 
 <!--  Modal Rel Compras-->
 <div class="modal fade" id="ModalRelCompras" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Relatório de Compras</h5>
@@ -388,7 +390,7 @@
 
 <!--  Modal Rel Vendas-->
 <div class="modal fade" id="ModalRelVendas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Relatório de Vendas</h5>
@@ -414,6 +416,21 @@
                         <div class="form-group">
                             <label >Data Final</label>
                             <input value="<?php echo date('Y-m-d') ?>" type="date" class="form-control"  name="dataFinal" >
+                        </div>
+
+
+                    </div>
+                     
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label >Origem</label>
+                            <select class="form-control" name="status" >
+                                <option value="">Todas</option>
+                                <option value="Sim">Site</option>
+                                <option value="Não">Loja</option>
+                               
+                            </select>
                         </div>
 
 

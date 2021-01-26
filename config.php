@@ -24,7 +24,7 @@ if(ENVIRONMENT == 'development'){
 //$banco = 'loja';
 
 //VARIÁVEIS GLOBAIS
-$email = 'lorrainemodasfeminina@gmail.com';
+$email = 'loja@lorrainemodas.com.br';
 $telefone = '(12) 99751-6241';
 $whatsapp = '(12) 99751-6241';
 $whatsapp_link = '5512997516241';

@@ -1,5 +1,5 @@
-<?php 
-require_once("../conexao.php"); 
+<?php  
+require_once("../../conexao.php"); 
 @session_start();
 
 
@@ -9,21 +9,11 @@ $data_hoje = strtoupper(utf8_encode(strftime('%A, %d de %B de %Y', strtotime('to
 
 $dataInicial = $_GET['dataInicial'];
 $dataFinal = $_GET['dataFinal'];
-$status = $_GET['status'];
 
-$status_like = '%'.$status.'%';
 
 $dataInicialF = implode('/', array_reverse(explode('-', $dataInicial)));
 $dataFinalF = implode('/', array_reverse(explode('-', $dataFinal)));
 
-if($status == 'Sim'){
-	$status_serv = 'Pagas ';
-}else if($status == 'Não'){
-	$status_serv = 'Pendentes';
-
-}else{
-	$status_serv = '';
-}
 
 
 if($dataInicial != $dataFinal){
@@ -38,7 +28,7 @@ if($dataInicial != $dataFinal){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Contas à Receber</title>
+	<title>Contas a Receber</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<style>
@@ -183,11 +173,11 @@ if($dataInicial != $dataFinal){
 		<div class="container">
 			<div class="row titulos">
 				<div class="col-sm-2 esquerda_float image">	
-					<img src="../img/logo2.png" width="100px">
+					<img src="../../img/logo.png" width="180px">
 				</div>
 				<div class="col-sm-10 esquerda_float">	
-					<h2 class="titulo"><b><?php echo strtoupper($nome_oficina) ?></b></h2>
-					<h6 class="subtitulo"><?php echo $endereco_oficina . ' Tel: '.$telefone_oficina  ?></h6>
+					<h2 class="titulo"><b><?php echo strtoupper($nome_loja) ?></b></h2>
+					<h6 class="subtitulo"><?php echo $endereco_loja . ' Tel: '.$telefone  ?></h6>
 
 				</div>
 			</div>
@@ -199,7 +189,7 @@ if($dataInicial != $dataFinal){
 
 		<div class="row">
 			<div class="col-sm-8 esquerda">	
-				<span class="titulorel"> Contas à Receber <?php echo $status_serv ?> </span>
+				<span class="titulorel"> Relatório Contas a Receber </span>
 			</div>
 			<div class="col-sm-4 direita" align="right">	
 				<big> <small> Data: <?php echo $data_hoje; ?></small> </big>
@@ -229,61 +219,84 @@ if($dataInicial != $dataFinal){
 
 		<table class='table' width='100%'  cellspacing='0' cellpadding='3'>
 			<tr bgcolor='#f9f9f9' >
-				<th>Descrição</th>
-				<th>Valor</th>
-				<th>Adiantamento</th>
-				<th>Mecânico</th>
-				<th>Cliente</th>
-				<th>Data</th>
-				<th>Pago</th>
+                <th>ID</th>
+<!--				<th>Cliente</th>-->
+                <th>Liberação do PGTO</th>
+                <th>Meio de PGTO</th>
+                <th>Financeira</th>
+                <th>Valor</th>
+                <th>Taxa</th>
+                <th>Total (líquido)</th>
+
+						
 
 			</tr>
 			<?php 
 			$saldo = 0;
+            $taxas = 0;
+            $fretes = 0;
+            $total_custos = 0;
+            $total_lucro =  0;
 			
-			$query = $pdo->query("SELECT * FROM contas_receber where data >= '$dataInicial' and data <= '$dataFinal' and pago LIKE '$status_like' order by data asc, id asc");
-					$res = $query->fetchAll(PDO::FETCH_ASSOC);
-					
-					for ($i=0; $i < @count($res); $i++) { 
-						foreach ($res[$i] as $key => $value) {
-						}
-						$descricao = $res[$i]['descricao'];
-						$valor = $res[$i]['valor'];
-						$adiantamento = $res[$i]['adiantamento'];
-						$mecanico = $res[$i]['mecanico'];
-						$cliente = $res[$i]['cliente'];
-						$mecanico = $res[$i]['mecanico'];
-						$pago = $res[$i]['pago'];
-						$data = $res[$i]['data'];
-						$id = $res[$i]['id'];
+			$query_ped = $pdo->query("SELECT * FROM vendas where data_liberacao >= '$dataInicial' and data_liberacao <= '$dataFinal' and pago = 'Sim' order by data_liberacao asc, id asc");
+                   $res_ped = $query_ped->fetchAll(PDO::FETCH_ASSOC);
+
+                   for ($i=0; $i < count($res_ped); $i++) { 
+                      foreach ($res_ped[$i] as $key => $value) {
+                      }
+
+//						$produto = $res[$i]['produto'];
+						$valor = $res_ped[$i]['total'];
+						$taxa = $res_ped[$i]['taxas'];
+                        $total_lucro = $res_ped[$i]['total_liquido'];
+                        $meio_pagamento = $res_ped[$i]['meio_pagamento'];
+						$data = $res_ped[$i]['data_liberacao'];
+						$id_venda = $res_ped[$i]['id'];
 						
+                        //somando total
+                        $taxas = $taxas + $taxa;
 						$saldo = $saldo + $valor;
+                       
+                       
+                       
+                        $total_lucroF = number_format($total_lucro, 2, ',', '.');
+                        $taxasF = number_format($taxas, 2, ',', '.');
 						$saldoF = number_format($saldo, 2, ',', '.');
 						
-						
+						//buscando o cliente da venda
+                        $query_v = $pdo->query("SELECT * FROM vendas where id = '$id_venda' ");
+                        $res_v = $query_v->fetchAll(PDO::FETCH_ASSOC);
+                        $id_usu = $res_v[0]['id_usuario'];
 
-						$query_usu = $pdo->query("SELECT * FROM clientes where cpf = '$cliente'");
-						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
-						$nome_cli = $res_usu[0]['nome'];
+                        $query_u = $pdo->query("SELECT * FROM usuarios where id = '$id_usu' ");
+                        $res_u = $query_u->fetchAll(PDO::FETCH_ASSOC);
+                        $cpf_usu = $res_u[0]['cpf'];
 
-						$query_usu = $pdo->query("SELECT * FROM mecanicos where cpf = '$mecanico'");
-						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
-						$nome_mec = $res_usu[0]['nome'];
+                        $query = $pdo->query("SELECT * FROM clientes where cpf = '$cpf_usu' ");
+                        $res = $query->fetchAll(PDO::FETCH_ASSOC);
+                        $nome_usu2 = $res_u[0]['nome'];
+
+//						$query_usu = $pdo->query("SELECT * FROM usuarios where cpf = '$funcionario' ");
+//						$res_usu = $query_usu->fetchAll(PDO::FETCH_ASSOC);
+//						$nome_funcionario = $res_usu[0]['nome'];
+
 
 						$valorF = number_format($valor, 2, ',', '.');
-						$adiantamentoF = number_format($adiantamento, 2, ',', '.');
+						
 						$data = implode('/', array_reverse(explode('-', $data)));
 				?>
 
 				<tr>
-					
-					<td><?php echo $descricao ?> </td>
-					<td>R$ <?php echo $valorF ?> </td>
-					<td>R$ <?php echo $adiantamentoF ?> </td>
-					<td><?php echo $nome_mec ?> </td>
-					<td><?php echo $nome_cli ?> </td>
-					<td><?php echo $data ?> </td>
-					<td><?php echo $pago ?> </td>
+					<td><?php echo $id_venda ?></td>
+<!--					<td><?php echo @$nome_usu2 ?></td>-->
+                    <td><?php echo @$data ?></td>
+                    <td><?php echo @$meio_pagamento; ?></td>
+                    <td>PagSeguro</td>
+                    <td><?php echo @$valor ?></td>
+                    <td><?php echo @$taxa ?></td>
+                    <td><?php echo @$total_lucro; ?></td>
+                    
+							
 
 
 				</tr>
@@ -299,8 +312,10 @@ if($dataInicial != $dataFinal){
 		<div class="row margem-superior">
 			<div class="col-md-12">
 				<div class="" align="right">
-								
-					<span class="areaTotal"> <b> Total : R$ <?php echo $saldoF ?> </b> </span>
+				    
+					<span class="areaTotal"> <b> Bruto: <?php echo @$saldoF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Taxas: <?php echo @$taxasF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Total (líquido): <?php echo @$total_lucroF; ?> </b> </span>
 				</div>
 
 			</div>

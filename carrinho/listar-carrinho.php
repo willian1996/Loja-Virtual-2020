@@ -1,5 +1,5 @@
 
-<?php 
+<?php  
 
 require_once("../conexao.php");
 
@@ -63,7 +63,7 @@ for ($i=0; $i < count($dados); $i++) {
 
 $imagem = $dados_p[0]['imagem'];
 
-
+//CALCULANDO O TOTAL DO CARRINHO
 $total_item = $valor * $quantidade;
 @$total = @$total + $total_item;
 

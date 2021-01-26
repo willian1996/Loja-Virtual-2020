@@ -418,7 +418,7 @@ $relatorio = new Relatorios();
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">DETALHES DA TRANSAÇÃO</h5>
+                <h4 class="modal-title">Conciliação Bancária</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -477,8 +477,8 @@ $frete = $res_v[0]['frete'];
 </div>
 <div class="row">
 
-    <div class="col-md-12">   
-        <p>Complete os dados acima para gerar relatórios financeiros</p> 
+    <div class="col-md-12">
+        <p>Procure esta transação no extrato bancario copie os dados e cole nos campos acima para gerar relatórios financeiros</p> 
         
     </div>
 </div>

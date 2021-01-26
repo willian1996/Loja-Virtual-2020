@@ -28,7 +28,7 @@ if($dataInicial != $dataFinal){
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Relatório de Vendas</title>
+	<title>Vendas</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<style>
@@ -189,7 +189,7 @@ if($dataInicial != $dataFinal){
 
 		<div class="row">
 			<div class="col-sm-8 esquerda">	
-				<span class="titulorel"> Relatório de Vendas </span>
+				<span class="titulorel"> Relatório Financeiro de Vendas </span>
 			</div>
 			<div class="col-sm-4 direita" align="right">	
 				<big> <small> Data: <?php echo $data_hoje; ?></small> </big>
@@ -220,11 +220,12 @@ if($dataInicial != $dataFinal){
 		<table class='table' width='100%'  cellspacing='0' cellpadding='3'>
 			<tr bgcolor='#f9f9f9' >
                 <th>ID</th>
-				<th>Cliente</th>
+<!--				<th>Cliente</th>-->
                 <th>Data</th>
                 <th>Total Bruto</th>
                 <th>Taxa</th>
                 <th>Custo</th>
+                <th>Frete</th>
                 <th>Lucro</th>
 
 						
@@ -233,8 +234,11 @@ if($dataInicial != $dataFinal){
 			<?php 
 			$saldo = 0;
             $taxas = 0;
+            $fretes = 0;
+            $total_custos = 0;
+            $total_lucro =  0;
 			
-			$query_ped = $pdo->query("SELECT * FROM vendas where data >= '$dataInicial' and data <= '$dataFinal' order by data asc, id asc");
+			$query_ped = $pdo->query("SELECT * FROM vendas where data >= '$dataInicial' and data <= '$dataFinal' and pago = 'Sim' order by data asc, id asc");
                    $res_ped = $query_ped->fetchAll(PDO::FETCH_ASSOC);
 
                    for ($i=0; $i < count($res_ped); $i++) { 
@@ -243,14 +247,24 @@ if($dataInicial != $dataFinal){
 
 //						$produto = $res[$i]['produto'];
 						$valor = $res_ped[$i]['total'];
+                        $total_custo = $res_ped[$i]['total_custo'];
 						$taxa = $res_ped[$i]['taxas'];
+                        $frete = $res_ped[$i]['frete'];
 						$data = $res_ped[$i]['data'];
 						$id_venda = $res_ped[$i]['id'];
 						
                         //somando total
-                       
                         $taxas = $taxas + $taxa;
 						$saldo = $saldo + $valor;
+                        $fretes = $fretes + $frete;
+                        $total_custos = $total_custos + $total_custo;
+                       
+                        $total_lucro = $total_lucro + @$valor - (@$taxa + @$total_custo + @$frete);
+                       
+                       
+                        $total_custosF = number_format($total_custos, 2, ',', '.');
+                        $total_lucroF = number_format($total_lucro, 2, ',', '.');
+                        $fretesF =  number_format($fretes, 2, ',', '.');
                         $taxasF = number_format($taxas, 2, ',', '.');
 						$saldoF = number_format($saldo, 2, ',', '.');
 						
@@ -279,12 +293,13 @@ if($dataInicial != $dataFinal){
 
 				<tr>
 					<td><?php echo $id_venda ?></td>
-					<td><?php echo @$nome_usu2 ?></td>
+<!--					<td><?php echo @$nome_usu2 ?></td>-->
                     <td><?php echo @$data ?></td>
-                    <td>R$ <?php echo @$valor ?></td>
-                    <td>R$ <?php echo @$taxa ?></td>
-                    <td>R$ </td>
-                    <td>R$ </td>
+                    <td><?php echo @$valor ?></td>
+                    <td><?php echo @$taxa ?></td>
+                    <td><?php echo @$total_custo; ?></td>
+                    <td><?php echo @$frete; ?></td>
+                    <td><?php echo @$valor - (@$taxa + @$total_custo + @$frete); ?></td>
                     
 							
 
@@ -303,10 +318,11 @@ if($dataInicial != $dataFinal){
 			<div class="col-md-12">
 				<div class="" align="right">
 				    
-					<span class="areaTotal"> <b> Bruto: R$ <?php echo @$saldoF ?> </b> </span>
-                    <span class="areaTotal"> <b> Taxas: R$ <?php echo @$taxasF ?> </b> </span>
-                    <span class="areaTotal"> <b> Custo: R$ <?php  ?> </b> </span>
-                    <span class="areaTotal"> <b> Lucro: R$ <?php  ?> </b> </span>
+					<span class="areaTotal"> <b> Bruto: <?php echo @$saldoF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Taxas: <?php echo @$taxasF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Custo: <?php echo $total_custosF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Frete: <?php echo @$fretesF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Lucro: <?php echo $total_lucroF; ?> </b> </span>
 				</div>
 
 			</div>

@@ -26,7 +26,7 @@ if(@$carac == 'Sim'){
 				exit();
 			}
 		}
-} 
+}
 
 $pdo->query("INSERT INTO carrinho(id_usuario, id_produto, quantidade, id_venda, data, combo) values ('$id_cliente', '$id_produto', '$quantidade', '0', curDate(), '$combo')");
 

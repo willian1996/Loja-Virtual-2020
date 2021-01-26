@@ -6,12 +6,14 @@ $id_usuario = @$_SESSION['id_usuario'];
 
 $total = $_POST['total_compra'];
 $total = str_replace(',', '.', $total);
+$total_custo = $_POST['total_custo'];
+$total_custo = str_replace(',', '.', $total_custo);
 $valor_frete =  $_POST['vlr_frete'];
 $tem_frete = $_POST['existe_frete'];
 $antigo = $_POST['antigo'];
 @$sub_total = @$total - @$valor_frete;
 
-$nome = $_POST['nome'];
+$nome = $_POST['nome']; 
 $cpf = $_POST['cpf'];
 $email = $_POST['email'];
 $telefone = $_POST['telefone'];
@@ -95,8 +97,9 @@ $res = $pdo->prepare("UPDATE clientes SET nome = :nome, cpf = :cpf, email = :ema
 
 
 
-$res = $pdo->prepare("INSERT vendas SET total = :total, frete = :frete, sub_total = :sub_total, id_usuario = :id_usuario, pago = :pago, data = curDate(), status = :status ");
+$res = $pdo->prepare("INSERT vendas SET total = :total, total_custo = :total_custo, frete = :frete, sub_total = :sub_total, id_usuario = :id_usuario, pago = :pago, data = curDate(), status = :status ");
 	$res->bindValue(":total", $total);
+    $res->bindValue(":total_custo", $total_custo);
 	$res->bindValue(":frete", $valor_frete);
 	$res->bindValue(":sub_total", $sub_total);
 	$res->bindValue(":id_usuario", $id_usuario);

@@ -36,7 +36,7 @@ $res = $pdo->query("SELECT * from clientes where cpf = '$cpf_usuario'");
 $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 $telefone = $dados[0]['telefone'];
 $rua = $dados[0]['rua'];
-$numero = $dados[0]['numero'];
+$numero = $dados[0]['numero']; 
 $bairro = $dados[0]['bairro'];
 $complemento = $dados[0]['complemento'];
 $cep = $dados[0]['cep'];
@@ -225,9 +225,11 @@ $estado = $dados[0]['estado'];
                                 if($linhas == 0){
                                   $linhas = 0;
                                   $total = 0;
+                                  $total_custo = 0;
                               }
-
+                 
                               $total;
+                              $total_custo;
                               $total_peso;
                               
                               for ($i=0; $i < count($dados); $i++) { 
@@ -282,17 +284,24 @@ $estado = $dados[0]['estado'];
                               $queryp = $pdo->query("SELECT * FROM promocoes where id_produto = '$id_produto' ");
                               $resp = $queryp->fetchAll(PDO::FETCH_ASSOC);
                               $valor = $resp[0]['valor'];
+                              $valor_custo = $resp[0]['custo'];
 
                           }else{
                               $valor = $dados_p[0]['valor'];
+                              $valor_custo = $dados_p[0]['custo'];
                           }
 
-
+                         
+                          
+                                  
                           $imagem = $dados_p[0]['imagem'];
 
 
                           $total_item = $valor * $quantidade;
                           @$total = @$total + $total_item;
+                          
+                          $total_item_custo = $valor_custo * $quantidade;
+                          @$total_custo = @total_custo + $total_item_custo;
 
                           if($valor_frete > 0){
                                 
@@ -316,7 +325,7 @@ $estado = $dados[0]['estado'];
                           @$total = number_format(@$total, 2, ',', '.');
                            ?>
                       </ul>
-                      <div class="checkout__order__subtotal">Subtotal <span>R$ <?php echo $total ?></span></div>
+                      <div class="checkout__order__subtotal">Subtotal <span>R$ <?php echo $total; ?></span></div>
 
                       <?php if(@$frete_correios == 'Sim' && $retirada_local == 'sim'){ ?>
                       <div class="row mt-2 mb-4 pl-3">
@@ -378,6 +387,7 @@ $estado = $dados[0]['estado'];
                       <input type="hidden" value="0" id="vlr_frete" name="vlr_frete">
                       <input type="hidden" value="<?php echo @$frete_correios ?>" id="existe_frete" name="existe_frete">
                       <input type="hidden" value="<?php echo @$total ?>" id="total_compra" name="total_compra">
+                      <input type="hidden" value="<?php echo @$total_custo ?>" id="total_custo" name="total_custo">
                       <input type="hidden" value="<?php echo @$cpf_usuario ?>" id="antigo" name="antigo">
 
                       <button id="btn-finalizar" type="submit" class="site-btn bg-success">FINALIZAR COMPRA</button>

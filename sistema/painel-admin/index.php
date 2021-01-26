@@ -170,6 +170,14 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
 
 <!-- Divider -->
                 <hr class="sidebar-divider d-none d-md-block">
+            
+            <li class="nav-item">
+                
+                <a class="nav-link" target="_blank" href="pdv/pdv-template.php">
+                    <i class="fas fa-fw fa-cash-register"></i>
+                    <span>PDV</span></a>
+                
+            </li>
 
 
                  <li class="nav-item">
@@ -184,12 +192,13 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                         
                          <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelVendas">Vendas Pagas</a>
                         
+                        <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelReceber">Contas à Receber</a>
+      
+                         <a  class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelPagar">Contas à Pagar</a>
+
+                         
+            
                          <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelMov">Movimentações</a>
-
-
-                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelPagar">Contas à Pagar</a>
-
-                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelReceber">Contas à Receber</a>
 
                          <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelCompras">Compras</a>
 
@@ -198,8 +207,8 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
 
 
 
-                         <a target="_blank" class="collapse-item" href="../rel/rel_produtos.php">Catalogo Produtos</a>
-
+                         <a target="_blank" class="collapse-item" href="../rel/rel_produtos.php">Extrato do Estoque</a>
+                         <a target="_blank" class="collapse-item" href="../rel/rel_produtos.php">Iventário Atual</a>
 
                     </div>
                 </div>

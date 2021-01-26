@@ -31,7 +31,7 @@ require_once("cabecalho.php");
 
           </ul>
         </div>
-      </div>
+      </div> 
 <!-- Shoping Cart Section Begin -->
 <section class="shoping-cart spad bg-light col-lg-9">
     <div class="container">

@@ -6,7 +6,7 @@ require_once("conexao.php");
 <?php
 
 $tem_cor;
-?>
+?> 
 
 <?php 
 //recuperar o nome do produto para filtrar os dados dele
