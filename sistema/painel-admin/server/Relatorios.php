@@ -1,5 +1,5 @@
 <?php
-
+ 
 new Relatorios();
 
 class Relatorios{
@@ -128,23 +128,7 @@ class Relatorios{
     }
     
     public function vendas_anual(){
-//        $periodo = date('Y-m-d H:i:s', strtotime('-6 months'));
-//        
-//        $sql = "SELECT MONTHNAME(cli_data_cad) as mes, COUNT(cli_id) as registro "
-//              ."FROM gm_clientes "
-//              ."WHERE cli_data_cad >= '{$periodo}' "
-//              ."GROUP BY MONTHNAME(cli_data_cad) "
-//              ."ORDER BY cli_data_cad";
-//              
-//        $query = $this->pdo->query($sql);
-//        $result = $query->fetchAll(PDO::FETCH_OBJ);
-//        
-//        foreach($result as $res){
-//            $dados[$res->mes] = $res->registro;
-//
-//        }
-//        
-//        echo json_encode($dados);
+
         $periodo = date('Y-m-d', strtotime('-12 months'));
         
         $sql = "SELECT MONTHNAME(data) as mes, COUNT(id) as registro "

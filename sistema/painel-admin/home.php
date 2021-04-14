@@ -358,6 +358,156 @@ $quantidade_promocoes = @count($dados_total);
 </div>
 
 
+<?php
+require_once 'server/Relatorios.php';
+$relatorio = new Relatorios();
+                          
+                            
+?>
+
+<div class="card mb-3">
+  <div class="card-header">
+
+    Pedidos em cada mês no ano atual</div>
+  <div class="card-body">
+    <canvas id="grafico" width="100%" height="15px"></canvas>
+  </div>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+       
+
+
+<!--
+<div class="card mb-3">
+  <div class="card-header">
+
+    Relatório de visitas, cadastros e vendas no dia atual</div>
+  <div class="card-body">
+    <div id="columnchart_material" width="100%" height="15px"></div>
+  </div>
+</div>
+-->
+
+
+
+<script type="text/javascript">
+let json = <?php echo $relatorio->vendas_anual();?>;
+
+    
+let chaves = [];
+let valores = [];
+    
+for(let i in json){
+ // adiciona na array nomes a key do campo do json
+ chaves.push(i);
+ // adiciona na array de valore o value do campo do json
+ valores.push(json[i]);
+}
+    
+var limiteMaximo = Math.max.apply(null, valores ); 
+    
+window.onload = function(){
+    var contexto = document.getElementById("grafico").getContext("2d");
+    var grafico = new Chart(contexto, {
+        type:'bar',
+        data: {
+            labels: chaves,
+            datasets: [{
+              label: "vendas",
+              lineTension: 0.3,
+              backgroundColor: "#F56C28",
+              borderColor: "rgba(2,117,216,1)",
+              pointRadius: 1,
+              pointBackgroundColor: "rgba(2,117,216,1)",
+              pointBorderColor: "rgba(255,255,255,0.8)",
+              pointHoverRadius: 1,
+              pointHoverBackgroundColor: "rgba(2,117,216,1)",
+              pointHitRadius: 50,
+              pointBorderWidth: 2,
+              data: valores,
+            }]
+        },
+              options: {
+        scales: {
+          xAxes: [{
+            time: {
+              unit: 'date'
+            },
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              maxTicksLimit: 7
+            }
+          }],
+          yAxes: [{
+            ticks: {
+              min: 0,
+              max: limiteMaximo,
+              maxTicksLimit: 5
+            },
+            gridLines: {
+              color: "rgba(0, 0, 0, .125)",
+            }
+          }],
+        },
+        legend: {
+          display: false
+        }
+      }
+        
+        
+    });
+}	
+
+
+
+</script>
+
+
+
+<!--
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Mês', 'Visitas', 'Cadastros', 'Vendas'],
+          ['Janeiro',    1000,        400,      200],
+          ['Fevereiro',    1170,        460,      250],
+          ['Março',     660,       500,      300],
+          ['Abril',    758,        540,      350],
+          ['Maio',    890,        580,      350],
+          ['Junho',    940,        480,      350],
+          ['Julho',    1005,        540,      350],
+          ['Agosto',    1100,        550,      350],
+          ['Setembro',    1150,        575,      350],
+          ['Outubro',    1300,        650,      350],
+          ['Novembro',    1550,        775,      350],
+          ['Dezembro',    1800,        900,      350]
+
+        ]);
+          console.log(chaves, valores);
+
+        var options = {
+          chart: {
+            title: 'Visitas, Cadastros, e Vendas: ano atual',
+            subtitle: '',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+-->
+
+
+
+
+
 
         
           

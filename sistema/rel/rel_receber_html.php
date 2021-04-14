@@ -237,6 +237,7 @@ if($dataInicial != $dataFinal){
             $fretes = 0;
             $total_custos = 0;
             $total_lucro =  0;
+            $total_lucroFs = 0;
 			
 			$query_ped = $pdo->query("SELECT * FROM vendas where data_liberacao >= '$dataInicial' and data_liberacao <= '$dataFinal' and pago = 'Sim' order by data_liberacao asc, id asc");
                    $res_ped = $query_ped->fetchAll(PDO::FETCH_ASSOC);
@@ -256,7 +257,7 @@ if($dataInicial != $dataFinal){
                         //somando total
                         $taxas = $taxas + $taxa;
 						$saldo = $saldo + $valor;
-                       
+                        $total_lucroFs = $total_lucroFs + $total_lucro;
                        
                        
                         $total_lucroF = number_format($total_lucro, 2, ',', '.');
@@ -287,7 +288,7 @@ if($dataInicial != $dataFinal){
 				?>
 
 				<tr>
-					<td><?php echo $id_venda ?></td>
+					<td><?php echo @$id_venda ?></td>
 <!--					<td><?php echo @$nome_usu2 ?></td>-->
                     <td><?php echo @$data ?></td>
                     <td><?php echo @$meio_pagamento; ?></td>
@@ -315,7 +316,7 @@ if($dataInicial != $dataFinal){
 				    
 					<span class="areaTotal"> <b> Bruto: <?php echo @$saldoF; ?> </b> </span>
                     <span class="areaTotal"> <b> Taxas: <?php echo @$taxasF; ?> </b> </span>
-                    <span class="areaTotal"> <b> Total (líquido): <?php echo @$total_lucroF; ?> </b> </span>
+                    <span class="areaTotal"> <b> Total (líquido): <?php echo @$total_lucroFs; ?> </b> </span>
 				</div>
 
 			</div>

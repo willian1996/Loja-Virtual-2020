@@ -103,7 +103,7 @@ if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Admin'){
                         
                         <td>
                             
-                            <a href="" onclick="verProdutos('<?php echo $id_venda ?>')"  class='text-info mr-1' title='Dados pedido'><?php echo $nome_usu2; ?></a>
+                            <a href="" onclick="verProdutos('<?php echo $id_venda ?>')"  class='text-danger mr-1' title='Dados pedido'><?php echo $nome_usu2; ?></a>
                             
                             
                                 

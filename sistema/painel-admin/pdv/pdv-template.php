@@ -1,14 +1,3 @@
-<?php  
-require_once("../../../conexao.php"); 
-@session_start();
-
-
-setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
-date_default_timezone_set('America/Sao_Paulo');
-$data_hoje = strtoupper(utf8_encode(strftime('%A, %d de %B de %Y', strtotime('today'))));
-$total_prod = 0;
-?>
-
 <!doctype html>
 <html lang="pt-br">
 <head>
@@ -21,7 +10,7 @@ $total_prod = 0;
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-info">
-        <a class="navbar-brand"href="#">PDV <?php echo $nome_loja?></a>
+        <a class="navbar-brand"href="#">Meu PDV</a>
         <button class="navbar-toggler"type="button"data-toggle="collapse"data-target="#navbarText"aria-controls="navbarText"aria-expanded="false"aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,9 +18,11 @@ $total_prod = 0;
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active"></li>
             </ul>
+<!--
             <span class="navbar-text">
                 <a class="nav-link btn btn-primary"href="#">X Log out</a>
             </span>
+-->
         </div>
     </nav>
 
@@ -41,87 +32,57 @@ $total_prod = 0;
                 <div class="col">
                 <form>
                     <div class="form-check form-check-inline">
-                        <label class="form-check-label text-muted"for="inlineCheckbox">Cód. / Prod. ( CTRL + P )</label>
+                        <label class="form-check-label text-muted"for="inlineCheckbox">Código de Barras</label>
                     </div>
-                    
-                    <input class="form-control form-control" type="text" name="txtBuscar">
-                    
-<?php
-if(@$_GET['txtBuscar'] != "") {
-    //BUSCANDO DO ITEM PELO ID
-    $buscar = @$_GET['txtBuscar'];
-    $query = $pdo->query("SELECT * FROM produtos where id = '$buscar'");
-    $res = $query->fetchAll(PDO::FETCH_ASSOC);
-    $total_prod = @count($res);
-    if(@$_GET['txtBuscar'] != "") {
-        
-
-                //PEGANDO OS DADOS DO ITEM    
-        for ($i=0; $i < count($res); $i++) { 
-            foreach ($res[$i] as $key => $value) {
-            }
-            $nome = $res[$i]['nome'];
-            $valor = $res[$i]['valor'];
-            $nome_url = $res[$i]['nome_url'];
-            $imagem = $res[$i]['imagem'];
-            $promocao = $res[$i]['promocao'];
-            $id = $res[$i]['id'];
-
-            $valor = number_format($valor, 2, ',', '.');
-
-            if($promocao == 'Sim'){
-                $queryp = $pdo->query("SELECT * FROM promocoes where id_produto = '$id' ");
-                $resp = $queryp->fetchAll(PDO::FETCH_ASSOC);
-                $valor_promo = $resp[0]['valor'];
-                $desconto = $resp[0]['desconto'];
-                $valor_promo = number_format($valor_promo, 2, ',', '.');
-            }else{
-
-            }
-        }
-    }
-        
-
-}else{
-    echo "<p class='text-danger'>Digite o codigo do produto</p>";
-}
-    
-    
-    
-    
-    
-?>
-                    
+                    <div class="form-check form-check-inline"style="float:right; margin:0;">
+                        <input class="form-check-input"type="checkbox"id="inlineCheckbox"value="option">
+                        <label class="form-check-label text-muted"for="inlineCheckbox">Leitor de código de barras (F2)</label>
+                    </div>
+                    <input class="form-control form-control"type="text">
                     <div class="form-row mt-5">
                         <div class="form-group col">
+                            <label for="input1">Produto</label>
+                            <input type="text"class="form-control"id="input1"placeholder="Coca-cola" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="input2">Descrição</label>
+                            <input type="text"class="form-control"id="input2"placeholder="Refrigerante lt" disabled>
+                        </div>
+                        <div class="form-group col">
+                            <label for="input3">Estoque</label>
+                            <input type="text"class="form-control"id="input3"placeholder="110" disabled>
+                        </div>
+                    </div>
+                    <div class="form-row mt-1">
+                         <div class="form-group col">
                             <label for="input1">Quantidade</label>
-                            <?php $quantidade = 1; ?>
-                            <input type="text"class="form-control"id="quantidade" value="<?php echo $quantidade ?>">
+                            <input type="text"class="form-control"id="input1"placeholder="2">
                         </div>
                         <div class="form-group col">
                             <label for="input2">Valor Unit.</label>
-                            <input type="text"class="form-control"id="valor" value="<?php echo @$valor ?>">
+                            <input type="text"class="form-control"id="input2"placeholder="5,00" disabled>
                         </div>
+                       
+                        
                         <div class="form-group col">
-                            <label for="input3">Valor Total</label>
-                            <?php @$valor_total = @$quantidade * @$valor; ?>
-                            <input type="text"class="form-control" id="valor_total" value="<?php echo @$valor_total; ?>" >
+                            <label for="input3">Subtotal</label>
+                            <input type="text"class="form-control"id="input3"placeholder="10,00" disabled>
                         </div>
                     </div>
                     <a onclick="include()"class="btn btn-lg btn-block btn-success">INCLUIR (ENTER)</a>
+<!--
                     <div class="form-group">
                         <label for="Textarea1">Observações (CTRL + O)</label>
-                        <textarea class="form-control"id="Textarea1"rows="3"><?php 
-                            if($total_prod != 0){
-                                echo @$nome;
-                            }?>
-                        </textarea>
+                        <textarea class="form-control"id="Textarea1"rows="3"></textarea>
                     </div>
+-->
                 </div>
                 <div class="col">
+<!--
                     <label class="form-check-label text-muted"for="inlineCheckbox">Lista de produtos</label>
                     <input class="form-control form-control"type="text"placeholder="Aguardando abertura de pedido.Selecione um produto ou um pedido em aberto."disabled>
-                    <div class="border mt-3 text-center bg-white"style="height: 300px; display: flex; justify-content: center; align-items: center;">
+-->
+                    <div class="border mt-3 text-center bg-white"style="height: 400px; display: flex; justify-content: center; align-items: center;">
                         <p id="x1"style="margin-left: 25%">SEU CAIXA ESTÁ <span class="text-primary">LIVRE</span> NO MOMENTO.</p>
                         <table style="display:none;"id="x2">
                             <tr style="border-bottom: 1px dashed black;">
@@ -143,21 +104,60 @@ if(@$_GET['txtBuscar'] != "") {
                                     <button onclick="cancel()"class="btn btn-danger btn-sm">X</button>
                                 </td>
                             </tr>
+                            <hr>
+                            <tr>
+                                <td>1</td>
+                                <td>SSD0001</td>
+                                <td>SSD 128</td>
+                                <td>R$ 50,00</td>
+                                <td>R$ 50,00</td>
+                                <td>
+                                    <button onclick="cancel()"class="btn btn-danger btn-sm">X</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>SSD0001</td>
+                                <td>SSD 128</td>
+                                <td>R$ 50,00</td>
+                                <td>R$ 50,00</td>
+                                <td>
+                                    <button onclick="cancel()"class="btn btn-danger btn-sm">X</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>SSD0001</td>
+                                <td>SSD 128</td>
+                                <td>R$ 50,00</td>
+                                <td>R$ 50,00</td>
+                                <td>
+                                    <button onclick="cancel()"class="btn btn-danger btn-sm">X</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>SSD0001</td>
+                                <td>SSD 128</td>
+                                <td>R$ 50,00</td>
+                                <td>R$ 50,00</td>
+                                <td>
+                                    <button onclick="cancel()"class="btn btn-danger btn-sm">X</button>
+                                </td>
+                            </tr>
+                            
                         </table>
                     </div>
                     <div class="d-flex justify-content-between bg-primary rounded-right rounded-left">
-                        <div class="text-white m-2">SUB-TOTAL</div>
-                            <div class="text-white m-2">R$ 50,00</div>
+                        <div class="text-white m-2"><h4>TOTAL COMPRA - R$ 50,00</h4></div>
+                            <div class="text-white m-2"><h4></h4></div>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class="card-footer fixed-bottom text-muted text-right mb-4">
-                <button type="button"class="btn btn-primary"> Troca de Mercadoria (F10) </button>
-                <button type="button"class="btn btn-warning"> Ajuda (F1) </button>
                 <button type="button"class="btn btn-danger"> Cancelar (F9) </button>
-                <button type="button"class="btn btn-info"> Aguardar (F7) </button>
                 <button type="button"class="btn btn-success"onclick="pg()"> Pagamento (F8) </button>
             </div>
 
@@ -171,6 +171,7 @@ if(@$_GET['txtBuscar'] != "") {
                     <h5 class="modal-title text-primary"id="exampleModalLabel">Confirmação de pagamento</h5>
                 </div>
                 <div class="modal-body bg-light">
+<!--
                     <div class="card">
                         <div class="form-row ml-3 mr-3 mt-2">
                             <div class="form-group col">
@@ -197,6 +198,7 @@ if(@$_GET['txtBuscar'] != "") {
                             </div>
                         </div>
                     </div>
+-->
                     <div class="card mt-2 border border-success">
                         <div class="form-row ml-3 mr-3 mt-2">
                             <div class="col">
@@ -286,7 +288,5 @@ if(@$_GET['txtBuscar'] != "") {
         }; 
 
     </script>
-        
-    
 </body>
 </html>

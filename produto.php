@@ -518,7 +518,25 @@ $querye = $pdo->query("SELECT * FROM tipo_envios where id = '$tipo_envio' ");
 </section>
 <!-- Related Product Section End -->
 
+<div class="modal" id="modal-faca-login" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Faça o Login</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+<p>Você precisa estar logado para adicionar produtos ao carrinho!</p><p>  <a class='text-info' href='sistema'>Clique aqui para efetuar login!</a> </p>
 
+                
+
+            </div>
+            
+        </div>
+    </div>
+</div>
 
 
 <?php
@@ -554,31 +572,47 @@ require_once("rodape.php");
 
 
 
+    
+
+    
 <script type="text/javascript">
     $('#btn-add-car').click(function(event){
         event.preventDefault();
-        
-        $.ajax({
-            url:"carrinho/inserir-carrinho.php",
-            method:"post",
-            data: $('form').serialize(),
-            dataType: "text",
-            success: function(msg){
-                if(msg.trim() === 'Cadastrado com Sucesso!!'){
-                    
-                    window.location='carrinho.php';
-                                         
-                    }
-                 else{
-                    console.log(msg);
-                    $('#div-mensagem-prod').addClass('text-danger')
-                    $('#div-mensagem-prod').text(msg);
+    //VERIFICANDO SE O USUARIO ESTA LOGADO PARA CADASTRAR ITENS NO CARRINHO
+    <?php if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Cliente'){ ?>
+    
+    $('#modal-faca-login').modal('show');     
+    
+    <?php }else{ ?>
+    
+    
 
-                 }
-            }
-        })
+    $.ajax({
+        url:"carrinho/inserir-carrinho.php",
+        method:"post",
+        data: $('form').serialize(),
+        dataType: "text",
+        success: function(msg){
+            if(msg.trim() === 'Cadastrado com Sucesso!!'){
+
+                window.location='carrinho.php';
+
+                }
+             else{
+                console.log(msg);
+                $('#div-mensagem-prod').addClass('text-danger')
+                $('#div-mensagem-prod').text(msg);
+
+             }
+        }
     })
+    <?php }?>
+})
 </script>
+
+
+
+
 
 
 

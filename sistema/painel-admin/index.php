@@ -85,7 +85,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
     <meta name="description" content="">
     <meta name="author" content="Hugo Vasconcelos">
 
-    <title>Painel Administrativo</title>
+    <title>Painel Loja Virtual</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -118,7 +118,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.php">
 
-                <div class="sidebar-brand-text mx-3">Painel Administrativo</div>
+                <div class="sidebar-brand-text mx-3">Painel Loja Virtual</div>
             </a>
 
             <!-- Divider -->
@@ -140,11 +140,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                 <span>Vendas Pagas</span></a>
             </li>
             
-            <li class="nav-item">
-                <a target="_blank" class="nav-link" href="https://minhaconta.pagseguro.uol.com.br/meu-negocio/extrato-de-transacoes">
-                <i class="fas fa-fw fa-piggy-bank"></i>
-                <span>Financeiro</span></a>
-            </li>
+
 
 
 
@@ -192,23 +188,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                         
                          <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelVendas">Vendas Pagas</a>
                         
-                        <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelReceber">Contas à Receber</a>
-      
-                         <a  class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelPagar">Contas à Pagar</a>
-
-                         
             
-                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelMov">Movimentações</a>
-
-                         <a class="collapse-item" href="" data-toggle="modal" data-target="#ModalRelCompras">Compras</a>
-
-
-                         
-
-
-
-                         <a target="_blank" class="collapse-item" href="../rel/rel_produtos.php">Extrato do Estoque</a>
-                         <a target="_blank" class="collapse-item" href="../rel/rel_produtos.php">Iventário Atual</a>
 
                     </div>
                 </div>
@@ -235,6 +215,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                 
             </li>
             
+<!--
             <li class="nav-item">
                 
                 <a class="nav-link" href="index.php?pag=<?php echo $menu4 ?>">
@@ -242,6 +223,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                     <span>Combos</span></a>
                 
             </li>
+-->
             
            <li class="nav-item">
                 
@@ -288,7 +270,7 @@ $pdo->query("UPDATE produtos SET promocao = 'Sim' where id = $id_pro");
                 
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
+<!--             Nav Item - Utilities Collapse Menu -->
 
 
 

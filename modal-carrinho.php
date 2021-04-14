@@ -2,7 +2,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modalCarrinho" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document" style="overflow-y: initial !important">
+  <div class="modal-dialog modal-md" role="document" style="overflow-y: initial !important">
     <div class="modal-content mb-4" style="height: 540px;
     overflow-y: auto;">
       <div class="modal-header">
@@ -19,11 +19,11 @@
 
           <?php 
           if(@$_SESSION['id_usuario'] == null || @$_SESSION['nivel_usuario'] != 'Cliente'){
-            echo "Você precisa fazer Login para adicionar produtos ao carrinho!! Clique <a class='text-info' href='sistema'>aqui</a> para efetuar Login!";
+            echo "<p>Você precisa estar logado para adicionar produtos ao carrinho!</p><p>  <a class='text-info' href='sistema'>Clique aqui para efetuar login!</a> </p>";
 
           }else{
             echo "<div id='listar-carrinho'></div>";
-          }
+          
           ?>
 
           <small><div align="center" id="mensagem"></div></small>
@@ -45,7 +45,7 @@
 
         </div>
 
-
+          <?php } ?>
         
       </form>
     </div>

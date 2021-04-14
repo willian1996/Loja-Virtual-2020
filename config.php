@@ -5,7 +5,7 @@ define("ENVIRONMENT", "development"); //versão para maquina local
 
 if(ENVIRONMENT == 'development'){
     $url_loja = "http://localhost/Loja-Virtual-2020";
-    $banco = 'loja';
+    $banco = 'loja-virtual-2020';
     $servidor = 'localhost';
     $usuario = 'root';
     $senha = '';
@@ -40,7 +40,7 @@ $rodape_relatorios = "Desenvolvido por Willian Sales";
 
 
 //VARIAVEIS DO SITE
-$itens_por_pagina = 20;
+$itens_por_pagina = 10;
 
 
 
