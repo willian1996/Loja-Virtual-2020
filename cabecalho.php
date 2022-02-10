@@ -4,6 +4,18 @@ require_once("conexao.php");
 @session_start();
 $id_usuario = @$_SESSION['id_usuario'];
 
+//CONTANDO QUANTOS USUARIOS ONLINES
+
+$ip = $_SERVER['REMOTE_ADDR'];
+$hora = date('H:i:s');
+$sql = $pdo->prepare("INSERT INTO acessos (ip, hora) VALUES (:ip, :hora)");
+$sql->bindValue(":ip", $ip);
+$sql->bindValue(":hora", $hora);
+$sql->execute();
+$sql = $pdo->prepare("DELETE FROM acessos WHERE hora < :hora");
+$sql->bindValue(":hora", date('H:i:s', strtotime("-2 minutes")));
+$sql->execute();
+
 
 //VERIFICAR TOTAIS DO CARRINHO
 $res = $pdo->query("SELECT * from carrinho where id_usuario = '$id_usuario' and id_venda = 0 order by id asc");
@@ -11,7 +23,7 @@ $dados = $res->fetchAll(PDO::FETCH_ASSOC);
 $linhas = count($dados);
 
 if($linhas == 0){
-  $linhas = 0;
+  $linhas = 0; 
   $total = 0;
 }
 
@@ -64,9 +76,9 @@ $total_item = $valor * $quantidade;
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Venda de Roupas Masculina e Feminina">
+    <meta name="description" content="Loja online sobre encomenda">
     <?php if(@$palavras == ""){ ?>
-    <meta name="keywords" content="botas masculinas, roupas femininas">
+    <meta name="keywords" content="Roupas femininas">
     <?php }else{ ?>
     <meta name="keywords" content="<?php echo $palavras ?>">
     <?php } ?>
@@ -90,6 +102,8 @@ $total_item = $valor * $quantidade;
 
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
     <!-- Google Tag Manager -->
     <script>
         (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -118,14 +132,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="index.php"><img src="img/logo.png" alt=""></a>
+            <a  href="index.php"><img class="logo" src="img/logo.jpg" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
 
-                <li><a href="carrinho.php"><i class="fa fa-shopping-cart"></i> <span><?php echo $linhas ?></span></a></li>
+                <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span><?php echo $linhas ?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>R$ <?php echo $total_c ?></span></div>
+            <div class="header__cart__price"><span>R$ <?php echo $total_c ?></span></div>
 
             <div class="header__top__right__auth ml-4">
                 <?php 
@@ -133,7 +147,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  ?>
                 <a href="sistema"><i class="fa fa-user"></i> Login</a>
             <?php }else{ ?>
-                <a href="sistema/painel-cliente"><i class="fa fa-user"></i> Painel</a>
+                <a href="sistema/painel-cliente"><i class="fa fa-user"></i>Minha Conta</a>
             <?php } ?>
             </div>
         </div>
@@ -144,35 +158,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
                 <li class="active"><a href="./index.php">Início</a></li>
-                    <li><a href="categorias.php">Categorias</a>
-                        <ul class="header__menu__dropdown">
-                            <li><a href="sub-categorias.php"> - Sub Categorias</a></li>
-                        </ul>
-                    </li>
-                     <li><a href="lista-produtos.php">Produtos</a>
-                        <ul class="header__menu__dropdown">
-                            
-
-                            <li><a href="lista-produtos.php"> - Lista de Produtos</a></li>
-                            <li><a href="promocoes.php"> - Promoções</a></li>
-                            <li><a href="combos.php"> - Combos</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="blog.php">Blog</a></li>
+                <li><a href="lista-produtos.php">Lista de Produtos</a>   
                     
-                    <li><a href="contatos.php">Contatos</a></li>
+                <li><a href="categorias.php">Categorias</a>     
+                <li><a href="carrinho.php">Sacola</a>
+
+               
+                    <li><a href="promocoes.php">Promoções</a></li>
+                    
+                    
+                    <li><a href="contatos.php">Contato</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
-        <div class="header__top__right__social">
-            <a target="_blank" href="#"><i class="fa fa-facebook"></i></a>
-            
-            <a target="_blank" href="#"><i class="fa fa-instagram"></i></a>
-            <a target="_blank" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp"></i></a>
-        </div>
+ 
         <div class="humberger__menu__contact">
             <ul>
                 <li><i class="fa fa-envelope"></i> <?php echo $email ?></li>
+                <li><i class="fa fa-whatsapp"></i> <?php echo $whatsapp ?></li>
+                <li><i class="fa fa-instagram"></i> @gabymodasoficialsp</li>
+                <li><i class="fa fa-facebook"></i> @gabytavares.com.br</li>
+                <br>
                 <li><?php echo $texto_destaque ?></li>
             </ul>
         </div>
@@ -206,7 +212,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                  ?>
                 <a href="sistema"><i class="fa fa-user"></i> Login</a>
             <?php }else{ ?>
-                <a target="_blank" href="sistema/painel-cliente"><i class="fa fa-user"></i> Painel</a>
+                <a target="_blank" href="sistema/painel-cliente"><i class="fa fa-user"></i> Minha conta</a>
                
             <?php } ?>
                         </div>
@@ -216,30 +222,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
     </div>
     <div class="container">
-        <div class="row">
+        <div class="row"> 
             <div class="col-lg-3">
                 <div class="header__logo">
-                    <a href="./index.php"><img src="img/logo.png" alt=""></a>
+                    <a href="./index.php"><img class="logo" src="img/logo.jpg" alt=""></a>
                 </div>
             </div>
         <div class="col-lg-6">
             <nav class="header__menu">
                 <ul>
                     <li class="active"><a href="./index.php">Início</a></li>
-                    <li><a href="categorias.php">Categorias</a>
-                        <ul class="header__menu__dropdown">
-                            <li><a href="sub-categorias.php">Sub Categorias</a></li>
-                        </ul>
-                    </li>
-                     <li><a href="lista-produtos.php">Produtos</a>
-                        <ul class="header__menu__dropdown">
-                            <li><a href="lista-produtos.php">Lista de Produtos</a></li>
-                            <li><a href="promocoes.php">Promoções</a></li>
-                            <li><a href="combos.php">Combos</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="blog.php">Blog</a></li>
-                    
+                    <li><a href="lista-produtos.php">Lista de Produtos</a>   
+                    <li><a href="promocoes.php">Promoções</a></li>
                     <li><a href="contatos.php">Contatos</a></li>
                 </ul>
             </nav>
@@ -247,9 +241,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="col-lg-3">
             <div class="header__cart">
                 <ul>
-                   <li><a href="carrinho.php"><i class="fa fa-shopping-cart"></i> <span><?php echo $linhas ?></span></a></li>
+                   <li><a href="carrinho.php"><i class="fa fa-shopping-bag"></i> <span><?php echo $linhas ?></span></a></li>
                 </ul>
-                <div class="header__cart__price">item: <span>R$ <?php echo $total_c ?></span></div>
+                <div class="header__cart__price"><span>R$ <?php echo $total_c ?></span></div>
             </div>
         </div>
     </div>

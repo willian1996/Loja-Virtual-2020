@@ -1,4 +1,4 @@
-<?php 
+<?php  
 require_once("conexao.php");
  ?>
 <!-- Hero Section Begin -->
@@ -13,7 +13,7 @@ require_once("conexao.php");
                         </div>
                         <ul>
                              <?php 
-                        $query = $pdo->query("SELECT * FROM categorias order by nome asc ");
+                        $query = $pdo->query("SELECT * FROM sub_categorias order by nome asc ");
                         $res = $query->fetchAll(PDO::FETCH_ASSOC);
 
                         for ($i=0; $i < count($res); $i++) { 
@@ -25,7 +25,7 @@ require_once("conexao.php");
                           $nome_url = $res[$i]['nome_url'];
                           $id = $res[$i]['id'];
                           ?>
-                          <li><a href="sub-categoria-de-<?php echo $nome_url ?>"><?php echo $nome ?></a></li>
+                          <li><a href="produtos-<?php echo $nome_url ?>"><?php echo $nome ?></a></li>
 
                           <?php } ?>
                         </ul>
@@ -36,19 +36,11 @@ require_once("conexao.php");
                         <div class="hero__search__form">
                             <form action="lista-produtos.php" method="get">
                                
-                                <input name="txtBuscar" type="text" placeholder="Deseja buscar um Produto?">
+                                <input name="txtBuscar" type="text" placeholder="Deseja buscar um Produto?" value="<?php echo @$_GET['txtBuscar'] ?>">
                                 <button type="submit" class="site-btn">BUSCAR</button>
                             </form>
                         </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <a class="text-info" target="_blank" href="http://api.whatsapp.com/send?1=pt_BR&phone=<?php echo $whatsapp_link ?>" title="<?php echo $whatsapp ?>"><i class="fa fa-whatsapp"></i></a>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h6><?php echo $whatsapp ?></h6>
-                                <span>Nosso WhatsApp</span>
-                            </div>
-                        </div>
+  
                     </div>
                 </div>
             </div>
